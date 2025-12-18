@@ -25,6 +25,8 @@ RUN useradd -m instalar -u ${UID} -g ${GID} -s /sbin/nologin
 RUN chown -R instalar:instalar /static /logs /media /backup /app
 USER instalar
 
+# Command to prepare and start the Django service with WSGI
+CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:8000"]
 
 FROM base AS develop
 
