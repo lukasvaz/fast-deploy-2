@@ -1,0 +1,452 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<link href="{% static 'css/select2.min.css' %}" rel="stylesheet">
+<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<script src="{% static 'front/academico_edit.js' %}"></script>
+{{openalex_ambitos_suggestion|json_script:"openalex_ambitos_suggestion"}}
+<script>
+  var csrftoken = "{{csrf_token}}";
+  const ajaxUrl1 = "{% url 'persona:get_dblp_suggestions' %}";
+  const ambitos_subareas_old = "{{ambitos_subareas}}".split(";")
+  const ambitos_areas_old = "{{ambitos_areas}}".split(";")
+  const openalexSuggestionsUrl = "{% url 'persona:get_openalex_suggestions' %}"; 
+  // const searchUniversidadesUrl = "https://{{ request.get_host }}{% url 'revision:search_universidades' %}";
+  const initialUnidadId = "{{ unidad.id }}";
+  const academicoId= "{{academico.id}}";
+</script>
+{{unidades_context|json_script:"unidades_context"}}
+<!-- TOAST ERROR -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_error"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <i class="bi bi-exclamation-diamond text-danger me-2"></i>
+      <strong class="me-auto" id="toast_error_msg">Ha ocurrido un error inesperado.</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
+<!-- TOAST SPINNER -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_spinner"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-autohide="false"
+  >
+    <div class="toast-header">
+      <div
+        class="spinner-border text-primary spinner-border-sm me-1"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <strong class="me-auto" id="toast_spinner_msg">Cargando...</strong>
+    </div>
+    <div class="toast-body">Esta acción puede tardar unos minutos.</div>
+  </div>
+</div>
+
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-lg">
+      <!-- NOMBRE -->
+    <div>
+      <span class="fs-3">Editor - {{ academico.get_full_name }}</span>
+    </div>
+    <hr />
+    <!-- FORM -->
+    <form action="{% url 'persona:academico_update' academico.id %}" method="post" id="academico-edit-form">
+      {% csrf_token %}
+      <!-- Información de contacto -->
+      <div class="card">
+        <div class="card-header">
+          Datos personales
+        </div>
+        <div class="card-body">
+          <!-- Nombre -->
+          <div class="mb-3 row">
+            <label for="InputNombre" class="col-sm-2 col-form-label">Nombre<span class="text-danger">*</span></label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="InputNombre"
+                name="InputNombre"
+                aria-describedby="nombre"
+                value="{{academico.nombre}}"
+                onfocus="remove_feedback('InputNombre')"
+              >
+              <div class="invalid-feedback" id="InputNombreFeedback"></div>
+            </div>
+          </div>
+          <!-- Apellido -->
+          <div class="mb-3 row">
+            <label for="InputApellido" class="col-sm-2 col-form-label">Apellido</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="InputApellido"
+                name="InputApellido"
+                aria-describedby="apellido"
+                {% if academico.apellido %}
+                value="{{academico.apellido}}"
+                {% else %}
+                value=""
+                {% endif %}
+                onfocus="remove_feedback('InputApellido')"
+              >
+              <div class="invalid-feedback" id="InputApellidoFeedback"></div>
+            </div>
+          </div>
+          <!-- GRADO -->
+          <div class="mb-3 row">
+            <label for="InputGrado" class="col-sm-2 col-form-label">Grado académico máximo</label>
+            <div class="col-sm-10">
+              <select class="form-select" aria-label="Selector de grado" name="InputGrado" id="InputGrado" onchange="remove_feedback('InputGrado')">
+                <option value="">-- --</option>
+                <option value="PHD" {% if academico.grado_maximo == "PHD" %}selected{% endif %}>Doctorado</option>
+                <option value="MSC" {% if academico.grado_maximo == "MSC" %}selected{% endif %}>Maestría</option>
+                <option value="LIC" {% if academico.grado_maximo == "LIC" %}selected{% endif %}>Licenciatura</option>
+                <option value="BACH" {% if academico.grado_maximo == "BACH" %}selected{% endif %}>Bachiller</option>
+                <option value="TECH" {% if academico.grado_maximo == "TECH" %}selected{% endif %}>Técnico Superior</option>
+              </select>
+              <div class="invalid-feedback" id="InputGradoFeedback"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!-- Información de contacto -->
+      <div class="card">
+        <div class="card-header">
+          Información de contacto
+        </div>
+        <div class="card-body">
+          <!-- EMAIL -->
+          <div class="mb-3 row">
+            <label for="InputEmail" class="col-sm-2 col-form-label">Correo electrónico</label>
+            <div class="col-sm-10">
+              <input
+                type="email"
+                class="form-control"
+                id="InputEmail"
+                name="InputEmail"
+                aria-describedby="email"
+                {% if academico.get_email %}
+                value="{{academico.get_email}}"
+                {% endif %}
+              >
+              <div class="invalid-feedback" id="InputEmailFeedback"></div>
+            </div>
+          </div>
+          <!-- WEB -->
+          <div class="mb-3 row">
+            <label for="InputWeb" class="col-sm-2 col-form-label">Página web</label>
+            <div class="col-sm-10">
+              <input
+                type="url"
+                class="form-control"
+                id="InputWeb"
+                name="InputWeb"
+                aria-describedby="url"
+                {% if academico.get_webpage %}
+                value="{{academico.get_webpage}}"
+                {% endif %}
+              >
+              <div class="invalid-feedback" id="InputWebFeedback"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!-- Usuarios externos -->
+      <div class="card">
+        <div class="card-header">
+          Usuarios externos
+        </div>
+        <div class="card-body">
+          <p>* Estos perfiles de usuario se utilizarán para complementar la información del sistema.</p>
+          <!-- DBLP -->
+          <div class="mb-3 row">
+            <label for="InputDblp" class="col-sm-2 col-form-label">DBLP</label>
+            <div class="col-sm-10">
+              <div class="input-group ">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="dblp_by_name()"
+                  id="determinarButton"
+                >
+                  <span class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinnerSearchDBLP"></span>
+                  Ver Sugerencias
+                </button>
+                <div class="d-none" id="inputDBLPAcademicoNuevoBox">
+                  <select class="form-select" aria-label="Default select example" id="inputDBLPAcademicoNuevo" onchange="determinarDBLPselectChange()">
+                    <option value="" selected>Seleccione una opción</option>
+                  </select>
+                </div>
+                <a 
+              id="dblp-nav-icon"
+              class="input-group-text"
+              href="{% if investigador.dblp_id %}https://dblp.org/pid/{{investigador.dblp_id}}{% else %}#{% endif %}" 
+              target="_blank"
+              title="Ir a DBLP"
+              aria-disabled="{% if not investigador.dblp_id %}true{% endif %}"
+              onclick="return changeDBLPmanual()"
+              >
+            https://dblp.org/pid/
+            <i class="bi bi-box-arrow-up-right ms-1"></i>
+            </a>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="InputDblp"
+                  name="InputDblp"
+                  aria-describedby="dblp"
+                  {% if investigador.dblp_id %}
+                  value="{{investigador.dblp_id}}"
+                  {% endif %}
+                >
+                <div class="invalid-feedback" id="InputDblpFeedback"></div>
+              </div>
+              <div class="feedback" id="DblpFeedBack"></div>
+            </div>
+          </div>
+          <!-- OPen alex -->
+           <div class="mb-3 row">
+            <label for="InputOpenAlex" class="col-sm-2 col-form-label">OpenAlex</label>
+            <div class="col-sm-10">
+              <div class="input-group ">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="determinarOpenAlexIDAcademico('{{ academico.id }}')"
+                  id="determinarOpenAlexButtonAcademico"
+                >
+                <span class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinnerSearchOpenAlexAcademico"></span>
+                  Ver Sugerencias
+                </button>
+                <div class="d-none"  id="openalex-suggestions-box-academico">
+                  <select class="form-select" aria-label="Default select example" id="openalex-suggestions-select-academico" >
+                    <option value="0" selected>Seleccione una opción</option>
+                  </select>
+                </div>
+                <a 
+              id="openalex-nav-icon"
+              class="input-group-text"
+              href="{% if investigador.openalex_id %}https://openalex.org/authors/{{investigador.openalex_id}}{% else %}#{% endif %}" 
+              target="_blank"
+              title="Ir a OpenAlex"
+              aria-disabled="{% if not investigador.openalex_id %}true{% endif %}"
+              onclick="return handleOpenAlexNavClick();"
+              >
+            https://openalex.org/authors/
+            <i class="bi bi-box-arrow-up-right ms-1"></i>
+          </a>
+
+                <input
+                type="text"
+                class="form-control"
+                id="inputOpenAlexEditAcademico"
+                name="inputOpenAlex"
+                aria-describedby="dblp"
+                {% if investigador.openalex_id %}
+                value="{{investigador.openalex_id}}"
+                {% endif %}
+                >
+                <div class="invalid-feedback" id="InputOpenAlexFeedback"></div>
+              </div>
+              <div class="feedback" id="OpenAlexFeedBack"></div>
+            </div>
+          </div>
+          <!-- ORCID -->
+          <div class="mb-3 row">
+            <label for="InputORDCID" class="col-sm-2 col-form-label">ORCID</label>
+            <div class="col-sm-10">
+              <div class="input-group ">
+                <a 
+              id="orcid-nav-icon"
+              class="input-group-text"
+              href="{% if investigador.get_orcid_id %}https://orcid.org/{{investigador.get_orcid_id}}{% else %}#{% endif %}" 
+              target="_blank"
+              title="Ir a OpenAlex"
+              aria-disabled="{% if not investigador.openalex_id %}true{% endif %}"
+              onclick="return changeOrcidManual();"
+              >
+            https://orcid.org/
+            <i class="bi bi-box-arrow-up-right ms-1"></i>
+          </a>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="InputOrcid"
+                  aria-describedby="orcid"
+                  name="InputOrcid"
+                  {% if investigador.orcid_id %}
+                  value="{{investigador.orcid_id}}"
+                  {% endif %}
+                >
+                <div class="invalid-feedback" id="InputOrcidFeedback"></div>
+              </div>
+            </div>
+          </div>
+          <!-- AMINER -->
+          <div class="mb-3 row">
+            <label for="InputAminer" class="col-sm-2 col-form-label">AMiner</label>
+            <div class="col-sm-10">
+              <div class="input-group ">
+                <!-- <a 
+              id="aminer-nav-icon"
+              class="input-group-text"
+              href="{% if investigador.aminer_id %}https://www.aminer.org/profile/{{investigador.aminer_id}}{% else %}#{% endif %}" 
+              target="_blank"
+              title="Ir a Aminer"
+              aria-disabled="{% if not investigador.orcid_id %}true{% endif %}"
+              onclick="return changeAminerManual();"
+              >
+            https://www.aminer.org/profile/
+            <i class="bi bi-box-arrow-up-right ms-1"></i>
+          </a> -->
+                <input
+                  type="text"
+                  class="form-control"
+                  id="InputAminer"
+                  aria-describedby="dblp"
+                  name="InputAminer"
+                  {% if academico.aminer_id %}
+                  value="{{academico.aminer_id}}"
+                  {% elif investigador.aminer_id %}
+                  value="{{investigador.aminer_id}}"
+                  {% endif %}
+                >
+                <div class="invalid-feedback" id="InputAminerFeedback"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!-- AREAS -->
+      <div class="card">
+        <div class="card-header">
+          Areas
+        </div>
+        <input type="hidden" id="InputAreas" name="InputAreas" />
+        <input type="hidden" id="InputSubareas" name="InputSubareas" />
+        <div class="card-body">
+          <p>* Puedes seleccionar más de una área/subárea y puedes seleccionar una área sin subárea.</p>
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Áreas</label>
+            <div class="col-sm-10 d-flex flex-wrap">
+              {% for area in areas_all.areas %}
+                <div class="btn-group btn-group-sm m-1" role="group" aria-label="area selector">
+                  <button id="area-button-name-{{area.id}}" type="button" class="btn btn-outline-dark" onclick="subAreaView('{{area.id}}')">{{area.nombre_es}}</button>
+                  <button id="area-button-sign-{{area.id}}" type="button" class="btn btn-outline-dark" onclick="toggleArea('{{area.id}}')">+</button>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% for area in areas_all.areas %}
+          <div class="mb-3 row d-none subarea-box" id="subarea-box-{{area.id}}">
+            <div class="col-sm-2 col-form-label">
+              <p class="mb-0">Subáreas</p>
+              <p class="mb-0"><strong>{{area.nombre_es}}</strong></p>
+            </div>
+            <div class="col-sm-10 d-flex flex-wrap align-items-center">
+              {% for subarea in area.subareas %}
+                <button id="subarea-button-{{subarea.id}}" type="button" class="btn btn-outline-dark btn-sm m-1 subarea-of-area-{{area.id}}" onclick="toggleSubarea('{{area.id}}', '{{subarea.id}}')">{{subarea.nombre_es}}</button>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+          <hr>
+          <div class="mb-3 row">
+            <div>
+              <label class="col-sm-2 col-form-label">Seleccionado:</label>
+              {%if openalex_ambitos_suggestion%}
+                <button type="button" class="btn btn-primary mt-1 p-1 w-10" onclick="toggleOpenAlexSubareasSuggestions()">Sugerencias OpenAlex</button>
+              {%endif%}
+            </div>
+            <div class="col-sm-10">
+              <ul class="list-group list-group-flush">
+                {% for area in areas_all.areas %}
+                <li class="list-group-item px-0 d-none" id="area-selected-{{area.id}}">
+                  <div class="btn-group btn-group-sm" role="group" aria-label="area selector">
+                    <button type="button" class="btn btn-dark">{{area.nombre_es}}</button>
+                    <button type="button" class="btn btn-dark" onclick="toggleArea('{{area.id}}')">-</button>
+                  </div>
+                  <div class="col-sm-10 d-flex flex-wrap align-items-center mx-4">
+                    {% for subarea in area.subareas %}
+                      <div class="btn-group btn-group-sm m-1 d-none subarea-selected-of-area-{{area.id}}" role="group" aria-label="area selector" id="subarea-selected-{{subarea.id}}">
+                        <button type="button" class="btn btn-dark">{{subarea.nombre_es}}</button>
+                        <button type="button" class="btn btn-dark" onclick="toggleSubarea('{{area.id}}', '{{subarea.id}}')">-</button>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!-- UNIDAD ACADEMICA -->
+         <div class="card">
+        <div class="card-header">
+          Información institucional
+        </div>
+        <div class="card-body">
+      <div class="mb-3 row">
+        <label for="InputUnidad" class="col-sm-2 col-form-label">Unidad académica
+        </label>
+        <div class="col-sm-10">
+          <!-- pais -->
+          <div class="mb-3 row">
+        <!-- País Dropdown -->
+        <label for="InputPais" class="col-sm-2 col-form-label">País</label>
+        <div class="col-sm-10">
+          <select class="form-select" id="InputPais" name="InputPais" onchange="updateUnidadesDropdown()">
+            <option value="">Seleccione un país</option>
+            {% for pais, value_ob in unidades_context.items %}
+            <option value="{{ pais }}" {% if unidad.universidad.pais == pais %} selected {% endif %}>{{ value_ob.country_label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <!-- Unidades Dropdown -->
+        <label for="InputUnidad" class="col-sm-2 col-form-label">Unidad académica</label>
+        <div class="col-sm-10">
+          <select class="form-select" id="InputUnidad" name="InputUnidadId">
+            <option value="">Seleccione una unidad académica</option>
+          </select>
+        </div>
+      </div>
+
+          <div class="invalid-feedback" id="InputUnidadFeedback"></div>
+        </div>
+      </div>
+      <!-- END -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="button" class="btn btn-danger" onclick="validate_form_academico_new()" id="button-guardar">
+          <span id="spinner-button-guardar" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+          Guardar
+        </button>
+      </div>
+    </form>
+</div>
+{% endblock content %}

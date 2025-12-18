@@ -1,0 +1,12 @@
+<div id="messages" class="alert-container"></div>
+
+{% block scripts %}
+
+    <script>
+    {% if messages %} 
+        {% for message in messages %}
+        showMessage("{{ message|safe }}", "{{ mesage.level_tag }}");
+        {% endfor %} 
+    {% endif %}
+    </script>
+{% endblock scripts %}

@@ -1,0 +1,284 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+
+<script>
+  var csrftoken = "{{csrf_token}}";
+  const ajaxUrl1 =
+    "{% url 'etl:match_academic_web_to_dblp' %}";
+  const ajaxUrl2 =
+    "{% url 'etl:match_by_coauthor' %}";
+  const ajaxUrl3 =
+    "{% url 'etl:save_academico' %}";
+  const _links_editor_ajax_agregar = "{% url 'front:universidad_link_new' %}";
+  const _links_editor_ajax_eliminar = "{% url 'front:universidad_link_delete' %}";
+  const urlUni = "{% url 'front:institucion' universidad.id %}";
+</script>
+<script src="{% static 'front/carga_masiva.js' %}"></script>
+<script src="{% static 'front/_links_editor.js' %}"></script>
+
+<style>
+.shield-missing {
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  border-color: #adb5bd;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #adb5bd;
+}
+</style>
+
+<!-- TOASTS -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_1"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-autohide="false"
+  >
+    <div class="toast-header">
+      <div
+        class="spinner-border text-primary spinner-border-sm me-1"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <strong class="me-auto">Buscando académicos.</strong>
+    </div>
+    <div class="toast-body">Esta acción puede tardar unos minutos.</div>
+  </div>
+</div>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_2"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-autohide="false"
+  >
+    <div class="toast-header">
+      <div
+        class="spinner-border text-primary spinner-border-sm me-1"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <strong class="me-auto">Confirmando académicos por coautores.</strong>
+    </div>
+    <div class="toast-body">Esta acción puede tardar unos minutos.</div>
+  </div>
+</div>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_3"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-autohide="false"
+  >
+    <div class="toast-header">
+      <strong class="me-auto">¿Desea guardar la información?</strong>
+    </div>
+    <div class="toast-body">
+      <span id="toast3-alert"
+        ><i class="bi bi-exclamation-triangle-fill text-warning me-1"></i
+        >Académicos sin selección pueden ser completados de forma manual
+        posteriormente.</span
+      >
+      <hr />
+      <div class="d-md-flex justify-content-md-end">
+        <button
+          id="toast3button"
+          type="button"
+          class="btn btn-primary btn-sm me-2"
+          data-bs-dismiss="toast"
+          onclick="saveacademicosbatch()"
+        >
+          Guardar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary btn-sm"
+          data-bs-dismiss="toast"
+          onclick="limpiarBusqueda()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_4"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-autohide="false"
+  >
+    <div class="toast-header">
+      <div
+        class="spinner-border text-primary spinner-border-sm me-1"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <strong class="me-auto" id="toast_4_msg">Guardando académicos en la base de datos.</strong>
+      <!-- <small>ahora</small> -->
+      <!-- <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button> -->
+    </div>
+    <div class="toast-body">Esta acción puede tardar unos minutos.</div>
+  </div>
+</div>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_5"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-autohide="false"
+  >
+    <div class="toast-header">
+      <i class="bi bi-check-circle-fill text-success me-2"></i>
+      <strong class="me-auto">Acción finalizada.</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_error"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <i class="bi bi-exclamation-diamond text-danger me-2"></i>
+      <strong class="me-auto">Error al cargar académicos.</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-xxl">
+    <!--HEADER -->
+    <div class="pt-2 mb-1 d-flex w-100 justify-content-between">
+      <div class="d-flex">
+        <h3 class="me-2 text-break">Carga académicos {{ universidad.nombre }}</h3>
+      </div>
+    </div>
+    <hr>
+
+    <!-- PASOS -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8 position-relative mt-4">
+          <div class="progress" role="progressbar" aria-label="Progress" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="height: 1px;">
+            <div class="progress-bar bg-danger" style="width: 0%" id="progress-bar"></div>
+          </div>
+          <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-danger rounded-pill" style="width: 2rem; height:2rem;">1</button>
+          <button id="progress-circle-2" type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">2</button>
+          <button id="progress-circle-3" type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
+        </div>
+        <div class="col-8 position-relative mt-4">
+          <span class="position-absolute top-0 start-0 translate-middle mt-1 text-nowrap">Match académico</span>
+          <span class="position-absolute top-0 start-50 translate-middle mt-1 text-nowrap">Referencias Externas</span>
+          <span class="position-absolute top-0 start-100 translate-middle mt-1 text-nowrap" style="left: 100%;">Guardar académicos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tittle -->
+    <div class="mt-5 pt-2 d-flex w-100 justify-content-between">
+      <div class="d-flex">
+        <h4 class="me-2">Cargar académicos por medio de páginas externas.</h4>
+      </div>
+    </div>
+    <hr>
+    <p>
+      A continuación puedes agregar páginas web que contengan académicos para completar la
+      información de la Univesidad.
+      <br>
+      Ejemplo de página web externa: <a href="https://www.dcc.uchile.cl/nosotros/academicos/ajc" target="_blank">https://www.dcc.uchile.cl/nosotros/academicos/ajc</a>
+      <br>
+      * No se mostrarán académicos ya registrados.
+    </p>
+
+
+    <div class="mt-5 pt-2 d-flex w-100 justify-content-between">
+      <div class="d-flex">
+        <h5 class="me-2" id="tittle-step">1.- Añadir páginas web</h5>
+      </div>
+    </div>
+    <hr class="mt-0">
+    <div class="container text-center mb-5" id="space-links">
+      <div class="row justify-content-center">
+        <div class="col col-md-6 col-sm-9 col-xs-12">
+          <div class="card">
+            <div class="card-header">Páginas web</div>
+            <div class="card-body p-4">
+              {% include "front/_links_editor.html" %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="space-work">
+      <div class="d-flex justify-content-end align-items-center">
+        <span {% if universidad.webpage_academic %}class="d-none"{% endif %} id="warningBuscarAcademico">
+          <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+          Añada páginas webs externas para continuar.
+        </span>
+        <button
+          id="buttonBuscarAcademico"
+          class="btn btn-danger buttonBuscarAcademico ms-3"
+          onclick="matchacademicwebtodblp('{{universidad.id}}')"
+          {% if not universidad.webpage_academic %}
+          disabled
+          {% endif  %}
+        >
+          Buscar Académicos
+        </button>
+      </div>
+    </div>
+    <div class="container text-center text-body">
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-4 g-2 g-lg-3 mb-4 academicosBox"
+        id="academicos-boxes"
+      >
+        <!--- Boxes --->
+      </div>
+    </div>
+
+
+    <div class="d-flex justify-content-end">
+      <button
+        id="save-button"
+        class="btn btn-danger ms-3 d-none"
+        onclick="saveacademicosbatch('{{universidad.id}}')"
+        disabled
+      >
+        Guardar Académicos
+      </button>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

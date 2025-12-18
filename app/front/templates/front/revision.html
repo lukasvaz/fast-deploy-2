@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/select2.min.css' %}" rel="stylesheet">
+<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<script>
+    const csrftoken = "{{ csrf_token }}";
+     const searchUniversidadesUrl = "{% url 'revision:search_universidades' %}";
+    const deleteCorruptedAcademicoUrl = "{% url 'revision:delete_corrupted_academico' %}";
+    const deleteCorruptedGradoUrl = "{% url 'revision:delete_corrupted_grado' %}";
+    const revisarCorruptedGradoUrl = "{% url 'revision:correct_grado' %}";
+    const revisarCorruptedAcademicoUrl = "{% url 'revision:correct_academico' %}";
+    const bulkEditUrl = "{% url 'revision:bulk_correct_entries' %}";
+    const bulkDeleteUrl = "{% url 'revision:bulk_delete_corrupted_entries' %}";
+  </script>
+  
+  {{unidades_context|json_script:"unidades_context"}}
+  <!-- Error toast -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1055">
+  <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="errorToastBody">
+        <!-- Error message here -->
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+    </div>
+  </div>
+</div>
+<div class="container mt-5">
+    <div class="pt-2 mb-1 d-flex w-100 justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <h3 class="me-2 text-break">Revisión de Registros Corruptos</h3>
+        <span class="d-flex align-items-center gap-2"></span>
+      </div>
+      <div>
+      </div>
+    </div>
+    <!-- Descripción de la interfaz -->
+    <div class="mb-3" role="alert">
+      Esta interfaz permite gestionar registros corruptos de programas y académicos <b>(no asociados a una institución) </b> . Utilice los filtros para mostrar u ocultar tipos específicos de registros.
+      Puede seleccionar múltiples registros para eliminarlos en bloque o revisar cada uno individualmente.
+    </div>
+
+    
+    <div class="row align-items-center">
+     <!-- Filtros -->
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-header">
+            <label class="form-label">Filtros:</label>
+          </div>
+          <div class="card-body d-flex gap-2">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="filterGrados" checked>
+              <label for="filterGrados" class="form-check-label">Programas</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="filterAcademicos" checked>
+              <label for="filterAcademicos" class="form-check-label">Académicos</label>
+            </div>
+          </div>
+        </div>
+      </div>
+        <!-- Bulk Action -->
+      <div class="col-md-2">
+      <div class="card">
+        <div class="card-header">
+          <label class="form-label">Acciones:</label>
+        </div>
+        <div class="card-body">
+          <div class="btn-group">
+            <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Acciones
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" id="bulkDeleteDropdown" data-bs-toggle="modal" data-bs-target="#bulkActionModal">
+                  <i class="bi bi-trash me-2"></i>Eliminar seleccionados
+                </a>
+              </li>
+              <li>
+                <button class="dropdown-item" id="bulkReviewBtn">
+                  <i class="bi bi-pencil me-2"></i>Revisar seleccionados
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+   </div>
+  <hr />
+  <table class="table table-bordered align-middle" id="corruptTable">
+    <thead class="table-dark">
+      <tr>
+        <th class="text-center">
+          <span>Todo</span>
+          <input type="checkbox" id="selectAllFiltered" />
+        </th>
+        <th>Modelo</th>
+        <th>Nombre</th>
+        <th>
+          <span>Universidad</span>
+          <input type="text" id="universidadSearch" class="form-control form-control-sm" placeholder="Buscar universidad">
+        </th>
+        <th>
+          <span>País</span>
+          <input type="text" id="paisSearch" class="form-control form-control-sm" placeholder="Buscar País">
+
+        </th>
+        <th>Fecha registro</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    {% for entry in corrupted_grados_entries %}
+    <tr class="row-grado" id="grado-{{ entry.id }}" data-invalid-type="{{ entry.invalid_type }}" data-selected="false">
+      <td class="text-center">
+         <input type="checkbox" class="select-row" data-entry-id="{{ entry.id }}" data-entry-type="grado">
+      </td>
+      <td> Programa </td>
+      <td>{{entry.nombre}}</td>
+      <td>{{entry.universidad}}</td>
+      <td>{{entry.pais_universidad}}</td>
+      <td>{{ entry.created_date|date:"Y-m-d H:i" }}</td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#" class="dropdown-item" title="Revisar" id="revisar-grado-{{ entry.id }}">
+                <i class="bi bi-pencil me-2"></i>Revisar
+              </a>
+            </li>
+            <li>
+              <a href="#" class="dropdown-item" title="Eliminar" id="eliminar-grado-{{ entry.id }}">
+                <i class="bi bi-trash me-2"></i>Eliminar
+              </a>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+    {% for entry in corrupted_academicos_entries %}
+    <tr class="row-academico" id="academico-{{ entry.id }}" data-invalid-type="{{ entry.invalid_type }}" data-selected="false">
+      <td class="text-center">
+        <input type="checkbox" class="select-row" data-entry-id="{{ entry.id }}" data-entry-type="academico">
+      </td>
+      <td> Académico </td>
+      <td>{{entry.nombre}} {{entry.apellido}}</td>
+      <td>{{entry.universidad}}</td>
+      <td>{{entry.pais_universidad}}</td>
+      <td>{{ entry.created_date|date:"Y-m-d H:i" }}</td>
+      <td>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-gear"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#" class="dropdown-item" title="Revisar" id="revisar-academico-{{ entry.id }}">
+                <i class="bi bi-search me-2"></i>Revisar
+              </a>
+            </li>
+            <li>
+              <a href="#" class="dropdown-item" title="Eliminar" id="eliminar-academico-{{ entry.id }}">
+                <i class="bi bi-trash me-2"></i>Eliminar
+              </a>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-2" id="pagination"></ul>
+  </nav>
+  {% if not corrupted_grados_entries and not corrupted_academicos_entries %}
+    <div class="text-center">No hay registros corruptos.</div>
+  {% endif %}
+</div>
+<!-- Edit Modal -->
+<div class="modal fade" id="revisarModal" tabindex="-1" aria-labelledby="revisarModalLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="revisarModalLabel">Revisar entrada corrupta</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          La institucion especificada no se encuentra en la base de datos
+        </div>
+        <div id="corrupted-data" class="container bg-danger bg-opacity-10 rounded my-3" style="overflow-y: auto; max-height: 400px;"> 
+          <!-- Datos corruptos se cargan aquí -->
+        </div>
+        <div class="mb-3 row container">
+          <div class="col-sm-10 container">
+                <!-- pais -->
+                <div class="mb-3 row">
+              <!-- País Dropdown -->
+              <label for="InputPais" class="col-sm-2 col-form-label">País</label>
+              <div class="col-sm-10">
+                <select class="form-select" id="InputPais" name="InputPais" onchange="updateUnidadesDropdown()">
+                  <option value="">Seleccione un país</option>
+                  {% for pais, value_ob in unidades_context.items %}
+                  <option value="{{ pais }}" {% if unidad.universidad.pais == pais %} selected {% endif %}>{{ value_ob.country_label }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+  
+            <div class="mb-3 row">
+              <!-- Unidades Dropdown -->
+              <label for="InputUnidad" class="col-sm-2 col-form-label">Unidad</label>
+              <div class="col-sm-10">
+                <select class="form-select" id="InputUnidad" name="InputUnidadId">
+                  <option value="">Seleccione una unidad académica</option>
+                </select>
+              </div>
+            </div>
+        <div class="modal-body" id="revisarModalBody">  
+          <!-- Universidades se cargan aquí -->
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="revisarModalSave">Guardar</button>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Bulk Delete Modal -->
+ <div class="modal fade" id="bulkActionModal" tabindex="-1" aria-labelledby="bulkActionModalLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bulkActionModalLabel">Eliminar seleccionados</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        ¿Está seguro que desea eliminar todas las filas seleccionadas? Esta acción no se puede deshacer.
+        <div id="bulkSelectedCount" class="mt-2"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmBulkDelete">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% block scripts %}
+<script src="{% static 'front/revision.js' %}"></script>
+{% endblock %}
+{% endblock %}

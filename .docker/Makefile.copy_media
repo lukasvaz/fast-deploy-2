@@ -1,0 +1,9 @@
+# Copia archivos media locales al servidor de producción
+# Uso: make copy_media LOCAL_MEDIA_PATH=/ruta/local/acad_micros HOST=instalar@host
+copy_media:
+	@if [ -z "$(LOCAL_MEDIA_PATH)" ] || [ -z "$(HOST)" ]; then \
+		echo "Debes definir LOCAL_MEDIA_PATH y HOST. Ejemplo: make copy_media LOCAL_MEDIA_PATH=app/_media/acad_micros HOST=instalar@host"; \
+		exit 1; \
+	fi
+	scp -r $(LOCAL_MEDIA_PATH)/* $(HOST):/home/instalar/media/acad_micros/
+	ssh $(HOST) 'chown -R instalar:instalar /home/instalar/media/acad_micros/'

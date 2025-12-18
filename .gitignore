@@ -1,0 +1,11 @@
+__pycache__
+.docker/data
+
+node_modules
+venv
+db.sqlite3
+.mypy_cache
+
+.venv
+
+.DS_Store

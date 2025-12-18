@@ -1,0 +1,175 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% if user.is_staff and not anonimo %}
+<script>
+  var csrftoken = "{{csrf_token}}";
+  const ajax_url =
+    "{% url 'front:usuario_invitacion' %}";
+  const host = "{{ request.get_host }}"
+</script>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_error"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <i class="bi bi-exclamation-diamond text-danger me-2"></i>
+      <strong class="me-auto">Error al generar link.</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-xxl">
+    <div class="d-flex justify-content-between align-items-end">
+      <div class="d-flex align-items-end">
+        <h2 class="m-0 me-2">Administrador Usuarios</h2>
+      </div>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoModal">
+        Crear invitación
+      </button>
+    </div>
+    <hr />
+    <div>
+      <!-- List of users -->
+      <table id="table-users" class="table table-hover ">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Correo electronico</th>
+            <th>Universidad</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>
+              {{ user.email }}
+            </td>
+            <td>
+              {% if user.is_staff %}
+                <span class="mb-0">Todas</span>
+              {% else %}
+                <ul class="mb-0">
+                {% for inst in user.instituciones %}
+                  <li>
+                    <a class="mb-0" href="{% url 'front:institucion' inst.id %}">{{inst.nombre}}</a>
+                  </li>
+                  {% endfor %}
+              {% endif %}
+              </ul>
+            </td>
+            <td>
+              {% if not user.is_staff %}
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Acciones
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEliminar" data-bs-email="{{user.email}}">Eliminar Usuario</button>
+                  </li>
+                  <!-- <li>
+                    <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalReiniciar" data-bs-email="{{user.email}}">Reiniciar Contraseña</button>
+                  </li> -->
+                  <!-- <li><a class="dropdown-item" href="#">Agregar Institución</a></li>
+                  <li><a class="dropdown-item" href="#">Eliminar Institución</a></li> -->
+                </ul>
+              </div>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal invitacion -->
+<div class="modal fade" id="nuevoModal" tabindex="-1" aria-labelledby="nuevoModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="margin-top: 10rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="nuevoModalLabel">Crear Invitación</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Instituciones Select -->
+        <div class="mb-3 row">
+          <div class="col-sm-3">
+            <label for="inputInstituciones" class="col-sm-2 col-form-label">Institución</label>
+          </div>
+          <div class="col-sm-9">
+            <select class="form-select" aria-label="Select Institucion" id="institucion_select">
+              <option selected></option>
+              {% for institucion in instituciones %}
+              <option value="{{institucion.id}}">{{institucion.nombre}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <!-- Crear link -->
+        <div class="mb-3 row">
+          <div class="col-sm-3">
+            <span>Link invitación</span>
+          </div>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-primary" onclick="generar_link()" id="select_generar">Generar</button>
+            <div class="input-group d-none" id="select_valid">
+              <input id="select_link_1" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled>
+              <button type="button" class="btn btn-primary" onclick="copy_link()">Copiar</button>
+            </div>
+            <input type="text" class="form-control d-none" aria-label="Username" aria-describedby="basic-addon1" disabled id="select_link_2">
+            <span id="select_error" class="d-none">* Selecciona una institución</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal eliminar -->
+<div class="modal" id="modalEliminar" tabindex="-1">
+  <div class="modal-dialog" style="margin-top: 15rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" class="modal-eliminar-title">Eliminar usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <a href="{% url 'front:usuario_delete' %}" type="button" class="btn btn-danger" id="deleteUserButton">Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal reiniciar -->
+<div class="modal" id="modalReiniciar" tabindex="-1">
+  <div class="modal-dialog" style="margin-top: 15rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" class="modal-reiniciar-title">Reiniciar contraseña usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <a  type="button" class="btn btn-danger" id="deleteUserButton">Reiniciar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'front/usuarios.js' %}"></script>
+{% endif %} {% endblock content %}

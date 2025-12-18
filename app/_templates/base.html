@@ -1,0 +1,66 @@
+{% load static %} {% load i18n %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <!-- HEAD -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DCC | Repositorio Académicos</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'images/favicon/favicon.ico' %}"
+    />
+    <link
+      href="{% static 'css/bootstrap.custom.min copy.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/bootstrap-table/bootstrap-table.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}"
+    />
+    <link href="{% static 'vendor/datatables/datatables.min.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/_menu.css' %}" type="text/css" />
+    {% block extrahead %}{% endblock %}
+    {{ form.media }}
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-table/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-table/locale/bootstrap-table-es-CL.min.js' %}"></script>
+    <script src="{% static 'vendor/datatables/datatables.min.js' %}"></script>
+  </head>
+  <!-- BODY -->
+  <body class="bg-light d-flex flex-column min-vh-100">
+    {% include "_header.html" %}
+    <main class="h-100 w-100">
+      {% block content %}{% endblock content %}
+    </main>
+    {% include "_footer.html" %}
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+    {% for message in messages %}
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+      <div id="globalToastError{{forloop.counter}}" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-bg-danger">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <strong class="me-auto">Ha ocurrido un error</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          {{message}}
+        </div>
+      </div>
+      <script>
+        bootstrap.Toast.getOrCreateInstance(document.getElementById('globalToastError{{forloop.counter}}')).show()
+      </script>
+      {% endif %}
+    {% endfor %}
+    </div>
+  </body>
+</html>

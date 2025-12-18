@@ -1,0 +1,979 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<style>
+.subtitle {
+  border-bottom: 1px solid #adb5bd;
+  /* border-top: 1px solid #adb5bd; */
+  padding: 1rem;
+}
+.description {
+  background-color: #e9ecef;
+  padding: 1rem;
+  border-bottom: 1px solid #adb5bd;
+}
+.nav-pills{
+  --bs-nav-pills-border-radius: 0;
+}
+.parrafo {
+  text-align: justify;
+  text-justify: inter-word;
+}
+</style>
+
+<div class="row m-0">
+  <div class="col-md-2 bg-secondary pt-2 px-0">
+    <ul class="nav flex-column nav-underline nav-pills pt-2 ms-0 sticky-top" id="navbar">
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" aria-current="page" href="#introduccion">Introducción</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" href="#condiciones">Condiciones de uso</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" href="#endpoint">Endpoint</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" href="#academicos">Académicos</a>
+        <ul class="nav flex-column nav-underline nav-pills ms-0 sticky-top bg-dark">
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#objeto-academico">Objeto Académico</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#busqueda-basica">Búsqueda básica por nombre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#busqueda-avanzada">Búsqueda avanzada</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#obtencion-id">Obtención por ID</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" href="#institucion">Institución</a>
+        <ul class="nav flex-column nav-underline nav-pills ms-0 sticky-top bg-dark">
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#objeto-institucion">Objeto Institución</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#busqueda-basica-institucion">Búsqueda básica por nombre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#obtencion-id-institucion">Obtención por ID</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" href="#areas">Áreas</a>
+        <ul class="nav flex-column nav-underline nav-pills ms-0 sticky-top bg-dark">
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#areas-todas">Todas las Áreas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#subareas-por-area">Subáreas por Área ID</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" href="#grados">Programas</a>
+        <ul class="nav flex-column nav-underline nav-pills ms-0 sticky-top bg-dark">
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#objeto-grado">Objeto Programa</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#busqueda-grados-basica">Búsqueda básica</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#busqueda-grados-avanzada">Búsqueda avanzada</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#obtencion-grado-id">Obtención por ID</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="col-12 col-md-10" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -85%" data-bs-smooth-scroll="false" tabindex="0">
+    <!-- Introduction -->
+    <div class="row" id="introduccion">
+      <div class="col-12 col-sm-6 p-0";>
+        <h2 class="subtitle m-0">Introducción</h2>
+        <div class="description">
+          <p class="parrafo">
+            Bienvenido a la documentación de la api v1. Puedes utilizar esta API para obtener información sobre los académicos y sobre la institución a la que pertenecen.
+          </p>
+          <p class="parrafo">
+            Tenga en cuenta que, aunque nos esforzamos por mantener actualizada esta documentación, considérela un trabajo en curso y tenga en cuenta que es probable que contenga errores.
+          </p>
+          <p class="d-none d-sm-flex parrafo">
+            Los ejemplos de código en bash se proporcionan en la zona oscura de la derecha.
+          </p>
+          <p class="d-sm-none parrafo">
+            Los ejemplos de código en bash se proporcionan en la zona oscura de abajo.
+          </p>
+        </div>
+      </div>
+      <div class="col-0 col-sm-6 bg-secondary"></div>
+    </div>
+    <!-- Terminos de uso -->
+    <div class="row" id="condiciones">
+      <div class="col-12 col-sm-6 p-0">
+        <h2 class="subtitle m-0">Condiciones de uso</h2>
+        <div class="description">
+          <p class="parrafo">
+            Se espera que la API sea utilizada para hacer el bien. No se exceda. En caso de duda, pregunte antes de sobrecargar el sistema. Esta sección puede ampliarse según sea necesario.
+          </p>
+        </div>
+      </div>
+      <div class="col-0 col-sm-6 bg-secondary"></div>
+    </div>
+    <!-- Endpoint -->
+    <div class="row" id="endpoint">
+      <div class="col-12 col-sm-6 p-0" >
+        <h2 class="subtitle m-0">Endpoint</h2>
+        <div class="description">
+          <h4>URL base</h4>
+          <p>
+            La URL base es: <mark>https://{{ request.get_host }}/api/v1/</mark>
+          </p>
+        </div>
+      </div>
+      <div class="col-0 col-sm-6 bg-secondary"></div>
+    </div>
+    <!-- ACADEMICOS -->
+    <div id="academicos">
+      <!-- objeto academico -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+              <h2 class="subtitle m-0">Académicos</h2>
+              <div class="description" id="objeto-academico">
+                <h4>Objeto Académico</h4>
+                <p class="parrafo">Objeto de respuesta entregada para representar un académico. Contiene los siguintes atributos:</p>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Atributo</th>
+                      <th scope="col">Descripción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">id</th>
+                      <td><span class="fst-italic">(int)</span> ID de académico en el sistema.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">nombre</th>
+                      <td><span class="fst-italic">(string)</span> Nombre de académico registrado.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">apellido</th>
+                      <td><span class="fst-italic">(string)</span> Apellidos de académico registrado </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">email</th>
+                      <td><span class="fst-italic">(string)</span> Correo electrónico del académico registrado.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">webpage</th>
+                      <td><span class="fst-italic">(string)</span> Página web del académico registrado.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Grado Máximo</th>
+                      <td><span class="fst-italic">(string)</span> Grado Máximo alcanzado por el académico (TECH,LIC,LSC,PHD)</td>
+                    </tr>
+                    <!-- Afiliacion -->
+                    <tr>
+                      <th scope="row">afiliacion</th>
+                      <td>
+                        <span class="fst-italic">(string)</span> Objeto con la información de la afiliación del académico
+                        <table class="table table-bordered mt-2">
+                          <thead>
+                            <tr>
+                              <th scope="col">Atributo</th>
+                              <th scope="col">Descripción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">unidad</th>
+                              <td><span class="fst-italic">(string)</span> Data relacionada a la unidad a la que pertenece el académico (Nombre, Sigla, Web).</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">universidad</th>
+                              <td><span class="fst-italic">(string)</span> Data relacionada a la Institución a la que pertenece el académico (Nombre, Pais, Acronimos, Web).</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    <!-- //external IDS -->
+                    </tr> 
+                    <tr>
+                      <th>IDs Externos</th>
+                      <td>
+                        <span class="fst-italic">(string)</span> Objeto con los identificadores externos obtenidos para el académico
+                        <table class="table table-bordered mt-2">
+                          <thead>
+                            <tr>
+                              <th scope="col">Atributo</th>
+                              <th scope="col">Descripción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">dblp_id</th>
+                              <td><span class="fst-italic">(string)</span> Identificador ORCID del académico.</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">aminer_id</th>
+                              <td><span class="fst-italic">(string)</span> Identificador DBLP del académico.</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">openalex_id</th>
+                              <td><span class="fst-italic">(string)</span> Identificador DBLP del académico.</td>
+                            </tr>
+                            <tr>
+                              <th scope="row">orcid_id</th>
+                              <td><span class="fst-italic">(string)</span> Identificador DBLP del académico.</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr> 
+                    <!-- Areas de trabajo -->
+                    <tr>
+                      <th scope="row">areas_trabajo</th>
+                      <td>
+                        <span class="fst-italic">(string)</span> Lista de objetos con las áreas, subáreas y keywords en las que el académico realiza investigación
+                        <table class="table table-bordered mt-2">
+                          <thead>
+                            <tr>
+                              <th scope="col">Atributo</th>
+                              <th scope="col">Descripción</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th scope="row">area</th>
+                              <td><span class="fst-italic">(string)</span> Objeto con la información del área <ul>
+                                <li><strong>ID</strong>: ID del área.</li>
+                                <li><strong>Nombre</strong>: Nombre del área.</li>
+                                <li> <strong>Subáreas</strong>: Lista de objetos con las subáreas relacionadas al área.</li>
+                              </ul></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Keywords</th>
+                              <td><span class="fst-italic">(string)</span> Objeto con la información de la subárea (ID, Nombre, Keywords).</td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+
+                </table>
+              </div>
+            </div>
+            <div class="col-0 col-sm-6 bg-secondary"></div>
+          </div>
+      <!-- Búsqueda básica por nombre -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-basica">
+            <h4>Búsqueda básica por nombre</h4>
+            <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas simples por nombre. Estos pueden tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud.</p>
+            <h5 class="fw-light">
+              Request
+            </h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:academico_search_basic' %}</mark></p>
+            <h5 class="fw-light">
+              Headers
+            </h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">
+              Query Parameters
+            </h5>
+            <p class="mb-0"><mark><strong>query</strong></mark> <span class="fw-light">string</span></p>
+            <p>String con el nombre a buscar.</p>
+            <h5 class="fw-light">
+              Response format
+            </h5>
+            <p>Retorna un listado de objetos académicos.</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ignacio%20Cuellar"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"academicos"</span>: [</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Búsqueda avanzada -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-avanzada">
+            <h4>Búsqueda avanzada</h4>
+            <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas por nombre y filtros. La búsqueda por nombre puede tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud. Los filtros disponibles son por institución, país, áreas y subáreas.</p>
+            <h5 class="fw-light">
+              Request
+            </h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:academico_search_advanced' %}</mark></p>
+            <h5 class="fw-light">
+              Headers
+            </h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">
+              Query Parameters
+            </h5>
+            <p class="mb-0"><mark><strong>nombre</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>String con el nombre a buscar.</p>
+            <p class="mb-0"><mark><strong>institucion</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>String con el nombre de institución a la que pertenece el académico.</p>
+            <p class="mb-0"><mark><strong>pais</strong></mark> <span class="fw-light">ISO 3166-1</span> <span class="fst-italic">opcional</span></p>
+            <p>Código ISO 3166-1 del país al que pertenece la institución del académico.</p>
+            <p class="mb-0"><mark><strong>area</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Área en la cual el académico desempeña sus investigaciones.</p>
+            <p class="mb-0"><mark><strong>subarea</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Subárea en la cual el académico desempeña sus investigaciones.</p>
+            <h5 class="fw-light">
+              Response format
+            </h5>
+            <p>Retorna un listado de Objetos Académico</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Ignacio%20Cuellar&pais=CL"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"academicos"</span>: [</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Obtención por ID -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <div class="description" id="obtencion-id">
+            <h4>Obtención por ID</h4>
+            <p class="parrafo">Este endpoint permite extraer toda la información que se tiene sobre un académico en específico. Esta petición es realizada por cualquier ID que este académico posea, ya sea el identificador otorgado por el sistema mismo, el identificador de DBLP o el identificador de ORCID.</p>
+            <h5 class="fw-light">
+              Request
+            </h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:academico_get_id' %}</mark></p>
+            <h5 class="fw-light">
+              Headers
+            </h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">
+              Query Parameters
+            </h5>
+            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span> <span class="fst-italic">opcional</span></p>
+            <p>Identificador otorgado por el sistema.</p>
+            <p class="mb-0"><mark><strong>dblp</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p> Identificador de DBLP</p>
+            <p class="mb-0"><mark><strong>orcid</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Identificador de ORCID.</p>
+            <h5 class="fw-light">
+              Response format
+            </h5>
+            <p>Retorna un único Objeto Académico.</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=12452"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Institución -->
+    <div id="institucion">
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <h2 class="subtitle m-0">Institución</h2>
+          <div class="description" id="objeto-institucion">
+            <h4>Objeto Institución</h4>
+            <p class="parrafo">Objeto de respuesta entregada para representar una institución. Contiene los siguintes atributos:</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Atributo</th>
+                  <th scope="col">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">id</th>
+                  <td><span class="fst-italic">(int)</span> ID de institución en el sistema.</td>
+                </tr>
+                <tr>
+                  <th scope="row">nombre</th>
+                  <td><span class="fst-italic">(string)</span> Nombre de institución registrado.</td>
+                </tr>
+                <tr>
+                  <th scope="row">siglas</th>
+                  <td><span class="fst-italic">(list)</span> Listado de siglas referidad a la institución.</td>
+                </tr>
+                <tr>
+                  <th scope="row">pais</th>
+                  <td><span class="fst-italic">(string)</span> País donde se encuentra la institución.</td>
+                </tr>
+                <tr>
+                  <th scope="row">webpage</th>
+                  <td><span class="fst-italic">(string)</span> Página web de la institución.</td>
+                </tr>
+                <!-- external ids -->
+                <tr>
+                  <th scope="row">ids_externos</th>
+                  <td>
+                    <span class="fst-italic">(string)</span> Objeto con los identificadores externos obtenidos para la institución
+                    <table class="table table-bordered mt-2">
+                      <thead>
+                        <tr>
+                          <th scope="col">Atributo</th>
+                          <th scope="col">Descripción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">grid_id</th>
+                          <td><span class="fst-italic">(string)</span> Identificador GRID de la institución.</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">ror_id</th>
+                          <td><span class="fst-italic">(string)</span> Identificador ROR  
+                          de la institución.</td>
+                        </tr>   
+                        <!-- mag id -->
+                        <tr>
+                          <th scope="row">mag_id</th>
+                          <td><span class="fst-italic">(string)</span> Identificador MAG de la institución.</td>
+                        </tr>
+                        <!-- openalex id -->
+                        <tr>
+                          <th scope="row">openalex_id</th>
+                          <td><span class="fst-italic">(string)</span> Identificador OpenAlex de la institución.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr> 
+                <!-- geographic  data  -->
+                <tr>
+                  <th scope="row">geo_data</th>
+                  <td>
+                    <span class="fst-italic">(string)</span> Objeto con los datos geográficos de la institución
+                    <table class="table table-bordered mt-2">
+                      <thead>
+                        <tr>
+                          <th scope="col">Atributo</th>
+                          <th scope="col">Descripción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">latitud</th>
+                          <td><span class="fst-italic">(float)</span> Latitud de la institución.</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">longitud</th>
+                          <td><span class="fst-italic">(float)</span> Longitud de la institución.</td>
+                        </tr>
+                        <!-- ciudad -->
+                        <tr>
+                          <th scope="row">ciudad</th>
+                          <td><span class="fst-italic">(string)</span> Ciudad donde se encuentra la institución.</td>
+                        </tr>
+              </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          
+
+          </div>
+        <div class="col-0 col-sm-6 bg-secondary"></div>
+      </div>
+      <!-- Búsqueda básica por nombre -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-basica-institucion">
+            <h4>Búsqueda básica por nombre</h4>
+            <p class="parrafo">Este endpoint permite buscar instituciones basándose en búsquedas simples por nombre. Estos pueden tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud.</p>
+            <h5 class="fw-light">
+              Request
+            </h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:institucion_search' %}</mark></p>
+            <h5 class="fw-light">
+              Headers
+            </h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">
+              Query Parameters
+            </h5>
+            <p class="mb-0"><mark><strong>query</strong></mark> <span class="fw-light">string</span></p>
+            <p>String con el nombre a buscar.</p>
+            <h5 class="fw-light">
+              Response format
+            </h5>
+            <p>Retorna un listado de Objetos Instituciones con información básica.</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:institucion_search' %}?query=Universidad%de%Chile"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"instituciones"</span>: [</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Obtención por ID -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <div class="description" id="obtencion-id-institucion">
+            <h4>Obtención por ID</h4>
+            <p class="parrafo">Este endpoint permite extraer toda la información que se tiene sobre una institución en específico. Esta petición es realizada por el id de la institución. En la respuesta incluye un listado de académicos ordenados por sus respectivas unidades.</p>
+            <h5 class="fw-light">
+              Request
+            </h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:institucion_get_id' %}</mark></p>
+            <h5 class="fw-light">
+              Headers
+            </h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">
+              Query Parameters
+            </h5>
+            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span></p>
+            <p>Identificador otorgado por el sistema.</p>
+            <h5 class="fw-light">
+              Response format
+            </h5>
+            <p>Retorna un único Objeto Institución.</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:institucion_get_id' %}?id=1"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Áreas -->
+    <div id="areas">
+      <!-- Todas las Áreas -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;" style="background-color: #e9ecef;">
+          <h2 class="subtitle m-0">Áreas</h2>
+          <div class="description" id="areas-todas">
+            <h4>Todas las Áreas</h4>
+            <p class="parrafo">Este endpoint permite obtener un listado de las Áreas presentes en el sistema.</p>
+            <h5 class="fw-light">
+              Request
+            </h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:areas_all' %}</mark></p>
+            <h5 class="fw-light">
+              Headers
+            </h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">
+              Response format
+            </h5>
+            <p>Retorna un listado de áreas. Los siguientes atributos se incluyen cuando procede.</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Atributo</th>
+                  <th scope="col">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">id</th>
+                  <td><span class="fst-italic">(int)</span> ID de área en el sistema.</td>
+                </tr>
+                <tr>
+                  <th scope="row">nombre</th>
+                  <td><span class="fst-italic">(string)</span> Nombre de área registrado.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 50px;">&zwnj;</h4>
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:areas_all' %}"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"areas"</span>: [</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Theory Of Computation",</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Subáreas por Área ID -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;" style="background-color: #e9ecef;">
+          <div class="description" id="subareas-por-area">
+            <h4>Subáreas por Área ID</h4>
+            <p class="parrafo">Este endpoint permite obtener un listado de las subáreas de una área en específico presente en el sistema.</p>
+            <h5 class="fw-light">
+              Request
+            </h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:subareas_by_area' %}</mark></p>
+            <h5 class="fw-light">
+              Headers
+            </h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">
+              Query Parameters
+            </h5>
+            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span></p>
+            <p>Identificador otorgado por el sistema.</p>
+            <h5 class="fw-light">
+              Response format
+            </h5>
+            <p>Retorna un listado de subáreas. Los siguientes atributos se incluyen cuando procede.</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Atributo</th>
+                  <th scope="col">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">id</th>
+                  <td><span class="fst-italic">(int)</span> ID de subárea en el sistema.</td>
+                </tr>
+                <tr>
+                  <th scope="row">nombre</th>
+                  <td><span class="fst-italic">(string)</span> Nombre subárea.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:subareas_by_area' %}?id=1"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"subareas"</span>: [</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Semantics And Reasoning",</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Grados section -->
+    <div id="grados">
+      <!-- objeto programa -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <h2 class="subtitle m-0">Programas</h2>
+          <div class="description" id="objeto-grado">
+            <h4>Objeto Programa</h4>
+            <p class="parrafo">Objeto de respuesta entregada para representar un programa académico. Contiene los siguintes atributos:</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Atributo</th>
+                  <th scope="col">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">id</th>
+                  <td><span class="fst-italic">(int)</span> ID del programa en el sistema.</td>
+                </tr>
+                  <th scope="row">nombre</th>
+                  <td><span class="fst-italic">(string)</span> Nombre del programa registrado.</td>
+                </tr>
+                <!-- tipo (TECH,LIC MSC PHD) -->
+                 <tr>
+                  <th scope="row">tipo</th>
+                  <td><span class="fst-italic">(string)</span> Tipo de programa (TECH, LIC, MSC, PHD).</td>
+                 </tr>
+                <tr>
+                <tr>
+                  <th scope="row">afiliacion</th>
+                  <td><span class="fst-italic">(object)</span> Objeto con la unidad y universidad a la que pertenece el programa.
+                    <table class="table table-bordered mt-2">
+                      <thead>
+                        <tr>
+                          <th scope="col">Atributo</th>
+                          <th scope="col">Descripción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">unidad</th>
+                          <td><span class="fst-italic">(object)</span> Objeto Unidad (ver sección Unidad para más detalles).</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">universidad</th>
+                          <td><span class="fst-italic">(object)</span> Objeto Universidad (ver sección Institución para más detalles).</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">web_site</th>
+                  <td><span class="fst-italic">(string)</span> Página web del programa.</td>
+                </tr>
+                <tr>
+                  <th scope="row">fecha_creacion</th>
+                  <td><span class="fst-italic">(string)</span> Fecha de creación del programa (YYYY-MM-DD).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary"></div>
+      </div> 
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-grados-basica">
+            <h4>Búsqueda básica</h4>
+            <p class="parrafo">Búsqueda simple de programas por nombre. Usa búsqueda difusa y devuelve resultados ordenados por similitud.</p>
+            <h5 class="fw-light">Request</h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:grado_search' %}</mark></p>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>query</strong></mark> <span class="fw-light">string</span></p>
+            <p>Texto para búsqueda difusa del nombre del grado.</p>
+            <h5 class="fw-light">Response format</h5>
+            <p>Devuelve una lista de Objetos Programa .</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:grado_search' %}?query=master"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0'">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"results"</span>: [</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 10,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Master in Computer Science",</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"afiliacion"</span>: {"unidad": {...}, "universidad": {...}}</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-grados-avanzada">
+            <h4>Búsqueda avanzada</h4>
+            <p class="parrafo">Buscar programas por nombre y filtros (universidad, tipo, activo). La búsqueda por nombre es difusa y devuelve una lista ordenada por similitud.</p>
+            <h5 class="fw-light">Request</h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:grado_search_advanced' %}</mark></p>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>nombre</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p class="mb-0"><mark><strong>universidad</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p class="mb-0"><mark><strong>tipo</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <h5 class="fw-light">Response format</h5>
+            <p>Devuelve una lista de Objetos Programa.</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"results"</span>: [</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 10,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Master in Computer Science",</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"afiliacion"</span>: {"unidad": {...}, "universidad": {...}}</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Obtención por ID -->
+      <div class="row">
+        <div class="col-12 col-sm-6 p-0" style="min-height:700px;">
+          <div class="description" id="obtencion-grado-id">
+            <h4>Obtención por ID</h4>
+            <p class="parrafo">Obtiene todos los datos de un grado por su ID interno.</p>
+            <h5 class="fw-light">Request</h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:grado_get_id' %}</mark></p>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span></p>
+            <h5 class="fw-light">Response format</h5>
+            <p>Devuelve un único Objeto Programa.</p>
+          </div>
+        </div>
+        <div class="col-0 col-sm-6 bg-secondary p-0">
+          <div class="bg-dark p-2 text-light">
+            <p>Ejemplo request:</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">curl --request GET \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=10"</span> \</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+            </div>
+            <hr>
+            <p>Ejemplo response (200):</p>
+            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
+              <p class="m-0">{</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 10,</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Master in Computer Science",</p>
+              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"afiliacion"</span>: {"unidad": {...}, "universidad": {...}}</p>
+              <p class="m-0">}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FIN -->
+    <div class="row" style="height: 200px; background-color: #e9ecef;">
+      <div class="col-12 col-sm-6 p-0";>
+      </div>
+      <div class="col-0 col-sm-6 bg-secondary"></div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,294 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% load countries %} {% get_countries as countries_full %}
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+<script src="{% static 'front/instituciones.js' %}"></script>
+<script>
+  var csrftoken = "{{csrf_token}}";
+  const openalexSuggestionsUrl = "{% url 'inst:get_openalex_suggestions' %}"; 
+  const rorSuggestionsUrl = "{% url 'inst:get_ror_suggestions' %}";
+  
+</script>
+
+{% if user.is_staff and not anonimo %}
+<!-- Modal -->
+<div>
+  <div class="modal" tabindex="-1" id="nueva-modal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form method="post" action="{% url 'inst:institucion_new' %}" id="institucion-nueva-form">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title">Institución nueva</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-3">
+              <label for="inputNombre" class="col-sm-2 col-form-label">Nombre<span class="text-danger">*</span></label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputNombre" name="inputNombre" required minlength="5" maxlength="200" onfocus="remove_feedback('inputNombre')">
+                <div class="invalid-feedback" id="input-nombre-feedback"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputPais" class="col-sm-2 col-form-label">País<span class="text-danger">*</span></label>
+              <div class="col-sm-10">
+                <select class="form-select" aria-label="Select country" name="inputPais" id="inputPais" required onfocus="remove_feedback('inputPais')">
+                  <option value="0" selected>Seleccione un país</option>
+                  {% for country in countries_full %}
+                  <option value="{{ country.code }}">{{ country.name }}</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback" id="input-pais-feedback"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputSigla" class="col-sm-2 col-form-label">Sigla</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputSigla" name="inputSigla" minlength="1" maxlength="10" onfocus="remove_feedback('inputSigla')">
+                <div class="invalid-feedback" id="input-sigla-feedback"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputWebpage" class="col-sm-2 col-form-label">Página Web</label>
+              <div class="col-sm-10">
+                <input type="url" class="form-control" id="inputWebpage" name="inputWebpage" onfocus="remove_feedback('inputWebpage')">
+                <div class="invalid-feedback" id="input-webpage-feedback"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="inputFileEscudo" class="col-sm-2 col-form-label">Escudo</label>
+              <div class="col-sm-10">
+                <input class="form-control" type="file" id="inputFileEscudo" name="inputFileEscudo" onfocus="remove_feedback('inputFileEscudo')">
+                <div class="invalid-feedback" id="input-escudo-feedback"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="row mb-3">
+                  <label for="inputIDRinggold" class="col-sm-3 col-form-label">ID Ringgold</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputIDRinggold" name="inputIDRinggold" maxlength="20" onfocus="remove_feedback('inputIDRinggold')">
+                    <div class="invalid-feedback" id="input-ringgold-feedback"></div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputIDCrossref" class="col-sm-3 col-form-label">ID Crossref</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputIDCrossref" name="inputIDCrossref" maxlength="20" onfocus="remove_feedback('inputIDCrossref')">
+                    <div class="invalid-feedback" id="input-crossref-feedback"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="row mb-3">
+                  <label for="inputIDWikidata" class="col-sm-3 col-form-label">ID Wikidata</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputIDWikidata" name="inputIDWikidata" maxlength="20" onfocus="remove_feedback('inputIDWikidata')">
+                    <div class="invalid-feedback" id="input-wikidata-feedback"></div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputIDISNI" class="col-sm-3 col-form-label">ID ISNI</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputIDISNI" name="inputIDISNI" maxlength="20" onfocus="remove_feedback('inputIDISNI')">
+                    <div class="invalid-feedback" id="input-isni-feedback"></div>
+                  </div>
+                </div>
+              </div>
+<div class="row mb-3">
+  <label for="inputOpenAlex" class="col-sm-2 col-form-label">ID OpenAlex</label>
+  <div class="col-sm-10">
+    <div class="input-group">
+      <button
+        type="button"
+        class="btn btn-secondary sm-2"
+        onclick="determinarOpenAlexID()"
+        id="determinarOpenAlexButton"
+      >
+        <span class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinnerSearchOpenAlex"></span>
+        <span id="openalex-button-text">Ver Sugerencias</span>
+      </button>
+      <select class="form-select d-none sm-2" id="openalex-suggestions-select" style="max-width:220px;">
+        <option value="0" selected>Seleccione una opción</option>
+      </select>
+      <a 
+            id="openalex-nav-icon"
+            class="input-group-text sm-4"
+            href="{% if universidad.openalex_id %}https://openalex.org/institutions/{{universidad.openalex_id}}{% else %}#{% endif %}" 
+            target="_blank"
+            title="Ir a OpenAlex"
+            aria-disabled="{% if not universidad.openalex_id %}true{% endif %}"
+            onclick="return handleOpenAlexNavClick();"
+          >
+            https://openalex.org/institutions/
+            <i class="bi bi-box-arrow-up-right ms-1"></i>
+          </a>
+      <input
+        type="text"
+        class="form-control sm-4"
+        id="inputOpenAlex"
+        name="inputOpenAlex"
+        maxlength="30"
+        onfocus="remove_feedback('inputOpenAlex')"
+      >
+    </div>
+    <div id="input-openalex-feedback"></div>
+  </div>
+</div>
+<div class="row mb-3">
+  <label for="inputIDROR" class="col-sm-2 col-form-label">ID ROR</label>
+  <div class="col-sm-10">
+    <div class="input-group">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="determinarRORID()"
+        id="determinarRORButton"
+      >
+        <span class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinnerSearchROR"></span>
+        <span id="ror-button-text">Ver Sugerencias</span>
+      </button>
+      <select class="form-select d-none" id="ror-suggestions-select" style="max-width:220px;">
+        <option value="0" selected>Seleccione una opción</option>
+      </select>
+      <a 
+        id="ror-nav-icon"
+        class="input-group-text"
+        href="#"
+        target="_blank"
+        title="Ir a ROR"
+        aria-disabled="true"
+        onclick="return handleRORNavClick();"
+      >
+        https://ror.org/
+        <i class="bi bi-box-arrow-up-right ms-1"></i>
+      </a>
+      <input
+        type="text"
+        class="form-control"
+        id="inputIDROR"
+        name="inputIDROR"
+        maxlength="20"
+        onfocus="remove_feedback('inputIDROR')"
+      >
+    </div>
+    <div class="invalid-feedback" id="input-ror-feedback"></div>
+  </div>
+</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" onclick="validate_form()" class="btn btn-danger">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-xxl">
+    <div class="d-flex justify-content-between align-items-end">
+      <div class="d-flex align-items-end">
+        <h2 class="m-0 me-2">Instituciones</h2>
+        {% if country_filter %}<span>{{country_filter_name}}</span>{% endif %}
+      </div>
+      <div class="d-flex align-items-center">
+        <div class="dropdown-center">
+          <a class="btn btn-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Filtrar país
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% if not country_filter %}active{% endif %}" {% if not country_filter %}aria-current="true"{% endif %} href="?p={{current_page}}">Todos</a></li>
+            {% for country in countries %}
+            <li><a class="dropdown-item {% if country_filter == country.code %}active{% endif %}" {% if country_filter == country.code %}aria-current="true"{% endif %} href="?p={{current_page}}&c={{country.code}}">{{country.name}}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% if user.is_staff and not anonimo %}
+        <button type="button" class="btn btn-danger ms-1" data-bs-toggle="modal" data-bs-target="#nueva-modal">
+          Nueva
+        </button>
+        {% endif %}
+      </div>
+    </div>
+    <hr />
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 gy-3 mb-4">
+      {% for institucion in instituciones_list %}
+      <div class="col">
+        <div class="card {% if institucion.editable%}border-danger{% endif %} h-100">
+          <div class="card-header">
+            <div class="pt-2 mb-1 d-flex w-100 justify-content-between"">
+              <strong class="text-break">{{institucion.nombre}}</strong>
+              {% if institucion.is_verificado %}<small>Verificado</small>{% endif %}
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-9">
+                <div class="mb-1">
+                  <h6 class="mb-0 text-secondary">Sigla</h6>
+                  <p class="mb-0">{{institucion.sigla}}</p>
+                </div>
+                <div class="mb-1">
+                  <h6 class="mb-0 text-secondary">Página</h6>
+                  <a
+                    href="{{institucion.webpage}}"
+                    target="_blank"
+                    class="mb-0"
+                    >{{institucion.webpage}}</a
+                  >
+                </div>
+                <div class="mb-0">
+                  <h6 class="mb-0 text-secondary">País</h6>
+                  <p class="mb-0"><i class="{% if institucion.pais != '0' %}{{ institucion.pais.flag_css }}{% endif %} me-1"></i>{{institucion.pais.name}}</p>
+                </div>
+              </div>
+              {% if institucion.foto_escudo %}
+              <div
+                class="col-3 d-flex align-items-center" >
+                <img src="{% get_media_prefix %}{{ institucion.foto_escudo }}" style="width:100%; height: 100%; object-fit: contain; object-position: 50% top;" alt="escudo {{institucion.sigla}}">
+              </div>
+              {% elif institucion.openalex_institution.openalex_thumbnail_url %}
+              <div class="col-3 d-flex align-items-center p-1" >
+                <img src="{{ institucion.openalex_institution.openalex_thumbnail_url }}" style="width:100%;object-fit: contain; object-position: 50% top;" alt="">
+              </div>
+                {% endif %}
+            </div>
+
+          </div>
+          <div class="card-footer text-body-secondary">
+            <div class="d-flex align-items-end justify-content-end pe-sm-1 pe-md-2">
+              <a class="btn btn-outline-danger btn-sm" href="{% url 'front:institucion' institucion.id %}" role="button"
+                >Ver perfil
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center mt-2">
+        <li class="page-item {% if current_page == 1 %}disabled{% endif %}">
+          <a class="page-link" href="?p={{current_page|add:'-1'}}&c={{country_filter}}">Anterior</a>
+        </li>
+        {% with window=5 %}
+          {% for page in pages %}
+            {% if page >= current_page|add:'-5' and page <= current_page|add:'5' %}
+              <li class="page-item {% if current_page == page %}active{% endif %}">
+                <a class="page-link" href="?p={{page}}&c={{country_filter}}">{{page}}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+        <li class="page-item {% if current_page == last_page %}disabled{% endif %}">
+          <a class="page-link" href="?p={{current_page|add:'1'}}&c={{country_filter}}">Siguiente</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+{% endblock content %}

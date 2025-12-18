@@ -1,0 +1,17 @@
+{% load static %}
+
+<footer class="mt-auto pt-3 pb-3 bg-dark text-white">
+<div class="container-xxl">
+    <div class="d-flex flex-column flex-sm-row justify-content-sm-between">
+        <div class="d-flex justify-content-center justify-content-sm-start">
+            <img width="150px" src="{% static 'images/base/logo.svg' %}" alt="DCC" />
+        </div>
+        <div class="text-center text-sm-end pt-4 pt-sm-0">
+            Área de Desarrollo de Software<br>
+            <strong>Departamento de Ciencias de la Computación</strong><br>
+            <strong>Universidad de Chile</strong><br>
+            &copy; {% now 'Y' %}
+        </div>
+    </div>
+</div>
+</footer>

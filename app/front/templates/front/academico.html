@@ -1,0 +1,532 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+<script>
+  var csrftoken = "{{csrf_token}}";
+  const academico_id = "{{academico.id}}"
+  const ajax_url =
+    "{% url 'front:usuario_invitacion_academico' %}";
+  const host_ajax = "{{ request.get_host }}"
+</script>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_error"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <i class="bi bi-exclamation-diamond text-danger me-2"></i>
+      <strong class="me-auto">Error al generar link.</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-lg">
+    <div class="d-flex justify-content-between align-items-center gap-2">
+      <!-- NOMBRE + AKA + ID -->
+      <div class="d-flex align-items-center">
+        <h1 class="mb-0"><span class="fs-2 me-2">{{ academico.get_full_name }}</span></h1>
+        <button data-bs-toggle="dropdown" aria-expanded="false" type="button" class="btn btn-outline-dark btn-sm dropdown-toggle">ID</button>
+        <ul class="dropdown-menu">
+          <li class="mx-3 mb-1"><strong>IDs externos</strong></li>
+          {% if investigador and investigador.dblp_id %}
+          <li>
+            <a target="_blank" class="dropdown-item" href="https://dblp.org/pid/{{ investigador.dblp_id }}">
+              <img
+                src="{% static 'images/base/dblp.120x120.png' %}"
+                alt="dblp"
+                width="20"
+                height="20"
+              />
+              {{ investigador.dblp_id }}
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and  investigador.orcid_id %}
+          <li>
+            <a target="_blank" class="dropdown-item" href="https://orcid.org/{{ investigador.orcid_id }}">
+              <img
+                src="{% static 'images/base/orcid.logo.icon.svg' %}"
+                width="20"
+                height="20"
+                alt="orcid"
+              />
+              {{ investigador.orcid_id }}
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and investigador.openalex_id %}
+          <li>
+            <a target="_blank" class="dropdown-item" href="https://openalex.org/{{ investigador.openalex_id }}">
+              <!-- TODO -->
+              <!-- <img
+                src="{% static 'images/base/openalex.png' %}"
+                width="20"
+                height="20"
+                alt="openalex"
+              /> -->
+              OpenAlex {{ investigador.openalex_id }}
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and investigador.openalex_id_scopus %}
+          <li>
+            <a target="_blank" class="dropdown-item" href="{{investigador.openalex_id_scopus }}">
+              Scopus ID
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and investigador.aminer_id %}
+           <li>
+            <div class="dropdown-item">
+              <img
+                src="{% static 'images/base/aminer.png' %}"
+                width="20"
+                height="20"
+                alt="aminer"
+              />
+              {{ investigador.aminer_id }}
+
+            </div>
+          </li> 
+          {% endif %}
+            {% if not investigador%}
+          <li class="mx-3"><p>No hay información.</p></li>
+          {% endif %}
+        </ul>
+        {% if academico.is_verification_pending %}
+          <button type="button"
+                          class="btn btn-link p-0"
+                          data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                data-bs-html="true"
+                                title="El sistema en breve validará el académico mediante información externa.">
+                          <i class="bi bi-question-circle text-secondary ms-2"></i>
+                        </button>
+      
+        {% elif academico.is_unverified and academico.get_verification_error == "ID_MISSING"  %}
+          <button type="button"
+              class="btn btn-link p-0"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="bottom"
+                   data-bs-html="true"
+                   title="Académico no posee IDs externos.">
+                    <i class="bi bi-exclamation-triangle-fill text-warning" ></i>
+              </button>
+      
+        {% elif academico.is_verified %}
+          <button type="button"
+              class="btn btn-link p-0"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="bottom"
+                   title="El académico posee uno o más IDs externos válidos.">
+                    <i class="bi bi-check-circle-fill text-success ms-2"></i>
+              </button>
+        {% endif %}
+      </div>
+
+      <!-- Editar -->
+      {% if editable%}
+      <div class="d-flex gap-2">
+      {% if academico.user != request.user%}
+        <button
+                          role="button"
+                          class="btn btn-danger"
+                          data-bs-toggle="modal"
+                          data-bs-target="#eleminarAcademicoModal"
+                          data-bs-id="{{academico.id}}"
+                          data-bs-nombre="{{academico.nombre}}"
+                          data-bs-unidad="{{academico.unidad.id}}"
+                        >
+                          <i class="bi bi-trash me-2"></i>Eliminar
+                        </button>
+        {% endif %}
+        {% if not academico.user %}
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#invitacionModal">
+          Crear invitación
+        </button>
+        {% endif %}
+        <a role="button" class="btn btn-danger" href="{% url 'front:academico_edit' academico.id %}">Editar</a>
+      </div>
+      {% endif %}
+    </div>
+    <hr />
+    <!-- DATOS -->
+    {% if academico.get_webpage or academico.get_email or academico.grado_maximo%}
+    <h2 class="fs-3">Datos Personales</h2>
+    <div class="p-2">
+      {% if academico.grado_maximo %}
+      <p class="mb-1">
+        <span class="fs-5"> Grado Académico:</span> {{ academico.get_grado_maximo_display }}
+      </p>
+      {% endif %}
+      {% if academico.get_webpage %}
+      <p class="mb-1">
+        <span class="fs-5">Página web: </span><a href="{{ academico.get_webpage }}" target="_blank">{{ academico.get_webpage }}</a>
+      </p>
+      {% endif %}
+      {% if academico.get_email %}
+      <p class="mb-1">
+        <span class="fs-5">Email: </span><span id="email_span">{{academico.get_email}}</span>
+      </p>
+      {% endif %}
+      {% if investigador and investigador.get_alternative_names %}
+      <p class="mb-1">
+        <span class="fs-5">Nombres alternativos: </span>
+        <span>
+          {% for alt_name in investigador.get_alternative_names %}
+          {% if forloop.last %}
+            <span >&nbsp;{{ alt_name }}</span>
+          {% else %}
+            <span >{{ alt_name }},&nbsp;</span>
+          {% endif %}
+          {% endfor %}
+        </span>
+  </p>
+  {% endif %}
+    </div>
+    <hr>
+    {% endif %}
+    <!-- Afiliación -->
+    <h2 class="fs-3">Afiliación</h2>
+    <div class="d-flex align-items-end p-2">
+      {% if academico.universidad.foto_escudo %}
+      <div class="me-3">
+        <img src="{% get_media_prefix %}{{ academico.universidad.foto_escudo }}" style="width:30px; height: 100%; object-fit: contain; object-position: 50% top;" alt="escudo {{academico.universidad.sigla}}">
+      </div>
+      {% elif academico.universidad.openalex_institution.openalex_thumbnail_url %}
+      <div class="me-3">
+        <img src="{{ academico.universidad.openalex_institution.openalex_thumbnail_url }}" style="height: 60px; object-fit: contain; object-position: 50% top; align-self: center;" alt="">
+      </div>
+      {% endif %}
+      <div>
+          <span class="fs-5">Institución: </span>
+          <a href="{% url 'front:institucion' academico.universidad.id %}">{{ academico.universidad.nombre }}</a>
+        <p class="mb-0">
+          <span class="fs-5">Unidad: </span>{% if academico.unidad.nombre and not academico.unidad.is_default %}{{ academico.unidad.nombre }}{% else %}Computación{% endif %}
+        </p>
+        {% if academico.universidad.pais != "0" %}
+        <p class="mb-0">
+          <span class="fs-5">Ubicación: 
+          </span>
+          {% if academico.universidad.openalex_institution.openalex_city_name %}
+            <span>{{ academico.universidad.openalex_institution.openalex_city_name }},</span>
+          {% endif %}
+          <i class="{{ academico.universidad.pais.flag_css }} me-1"></i>{{ academico.universidad.pais.name }}
+          {% if academico.universidad.openalex_institution.openalex_region_latitude and academico.universidad.openalex_institution.openalex_region_longitude %}
+          <button type="button"
+                  class="btn btn-link p-0 ms-2"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-html="true"
+                  title="Latitud: {{ academico.universidad.openalex_institution.openalex_region_latitude }}<br>Longitud: {{ academico.universidad.openalex_institution.openalex_region_longitude }}">
+            <i class="bi bi-geo-alt-fill"></i>
+          </button>
+        {% endif %}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    <hr>
+    <!-- Ambitos (areas/subareas) -->
+    {% if areas or subareas_ambitos or keywords %}
+    <h2 class="fs-3">Áreas de Investigación</h2>
+      {% if  areas %}
+        <div class="p-2 pb-0">
+          <h3 class="d-flex fs-5 m-0">Áreas</h3>
+              <div class="p-1 mx-5">
+                <div class="d-flex flex-wrap gap-2 justify-content-start">
+                  {% for a in areas %}
+                  <span class="badge area-badge p-2 fs-5" data-area="{{ a.nombre_es|escape }}">{{ a.nombre_es }}</span>
+                  {% endfor %}
+                </div>
+                {% if subareas_ambitos or keywords %}
+                <hr>
+                {% endif %}
+              </div>
+        </div>
+      {% endif %}
+        
+      {% if subareas_ambitos%}
+          <div class="p-2 ">
+          <h3 class="fs-5 m-0">Subáreas</h3>
+            <div class="p-1 mx-5">
+              <div class="d-flex flex-wrap gap-2 justify-content-start">
+                {% if subareas_ambitos %}
+                  {% for ambito in subareas_ambitos %}
+                      <span class="badge badge-pill subarea-badge fs-6" data-area="{{ ambito.subarea.area.nombre_es|default:ambito.subarea.area.nombre|escape }}">{{ ambito.subarea.nombre_es }}</span>
+                  {% endfor %}
+                {% endif %}
+              </div>
+              {% if keywords %}
+              <hr>
+              {% endif %}
+            </div>
+          </div>
+      {%endif%}
+      {%if keywords%}
+          <div class="p-2">
+          <h3 class="fs-5 m-0">Keywords</h3>
+            <div class="p-1 mx-5">
+              <div class="d-flex flex-wrap gap-2 justify-content-start">
+                {% for keyword in keywords %}
+                        <span class="badge badge-pill bg-secondary fs-6">{{ keyword }}</span>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+      {%endif%}
+          
+        
+      
+    {% endif %}
+    <hr>
+    <!-- COAUTORES -->
+    {% if coautores %}
+    <h2 class="fs-3">Colaboraciones</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h3 class="d-flex fs-5">Coautores</h3>
+          <div class="card overflow-auto" style="height: 15rem;">
+            <ul class="list-group list-group-flush">
+              {% for coautor in coautores %}
+              <li class="list-group-item bg-light d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  {% if coautor.2 %}
+                  <div>
+                    [{{coautor.1}}] <a href="{% url 'front:academico' coautor.2.id %}" class="fw-semibold">{{coautor.2.get_full_name}}</a>
+                  </div>
+                  <span class="ms-4">
+                    <i class="{{ coautor.2.unidad.universidad.pais.flag_css }} me-1"></i><a href="{% url 'front:institucion' coautor.2.unidad.universidad.id %}">{{coautor.2.unidad.universidad.nombre}}</a>
+                  </span>
+                  {% else %}
+                  <div>
+                    [{{coautor.1}}] <span class="fw-semibold">{{coautor.0.nombre}}</span>
+                  </div>
+                  {% endif %}
+                </div>
+                <span>
+                  <a href="https://dblp.org/pid/{{coautor.0.dblp_id}}" target="_blank">
+                    <img
+                      src="{% static 'images/base/dblp.120x120.png' %}"
+                      alt="dblp"
+                      width="20"
+                      height="20"
+                    />
+                  </a>
+                  {% if coautor.0.orcid_id %}
+                  <a href="https://orcid.org/{{coautor.0.orcid_id}}" target="_blank">
+                    <img
+                      src="{% static 'images/base/orcid.logo.icon.svg' %}"
+                      width="20"
+                      height="20"
+                      alt="orcid"
+                    />
+                  </a>
+                  {% endif %}
+                </span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="col">
+          <h3 class="d-flex fs-5">Distancia 2</h3>
+          <div class="card overflow-auto" style="height: 15rem;">
+            <ul class="list-group list-group-flush">
+              {% for dblp_id, coautor_d2 in coautores_d2.items %}
+              <li class="list-group-item bg-light d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                  {% if coautor_d2.academico %}
+                  <div>
+                    [{{coautor_d2.peso}}] <a href="{% url 'front:academico' coautor_d2.academico.id %}" class="fw-semibold">{{coautor_d2.academico.get_full_name}}</a>
+                  </div>
+                  <span class="ms-4">
+                    <i class="{{ coautor_d2.academico.universidad.pais.flag_css }} me-1"></i><a href="{% url 'front:institucion' coautor_d2.academico.universidad.id %}">{{coautor_d2.academico.universidad.nombre}}</a>
+                  </span>
+                  {% else %}
+                  <div>
+                    [{{coautor_d2.peso}}] <span class="fw-semibold">{{coautor_d2.nombre}}</span>
+                  </div>
+                  {% endif %}
+                </div>
+                <span>
+                  <a href="https://dblp.org/pid/{{dblp_id}}" target="_blank">
+                    <img
+                      src="{% static 'images/base/dblp.120x120.png' %}"
+                      alt="dblp"
+                      width="20"
+                      height="20"
+                    />
+                  </a>
+                  {% if coautor_d2.orcid_id %}
+                  <a href="https://orcid.org/{{coautor_d2.orcid_id}}" target="_blank">
+                    <img
+                      src="{% static 'images/base/orcid.logo.icon.svg' %}"
+                      width="20"
+                      height="20"
+                      alt="orcid"
+                    />
+                  </a>
+                  {% endif %}
+                </span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    {% endif %}
+    <!-- Actividad -->
+    {% if investigador.dblp_n_journal > 0 or investigador.dblp_n_conference > 0 or investigador.openalex_works_counts > 0 or investigador.openalex_cited_by_counts > 0 %}
+    <h2 class="fs-3">Actividad académica</h2>
+      {% if investigador.dblp_n_journal > 0 or investigador.dblp_n_conference > 0 %}
+      <div class="col-sm-12 d-flex flex-wrap align-items-center justify-content-center gap-4">
+        <div class="card px-3 py-2">
+          <div class="d-flex align-items-center">
+            <span class="fw-semibold fs-3 me-1">{{investigador.dblp_n_journal}}</span> Journals
+          </div>
+        </div>
+        <div class="card px-3 py-2">
+          <div class="d-flex align-items-center">
+            <span class="fw-semibold fs-3  me-1">{{investigador.dblp_n_conference}}</span> Conferencias
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if investigador.openalex_works_counts or investigador.openalex_cited_by_counts %}
+        <div class="col-sm-12 d-flex flex-wrap align-items-center justify-content-center gap-4 my-3">
+          {% if investigador.openalex_works_counts %}
+          <div class="card px-3 py-2">
+            <div class="d-flex align-items-center">
+              <span class="fw-semibold fs-3 me-1">{{ investigador.openalex_works_counts }}</span> Papers
+            </div>
+          </div>
+          {% endif %}
+          {% if investigador.openalex_cited_by_counts %}
+          <div class="card px-3 py-2">
+            <div class="d-flex align-items-center">
+              <span class="fw-semibold fs-3 me-1">{{ investigador.openalex_cited_by_counts }}</span> Citaciones
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    <hr>
+    {% endif %}
+    <!-- KEYWORDS -->
+    <!-- {% if keywords_investigador %}
+    <h4>Keywords</h4>
+    <div class="px-3">
+      {% for keyword_inv in keywords_investigador %}
+      <span class="badge bg-secondary">{{ keyword_inv.keyword.nombre }}</span>
+      {% endfor %}
+    </div>
+    {% endif %} -->
+  </div>
+</div>
+
+<!-- email anti-scrapper -->
+{% if email %}
+<script>
+var mail = "{{ email.0 }}";
+var host = "{{ email.1 }}";
+var email_span = document.getElementById("email_span");
+email_span.innerHTML = `${mail}@${host}`;
+</script>
+{% endif %}
+
+<!-- Modal invitacion -->
+<div class="modal fade" id="invitacionModal" tabindex="-1" aria-labelledby="invitacionModal" aria-hidden="true">
+  <div class="modal-dialog modal-md" style="margin-top: 10rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="invitacionModalLabel">Crear link invitación usuario</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Crear link -->
+        <div class="mb-3 row">
+          <div class="col-sm-3">
+            <span>Link invitación</span>
+          </div>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-primary" onclick="generar_link()" id="select_generar">Generar</button>
+            <div class="input-group d-none" id="select_valid">
+              <input id="select_link_1" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" disabled >
+              <button type="button" class="btn btn-primary" onclick="copy_link()">Copiar</button>
+            </div>
+            <input type="text" class="form-control d-none" aria-label="Username" aria-describedby="basic-addon1" disabled id="select_link_2">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Eliminar Academico -->
+<div
+  class="modal fade"
+  id="eleminarAcademicoModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="eleminarAcademicoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="eleminarAcademicoModalLabel">
+          Eliminar académico {{academico.nombre}}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-body-text">
+          ¿Estás seguro de eliminar al académico
+          <strong id="academicoNombreEliminar"> {{academico.get_full_name}}</strong>?
+        </p>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <form method="post" action="{% url 'persona:academico_delete' %}">        
+          <input type="hidden" name="academicoId" id="academicoIdEliminar" value="{{ academico.id }}">
+          <input type="hidden" name="unidadId" id="unidadIdEliminar" value="{{ academico.unidad.id }}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'front/academico.js' %}"></script>
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
+
+{% endblock content %}

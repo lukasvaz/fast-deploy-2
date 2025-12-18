@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static 'front/programa_edit.js' %}"></script>
+<script>
+  const initialUnidadId = "{{ unidad.id }}";
+</script>
+<link href="{% static 'css/select2.min.css' %}" rel="stylesheet">
+<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+{{unidades_context|json_script:"unidades_context"}}
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-lg">
+    <div>
+      <span class="fs-3">Editar Programa - {{ grado.nombre }}</span>
+    </div>
+    <hr />
+    <form method="post">
+      {% csrf_token %}
+      <div class="card mb-3">
+        <div class="card-header">Datos del Programa</div>
+        <div class="card-body">
+          <!-- Nombre -->
+          <div class="mb-3 row">
+            <label for="InputNombre" class="col-sm-2 col-form-label">Nombre<span class="text-danger">*</span></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="InputNombre" name="InputNombre" value="{{ grado.nombre_en }}">
+            </div>
+          </div>
+          <!-- Tipo -->
+            <div class="mb-3 row">
+            <label for="InputTipo" class="col-sm-2 col-form-label">Tipo</label>
+            <div class="col-sm-10">
+                <select class="form-select" id="InputTipo" name="InputTipo">
+                {% for value, label in tipo_choices %}
+                    <option value="{{ value }}" {% if grado.tipo == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            </div>
+          <!-- Web -->
+          <div class="mb-3 row">
+            <label for="InputWeb" class="col-sm-2 col-form-label">Página web</label>
+            <div class="col-sm-10">
+              <input type="url" class="form-control" id="InputWeb" name="InputWeb" value="{{ grado.web_site|default_if_none:'' }}">
+            </div>
+          </div>
+          <!-- Fecha de creación -->
+          <div class="mb-3 row">
+            <label for="InputFecha" class="col-sm-2 col-form-label">Fecha de creación</label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" id="InputFecha" name="InputFecha" value="{{ grado.fecha_creacion }}">
+            </div>
+          </div>
+          <!-- Nombre en Español -->
+          <div class="mb-3 row">
+            <label for="InputNombreEs" class="col-sm-2 col-form-label">Nombre (Español)</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="InputNombreEs" name="InputNombreEs" value="{{ grado.nombre_es }}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- UNIDAD ACADEMICA -->
+         <div class="card">
+        <div class="card-header">
+          Información institucional
+        </div>
+        <div class="card-body">
+      <div class="mb-3 row">
+        <label for="InputUnidad" class="col-sm-2 col-form-label">Unidad académica
+        </label>
+        <div class="col-sm-10">
+          <!-- pais -->
+          <div class="mb-3 row">
+        <!-- País Dropdown -->
+        <label for="InputPais" class="col-sm-2 col-form-label">País</label>
+        <div class="col-sm-10">
+          <select class="form-select" id="InputPais" name="InputPais" onchange="updateUnidadesDropdown()">
+            <option value="">Seleccione un país</option>
+            {% for pais, value_ob in unidades_context.items %}
+            <option value="{{ pais }}" {% if unidad.universidad.pais == pais %} selected {% endif %}>{{ value_ob.country_label }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <!-- Unidades Dropdown -->
+        <label for="InputUnidad" class="col-sm-2 col-form-label">Unidad académica</label>
+        <div class="col-sm-10">
+          <select class="form-select" id="InputUnidad" name="InputUnidadId">
+            <option value="">Seleccione una unidad académica</option>
+          </select>
+        </div>
+      </div>
+          <div class="invalid-feedback" id="InputUnidadFeedback"></div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-danger">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}

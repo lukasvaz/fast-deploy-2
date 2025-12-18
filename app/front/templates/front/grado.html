@@ -1,0 +1,202 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-lg">
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- NOMBRE + TIPO +  isValid -->
+          <div class="d-flex align-items-center">
+            <h1><span class="fs-2 me-2">{{ grado.nombre }}</span>
+              {% if grado.web_site %}
+              <a href="{{ grado.web_site}}" target="_blank" class="ms-2" title="Ir al sitio web">
+              </a>
+              {% endif%}
+            </h1>
+
+                {% if grado.tipo %}
+                <span class="fs-5 text-muted ms-2">{{ grado.tipo }}</span>
+                {% endif %}
+                {% if grado.is_verification_pending %}
+              <button type="button"
+                          class="btn btn-link p-0 ms-2"
+                          data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                data-bs-html="true"
+                                title="El sistema en breve validará el grado mediante la URL definida.">
+                          <i class="bi bi-question-circle text-secondary ms-2"></i>
+                        </button>
+                
+      
+              {% elif grado.is_unverified and grado.get_verification_error == 'INVALID_URL'  %}
+              <button type="button"
+              class="btn btn-link p-0 ms-2"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  data-bs-html="true"
+                  title="La URL proporcionada para este grado no es válida .">
+                    <i class="bi bi-exclamation-triangle-fill text-warning ms-2" ></i>
+              </button>
+                  
+              {% elif grado.is_verified %}
+              <button type="button"
+              class="btn btn-link p-0 ms-2"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="bottom"
+                  title="La URL valida el grado  correctamente.">
+                    <i class="bi bi-check-circle-fill text-success ms-2"></i>
+              </button>
+                
+              {% endif %}
+          </div>
+          {% if editable %}
+          <!-- botón si tienes permisos -->
+              <div class="d-flex gap-2">
+                  <button
+                        role="button"
+                        class="btn btn-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#eliminarGradoModal"
+                        data-bs-id="{{grado.id}}"
+                        data-bs-nombre="{{grado.nombre}}"
+                        data-bs-unidad="{{grado.unidad.id}}"
+                    >
+                      <i class="bi bi-trash me-2"></i>Eliminar
+                  </button>
+                  <a role="button" class="btn btn-danger" href="{% url 'grados:grado_edit' grado.id %}">Editar</a>
+              </div>
+            {% endif %}
+      </div>
+    <hr />
+    <!-- Unidad y Universidad -->
+     <h2 class="fs-3">Institución</h2>
+    <div class="d-flex align-items-end px-3">
+      {% if grado.unidad.universidad.foto_escudo %}
+      <div class="me-3">
+        <img src="{% get_media_prefix %}{{ grado.unidad.universidad.foto_escudo }}" style="width:30px; height: 100%; object-fit: contain; object-position: 50% top;" alt="escudo {{grado.unidad.universidad.sigla}}">
+      </div>
+      {% elif grado.unidad.universidad.openalex_institution.openalex_thumbnail_url %}
+      <div class="me-3">
+        <img src="{{ grado.unidad.universidad.openalex_institution.openalex_thumbnail_url }}" style="height: 60px; object-fit: contain; object-position: 50% top; align-self: center;" alt="">
+      </div>
+      {% endif %}
+      <div>
+        
+          {% if universidad %}
+            <span class="fs-5">Institución: </span>
+            <a href="{% url 'front:institucion' universidad.id %}">{{ universidad.nombre }}</a>
+          {% endif %}
+        <p class="mb-0">
+          <span class="fs-5">Unidad: </span>
+          {% if unidad and unidad.nombre %}{{ unidad.nombre }}{% else %}N/A{% endif %}
+        </p>
+        {% if universidad and universidad.pais and universidad.pais != "0" %}
+        <p class="mb-0">
+            <span class="fs-5">Ubicación: </span>
+            {% if grado.unidad.universidad.openalex_institution.openalex_city_name %}
+            <span>{{ grado.unidad.universidad.openalex_institution.openalex_city_name }},</span>
+          {% endif %}
+          <i class="{{ grado.unidad.universidad.pais.flag_css }} me-1"></i>{{ grado.unidad.universidad.pais.name }}
+          {% if grado.unidad.universidad.openalex_institution.openalex_region_latitude and grado.unidad.universidad.openalex_institution.openalex_region_longitude %}
+          <button type="button"
+                  class="btn btn-link p-0 ms-2"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  data-bs-html="true"
+                  title="Latitud: {{ grado.unidad.universidad.openalex_institution.openalex_region_latitude }}<br>Longitud: {{ academico.universidad.openalex_institution.openalex_region_longitude }}">
+            <i class="bi bi-geo-alt-fill"></i>
+          </button>
+        {% endif %}
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    <hr>
+    <!-- Web y otros datos -->
+    <h2 class="fs-3">Información</h2>
+    <div class="px-2">
+      <p class="mb-0">
+        <span class="fs-5">Grado: </span>
+        {% if grado.tipo %}
+          {{grado.get_tipo_display}} ({{ grado.tipo }})
+        {% else %}
+          <span>No disponible</span>
+        {% endif %}
+      </p>
+      <p class="mb-0">
+        <span class="fs-5">Web: </span>
+            {% if grado.web_site %}
+                <a href="{{ grado.web_site }}" target="_blank">{{ grado.web_site }}</a>
+              {% else %}
+                <span>No disponible</span>
+            {% endif %}
+      </p>
+      <p class="mb-0">
+        <span class="fs-5">Fecha Creación: </span>
+          {% if grado.fecha_creacion%}
+            {{ grado.fecha_creacion|date:"Y-m-d" }}
+          {% else %}
+            <span>No disponible</span>
+          {% endif %}
+      </p>
+      <p class="mb-0">
+        <span class="fs-5">Nombre Español: </span>
+         {% if grado.nombre_es %}
+          {{ grado.nombre_es }}
+         {% else %}
+           <span>No disponible</span>
+         {% endif %}
+      </p> 
+    </div>
+   
+  </div>
+</div>
+<div
+    class="modal fade"
+    id="eliminarGradoModal"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    aria-labelledby="eliminarGradoModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog pt-5">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="eliminarGradoModalLabel">
+            Eliminar Programa
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro que deseas eliminar el grado <strong>{{ grado.nombre }}</strong>?</p>
+          <form action="{% url 'grados:grado_delete' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="grado_id" value="{{ grado.id }}">
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+  [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+});
+</script>
+
+{% endblock content %}

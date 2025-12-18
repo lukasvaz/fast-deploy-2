@@ -1,0 +1,19 @@
+<ul class="mb-2 nav nav-pills justify-content-center pt-3 pb-3">
+    {% for d in data %}
+        <li class="nav-item">
+            {% if d.texto == active %}
+                <a class="nav-link active" aria-current="page" href="{{ d.url }}">
+                    {% if d.icono %}<i class="{{ d.icono }} pe-1"></i>{% endif %}
+                    {{ d.texto }}
+                </a>
+            {% else %}
+                <a class="nav-link" href="{{ d.url }}">
+                    {% if d.icono %}<i class="{{ d.icono }} pe-1"></i>{% endif %}
+                    {{ d.texto }}
+                </a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No data provided for nav-pills.</li>
+    {% endfor %}
+</ul>

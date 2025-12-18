@@ -1,0 +1,9 @@
+{% extends "error.html" %} 
+{% load static %}
+
+{% block content %}
+<h1 class="text-center mt-5">No tienes acceso <small>Error 403</small></h1>
+
+<img class="rounded mx-auto d-block mt-5" src="{% static "images/error/403.png" %}" alt="Error 403" height="320px">
+<p class="text-center lead mt-3">You shall not pass!!!</p>
+{% endblock content %}

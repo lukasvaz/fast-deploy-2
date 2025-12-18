@@ -1,0 +1,44 @@
+{% load static %}
+
+<div class="list-group list-group-links" id="listgrouplinks-{{universidad.id}}">
+    {% for pagina in universidad.webpage_academic %}
+    <div class="d-flex">
+      <a
+        href="{{pagina}}"
+        class="list-group-item list-group-item-action"
+        target="_blank"
+        id="list-group-item-action-{{universidad.id}}-{{forloop.counter0}}"
+        >{{pagina}}</a
+      >
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="deletelink('{{universidad.id}}', '{{ forloop.counter0 }}')"
+      >
+        Eliminar
+      </button>
+    </div>
+    {% endfor %}
+    {% if not universidad.webpage_academic %}
+    <div class="d-flex">
+        <input
+          type="url"
+          class="form-control"
+          id="linknuevo"
+          aria-describedby="nuevoLink"
+          placeholder="https://ejemplo.com/personas"
+        >
+        <button
+          type="button"
+          class="btn btn-danger"
+          onclick="savelink('{{universidad.id}}')"
+          id="buttonguardarlink-{{universidad.id}}"
+        >
+          Guardar
+        </button>
+      </div>
+    {% endif  %}
+  </div>
+  {% if not universidad.webpage_academic|length == 10 %}
+  <button type="button" class="btn btn-link" onclick="agregarlink('{{universidad.id}}')">Agregar nuevo</button>
+  {% endif  %}

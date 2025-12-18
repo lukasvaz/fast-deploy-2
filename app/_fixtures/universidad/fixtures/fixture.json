@@ -1,0 +1,2005 @@
+[
+  {
+    "model": "universidad.universidad",
+    "pk": 1,
+    "fields": {
+      "nombre": "Universidad de Chile",
+      "sigla": "UChile",
+      "webpage": "https://www.uchile.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "universidades/uchile_escudo_s48QdE1.png",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://www.dcc.uchile.cl/nosotros/academicos/ajc\", \"https://www.dcc.uchile.cl/nosotros/academicos/ajp\", \"https://www.dcc.uchile.cl/nosotros/academicos/pex\"]",
+      "id_ringgold": "14655",
+      "id_wikidata": "Q232141",
+      "id_ror": "047gc3g35",
+      "id_isni": "0000000403854466",
+      "id_crossref": "501100005853",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:57:22.841Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 2,
+    "fields": {
+      "nombre": "Pontificia Universidad Católica de Chile",
+      "sigla": "UC",
+      "webpage": "https://www.uc.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "universidades/uc_escudo.png",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://dcc.uc.cl/people\"]",
+      "id_ringgold": "28033",
+      "id_wikidata": "Q1129925",
+      "id_ror": "04teye511",
+      "id_isni": "0000000121570406",
+      "id_crossref": "501100009610",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:15.565Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 3,
+    "fields": {
+      "nombre": "Universidad de Concepción",
+      "sigla": "UdeC",
+      "webpage": "https://www.udec.cl",
+      "pais": "CL",
+      "casa_central": "Concepción",
+      "foto_escudo": "universidades/udec_escudo.png",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://fi.udec.cl/pregrado/ingenieria-civil-informatica/academicos/\"]",
+      "id_ringgold": "28056",
+      "id_wikidata": "Q199948",
+      "id_ror": "0460jpj73",
+      "id_isni": "0000000122989663",
+      "id_crossref": "501100006255",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:21.862Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 4,
+    "fields": {
+      "nombre": "Universidad de Santiago de Chile",
+      "sigla": "USACH",
+      "webpage": "https://www.usach.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "universidades/usash_escudo.png",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://www.dmcc.usach.cl/rol_personas/academicos/\", \"https://www.dmcc.usach.cl/rol_personas/academicos/page/2/\", \"https://www.dmcc.usach.cl/rol_personas/academicos/page/3/\", \"https://www.dmcc.usach.cl/rol_personas/academicos/page/4/\", \"https://www.dmcc.usach.cl/rol_personas/academicos/page/5/\"]",
+      "id_ringgold": "28065",
+      "id_wikidata": "Q1259453",
+      "id_ror": "02ma57s91",
+      "id_isni": "0000000121915013",
+      "id_crossref": "100007194",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:28.499Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 5,
+    "fields": {
+      "nombre": "Pontificia Universidad Católica de Valparaíso",
+      "sigla": "PUCV",
+      "webpage": "http://www.ucv.cl/",
+      "pais": "CL",
+      "casa_central": "Valparaíso",
+      "foto_escudo": "universidades/pucv_escudo.png",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://pucv.cl/pucv/pregrado/ingenieria-en-informatica\"]",
+      "id_ringgold": "28047",
+      "id_wikidata": "Q1284408",
+      "id_ror": "02cafbr77",
+      "id_isni": "0000000115375962",
+      "id_crossref": "501100007776",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:34.202Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 6,
+    "fields": {
+      "nombre": "Universidad Adolfo Ibáñez",
+      "sigla": "UAI",
+      "webpage": "https://www.uai.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "universidades/uai_escudo.png",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": true,
+      "webpage_academic": "[\"https://ingenieria.uai.cl/academicos/?area=informatica&buscar=\"]",
+      "id_ringgold": "28034",
+      "id_wikidata": "Q611995",
+      "id_ror": "0326knt82",
+      "id_isni": "0000000121625606",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:39.811Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 7,
+    "fields": {
+      "nombre": "Universidad Diego Portales",
+      "sigla": "UDP",
+      "webpage": "https://www.udp.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "universidades/udp_escudo.png",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://eit.udp.cl/nuestra-escuela/academicos/\"]",
+      "id_ringgold": "11240",
+      "id_wikidata": "Q1316229",
+      "id_ror": "03gtdcg60",
+      "id_isni": "000000012150 3115",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:45.428Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 8,
+    "fields": {
+      "nombre": "Universidad Técnica Federico Santa María",
+      "sigla": "USM",
+      "webpage": "https://usm.cl/",
+      "pais": "CL",
+      "casa_central": "Valparaíso",
+      "foto_escudo": "universidades/usm_escudo.png",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://www.inf.utfsm.cl/investigacion/personas\"]",
+      "id_ringgold": "28090",
+      "id_wikidata": "Q457793",
+      "id_ror": "05510vn56",
+      "id_isni": "000000011958645X",
+      "id_crossref": "100009051",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:51.043Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 9,
+    "fields": {
+      "nombre": "Universidad Austral de Chile",
+      "sigla": "UACH",
+      "webpage": "https://www.uach.cl/",
+      "pais": "CL",
+      "casa_central": "Valdivia",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"http://informatica.uach.cl/profesores/\"]",
+      "id_ringgold": "28040",
+      "id_wikidata": "Q961982",
+      "id_ror": "029ycp228",
+      "id_isni": "000000040487459X",
+      "id_crossref": "501100009833",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:58:55.776Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 10,
+    "fields": {
+      "nombre": "Universidad de Talca",
+      "sigla": "UTalca",
+      "webpage": "https://www.utalca.cl/",
+      "pais": "CL",
+      "casa_central": "Talca",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://ingenieria.utalca.cl/Participante/AcademicosConMiniatura?pagina=1&cantidadResultados=300\"]",
+      "id_ringgold": "28066",
+      "id_wikidata": "Q3551328",
+      "id_ror": "01s4gpq44",
+      "id_isni": "0000000100362536",
+      "id_crossref": "501100010599",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:01.467Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 11,
+    "fields": {
+      "nombre": "Universidad de la Frontera",
+      "sigla": "UFRO",
+      "webpage": "https://www.ufro.cl/",
+      "pais": "CL",
+      "casa_central": "Temuco",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://fica.ufro.cl/wp-content/uploads/2018/03/Depto.-de-Ciencias-de-la-Computaci%c3%b3n-e-Inform%c3%a1tica.pdf\"]",
+      "id_ringgold": "28057",
+      "id_wikidata": "Q3551326",
+      "id_ror": "04v0snf24",
+      "id_isni": "0000000122879552",
+      "id_crossref": "501100005916",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:08.098Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 12,
+    "fields": {
+      "nombre": "Universidad de los Andes",
+      "sigla": "UANDES",
+      "webpage": "https://www.uandes.cl/",
+      "pais": "CL",
+      "casa_central": "Las Condes",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://www.uandes.cl/carrera/ingenieria-civil-en-ciencias-de-la-computacion/academicos/\"]",
+      "id_ringgold": "28060",
+      "id_wikidata": "Q940031",
+      "id_ror": "03v0qd864",
+      "id_isni": "0000000404876659",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:13.740Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 13,
+    "fields": {
+      "nombre": "Universidad de Valparaíso",
+      "sigla": "UV",
+      "webpage": "https://uv.cl/",
+      "pais": "CL",
+      "casa_central": "Valparaíso",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://informatica.uv.cl/escuela/academicos-jornada-completa\"]",
+      "id_ringgold": "28068",
+      "id_wikidata": "Q1546014",
+      "id_ror": "00h9jrb69",
+      "id_isni": "0000000089124050",
+      "id_crossref": "501100004427",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:18.980Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 14,
+    "fields": {
+      "nombre": "Universidad Andrés Bello",
+      "sigla": "UNAB",
+      "webpage": "https://www.unab.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28087",
+      "id_wikidata": "Q3348434",
+      "id_ror": "01qq57711",
+      "id_isni": "000000012156804X",
+      "id_crossref": "501100013908",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:24.368Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 15,
+    "fields": {
+      "nombre": "Universidad Católica del Norte",
+      "sigla": "UCN",
+      "webpage": "https://www.ucn.cl/",
+      "pais": "CL",
+      "casa_central": "Antofagasta",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28049",
+      "id_wikidata": "Q3244385",
+      "id_ror": "02akpm128",
+      "id_isni": "000000012291598X",
+      "id_crossref": "100019344",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:29.359Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 16,
+    "fields": {
+      "nombre": "Universidad del Desarrollo",
+      "sigla": "UDD",
+      "webpage": "https://www.udd.cl/",
+      "pais": "CL",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": true,
+      "webpage_academic": "[\"https://ingenieria.udd.cl/carrera/ingenieria-civil-en-informatica-e-innovacion-tecnologica/academicos/\"]",
+      "id_ringgold": "28071",
+      "id_wikidata": "Q1778689",
+      "id_ror": "05y33vv83",
+      "id_isni": "0000000096314901",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:34.314Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 17,
+    "fields": {
+      "nombre": "Universidad del Bío-Bío",
+      "sigla": "UBB",
+      "webpage": "https://www.ubiobio.cl/",
+      "pais": "CL",
+      "casa_central": "Concepción",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://www.mcc.ubiobio.cl/web/pages-academicos.php\"]",
+      "id_ringgold": "70129",
+      "id_wikidata": "Q38779",
+      "id_ror": "04dndfk38",
+      "id_isni": "0000000121632064",
+      "id_crossref": "501100008785",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:41.396Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 18,
+    "fields": {
+      "nombre": "Universidad de Antofagasta",
+      "sigla": "UA",
+      "webpage": "https://www.uantof.cl/",
+      "pais": "CL",
+      "casa_central": "Antofagasta",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28052",
+      "id_wikidata": "Q3077517",
+      "id_ror": "04eyc6d95",
+      "id_isni": "000000010494535X",
+      "id_crossref": "501100012655",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:48.224Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 19,
+    "fields": {
+      "nombre": "Universidad de la Serena",
+      "sigla": "ULS",
+      "webpage": "https://userena.cl/",
+      "pais": "CL",
+      "casa_central": "La Serena",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28058",
+      "id_wikidata": "Q3551327",
+      "id_ror": "01ht74751",
+      "id_isni": "0000000101619268",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T04:59:53.438Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 20,
+    "fields": {
+      "nombre": "Universidad de Tarapacá",
+      "sigla": "UTA",
+      "webpage": "https://www.uta.cl/",
+      "pais": "CL",
+      "casa_central": "Arica",
+      "foto_escudo": "uploads/duo_taracapa-300x300.jpg",
+      "foto_banner": "uploads/banner-u_tarapaca.jpg",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://dici.uta.cl/departamento/academicos/\"]",
+      "id_ringgold": "28067",
+      "id_wikidata": "Q3138071",
+      "id_ror": "04xe01d27",
+      "id_isni": "0000000121790636",
+      "id_crossref": "501100007328",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:03.328Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 21,
+    "fields": {
+      "nombre": "Universidad Autónoma de Chile",
+      "sigla": "UA",
+      "webpage": "https://www.uautonoma.cl/",
+      "pais": "CL",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "125381",
+      "id_wikidata": "Q9091535",
+      "id_ror": "010r9dy59",
+      "id_isni": "0000000107659762",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:10.043Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 22,
+    "fields": {
+      "nombre": "Universidad Arturo Prat",
+      "sigla": "UNAP",
+      "webpage": "http://www.unap.cl",
+      "pais": "CL",
+      "casa_central": "Iquique",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28035",
+      "id_wikidata": "Q3551323",
+      "id_ror": "01hrxxx24",
+      "id_isni": "0000000091534251",
+      "id_crossref": "501100019586",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:16.325Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 23,
+    "fields": {
+      "nombre": "Universidad de Atacama",
+      "sigla": "UDA",
+      "webpage": "http://www.uda.cl",
+      "pais": "CL",
+      "casa_central": "Copiapó",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28054",
+      "id_wikidata": "Q7895095",
+      "id_ror": "022yres73",
+      "id_isni": "0000000122287602",
+      "id_crossref": "501100005745",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:21.724Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 24,
+    "fields": {
+      "nombre": "Universidad de Playa Ancha de Ciencias de la Educación",
+      "sigla": "UPLA",
+      "webpage": "https://www.upla.cl/",
+      "pais": "CL",
+      "casa_central": "Valparaíso",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28063",
+      "id_wikidata": "Q634259",
+      "id_ror": "0171wr661",
+      "id_isni": "0000000106942144",
+      "id_crossref": "501100009547",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:27.624Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 25,
+    "fields": {
+      "nombre": "Universidad Metropolitana de Ciencias de la Educación",
+      "sigla": "UMCE",
+      "webpage": "http://www.umce.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28085",
+      "id_wikidata": "Q6825306",
+      "id_ror": "057anza51",
+      "id_isni": "000000012195029X",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:33.336Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 26,
+    "fields": {
+      "nombre": "Universidad Tecnológica Metropolitana",
+      "sigla": "UTEM",
+      "webpage": "https://www.utem.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28092",
+      "id_wikidata": "Q6825309",
+      "id_ror": "04bpsn575",
+      "id_isni": "0000000115197844",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:39.402Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 27,
+    "fields": {
+      "nombre": "Universidad Alberto Hurtado",
+      "sigla": "UAH",
+      "webpage": "https://www.uahurtado.cl/",
+      "pais": "CL",
+      "casa_central": "Santiago",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28038",
+      "id_wikidata": "Q4712073",
+      "id_ror": "00749za89",
+      "id_isni": "0000000121791719",
+      "id_crossref": "501100018803",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:44.601Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 28,
+    "fields": {
+      "nombre": "Universidad de O’Higgins",
+      "sigla": "UOH",
+      "webpage": "https://www.uoh.cl/",
+      "pais": "CL",
+      "casa_central": "Rancagua",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28042",
+      "id_wikidata": "Q21284627",
+      "id_ror": "044cse639",
+      "id_isni": "0000000464818274",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:49.507Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 29,
+    "fields": {
+      "nombre": "Universidad Católica del Maule",
+      "sigla": "UCM",
+      "webpage": "https://www.ucm.cl",
+      "pais": "CL",
+      "casa_central": "Talca",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28048",
+      "id_wikidata": "Q5053274",
+      "id_ror": "04vdpck27",
+      "id_isni": "0000000122240804",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:00:55.126Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 30,
+    "fields": {
+      "nombre": "Universidad Católica de la Santísima Concepción",
+      "sigla": "UCSC",
+      "webpage": "https://www.ucsc.cl/",
+      "pais": "CL",
+      "casa_central": "Concepción",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28045",
+      "id_wikidata": "Q1251039",
+      "id_ror": "03y6k2j68",
+      "id_isni": "0000000121999982",
+      "id_crossref": "501100005631",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:01:00.657Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 31,
+    "fields": {
+      "nombre": "Universidad Católica de Temuco",
+      "sigla": "UCT",
+      "webpage": "https://www.uct.cl/",
+      "pais": "CL",
+      "casa_central": "Temuco",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28046",
+      "id_wikidata": "Q2744138",
+      "id_ror": "051nvp675",
+      "id_isni": "0000000121681907",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:01:06.429Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 32,
+    "fields": {
+      "nombre": "Universidad de los Lagos",
+      "sigla": "ULagos",
+      "webpage": "https://www.ulagos.cl",
+      "pais": "CL",
+      "casa_central": "Osorno",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "28061",
+      "id_wikidata": "Q7895645",
+      "id_ror": "05jk8e518",
+      "id_isni": "0000000122959069",
+      "id_crossref": "501100019702",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:01:20.945Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 33,
+    "fields": {
+      "nombre": "Universidad de Aysén",
+      "sigla": "UAysén",
+      "webpage": "https://www.uaysen.cl/",
+      "pais": "CL",
+      "casa_central": "Coyhaique",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[]",
+      "id_ringgold": "509878",
+      "id_wikidata": "Q23073238",
+      "id_ror": "05bpd1c44",
+      "id_isni": "0000000463647645",
+      "id_crossref": null,
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:01:25.948Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 34,
+    "fields": {
+      "nombre": "Universidad de Magallanes",
+      "sigla": "UMAG",
+      "webpage": "http://www.umag.cl/",
+      "pais": "CL",
+      "casa_central": "Punta Arenas",
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": true,
+      "is_manual": true,
+      "webpage_academic": "[\"https://www.fing.edu.uy/es/inco/institucional/docentes\"]",
+      "id_ringgold": "28062",
+      "id_wikidata": "Q5947836",
+      "id_ror": "049784n50",
+      "id_isni": "0000000122871761",
+      "id_crossref": "501100008792",
+      "created_date": "2023-05-22T01:40:45.860Z",
+      "modified_date": "2023-06-13T05:01:30.765Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 35,
+    "fields": {
+      "nombre": "Instituto Nacional de Astrofisica, Optica y Electronica",
+      "sigla": "INAOE",
+      "webpage": "https://www.inaoep.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://ccc.inaoep.mx/directorio-de-investigadores-y-personal/investigadores\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-13T07:44:24.536Z",
+      "modified_date": "2023-06-13T07:45:40.014Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 36,
+    "fields": {
+      "nombre": "Instituto Tecnológico Autónomo de México",
+      "sigla": "ITAM",
+      "webpage": "https://www.itam.mx",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://dac.itam.mx/es/facultad-departamento-computacion\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-13T08:15:22.277Z",
+      "modified_date": "2023-06-13T08:15:50.315Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 37,
+    "fields": {
+      "nombre": "Instituto Politécnico Nacional",
+      "sigla": "IPN",
+      "webpage": "https://www.ipn.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://www.cic.ipn.mx/index.php/investigadores\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T22:39:43.250Z",
+      "modified_date": "2023-06-14T22:40:31.962Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 38,
+    "fields": {
+      "nombre": "Centro de Investigación en Matemáticas, A.C.",
+      "sigla": "CIMAT",
+      "webpage": "https://www.cimat.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://www.cimat.mx/investigacion/ciencias-de-la-computacion/\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T22:43:22.395Z",
+      "modified_date": "2023-06-14T22:43:36.866Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 39,
+    "fields": {
+      "nombre": "Universidad Nacional Autonoma de Mexico",
+      "sigla": "UNAM",
+      "webpage": "https://www.unam.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"http://www.mcc.unam.mx/tutoresarea.php\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T22:51:53.371Z",
+      "modified_date": "2023-06-14T22:53:52.106Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 40,
+    "fields": {
+      "nombre": "Centro de Investigación Científica y de Educación Superior de Ensenada, Baja California ",
+      "sigla": "CICESE",
+      "webpage": "https://www.cicese.edu.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://www.cicese.edu.mx/investigacion/ciencias_de_la_computacion/1\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T23:10:07.160Z",
+      "modified_date": "2023-06-14T23:10:42.731Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 41,
+    "fields": {
+      "nombre": "Laboratorio Nacional de Informatica Avanzada",
+      "sigla": "LANIA",
+      "webpage": "https://www.lania.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://www.lania.mx/?page_id=8107\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T23:17:05.607Z",
+      "modified_date": "2023-06-14T23:17:33.209Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 42,
+    "fields": {
+      "nombre": "Universidad Autonoma de Baja California",
+      "sigla": "UABC",
+      "webpage": "https://www.uabc.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://ciencias.ens.uabc.mx/?page_id=645\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T23:24:52.554Z",
+      "modified_date": "2023-06-14T23:25:00.860Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 43,
+    "fields": {
+      "nombre": "Universidad Autonoma Metropolitana",
+      "sigla": "UAM",
+      "webpage": "https://www.uam.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"http://hermes.cua.uam.mx/Directorio\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T23:32:03.558Z",
+      "modified_date": "2023-06-14T23:33:07.617Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 44,
+    "fields": {
+      "nombre": "Universidad Tecnologica de la Mixteca",
+      "sigla": "UTM",
+      "webpage": "https://www.utm.mx/",
+      "pais": "MX",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://www.utm.mx/investigadores.html\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-14T23:50:13.379Z",
+      "modified_date": "2023-06-14T23:50:53.576Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.universidad",
+    "pk": 45,
+    "fields": {
+      "nombre": "Universidad Nacional",
+      "sigla": "UNA",
+      "webpage": "https://www.una.ac.cr/",
+      "pais": "CR",
+      "casa_central": null,
+      "foto_escudo": "",
+      "foto_banner": "",
+      "is_cruch": false,
+      "is_manual": false,
+      "webpage_academic": "[\"https://www.escinf.una.ac.cr/infoarm/acceso_publico/consulta_academicos_activos.php\"]",
+      "id_ringgold": "",
+      "id_wikidata": "",
+      "id_ror": "",
+      "id_isni": "",
+      "id_crossref": "",
+      "created_date": "2023-06-16T03:23:55.939Z",
+      "modified_date": "2023-06-16T03:39:32.892Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 1,
+    "fields": {
+      "universidad": 1,
+      "nombre": "Departamento de Ciencias de la Computación",
+      "sigla": "dcc",
+      "webpage": "https://www.dcc.uchile.cl/",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-07-04T04:04:27.220Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 2,
+    "fields": {
+      "universidad": 2,
+      "nombre": "Departamento de Ciencia de la Computación",
+      "sigla": "dcc",
+      "webpage": "https://dcc.ing.puc.cl/",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-06-09T04:14:04.882Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 3,
+    "fields": {
+      "universidad": 4,
+      "nombre": "Departamento de Matemática y Ciencia de la Computación",
+      "sigla": "dmcc",
+      "webpage": "https://www.dmcc.usach.cl/",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T07:03:50.631Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 4,
+    "fields": {
+      "universidad": 7,
+      "nombre": "Escuela de Informática y Telecomunicaciones",
+      "sigla": "eit",
+      "webpage": "https://eit.udp.cl/",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T02:38:47.054Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 5,
+    "fields": {
+      "universidad": 8,
+      "nombre": "Departamento de Informática",
+      "sigla": "inf",
+      "webpage": "https://www.inf.utfsm.cl/",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T07:32:54.381Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 6,
+    "fields": {
+      "universidad": 2,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-28T08:17:12.157Z",
+      "is_deleted": true
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 7,
+    "fields": {
+      "universidad": 5,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T02:34:46.822Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 8,
+    "fields": {
+      "universidad": 6,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T07:23:51.939Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 9,
+    "fields": {
+      "universidad": 27,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 10,
+    "fields": {
+      "universidad": 14,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 11,
+    "fields": {
+      "universidad": 22,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 12,
+    "fields": {
+      "universidad": 9,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T02:46:43.537Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 13,
+    "fields": {
+      "universidad": 21,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 14,
+    "fields": {
+      "universidad": 31,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 15,
+    "fields": {
+      "universidad": 30,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 16,
+    "fields": {
+      "universidad": 29,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 17,
+    "fields": {
+      "universidad": 15,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 18,
+    "fields": {
+      "universidad": 7,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 19,
+    "fields": {
+      "universidad": 25,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 20,
+    "fields": {
+      "universidad": 26,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 21,
+    "fields": {
+      "universidad": 8,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 22,
+    "fields": {
+      "universidad": 18,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 23,
+    "fields": {
+      "universidad": 23,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 24,
+    "fields": {
+      "universidad": 33,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 25,
+    "fields": {
+      "universidad": 1,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T04:55:09.854Z",
+      "is_deleted": true
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 26,
+    "fields": {
+      "universidad": 3,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T01:26:29.007Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 27,
+    "fields": {
+      "universidad": 34,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 28,
+    "fields": {
+      "universidad": 28,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 29,
+    "fields": {
+      "universidad": 24,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 30,
+    "fields": {
+      "universidad": 4,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 31,
+    "fields": {
+      "universidad": 10,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T02:56:13.665Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 32,
+    "fields": {
+      "universidad": 20,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T03:52:55.031Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 33,
+    "fields": {
+      "universidad": 13,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T03:43:08.772Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 34,
+    "fields": {
+      "universidad": 11,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T03:39:51.148Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 35,
+    "fields": {
+      "universidad": 19,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 36,
+    "fields": {
+      "universidad": 12,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T03:40:38.099Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 37,
+    "fields": {
+      "universidad": 32,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-22T01:40:45.857Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 38,
+    "fields": {
+      "universidad": 17,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T03:50:05.839Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 39,
+    "fields": {
+      "universidad": 16,
+      "nombre": "null",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": true,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-05-29T03:46:45.572Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 40,
+    "fields": {
+      "universidad": 1,
+      "nombre": "Unidad de Test",
+      "sigla": "test",
+      "webpage": "http://test3.cl",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-05-22T01:40:45.845Z",
+      "modified_date": "2023-06-02T20:22:40.995Z",
+      "is_deleted": true
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 41,
+    "fields": {
+      "universidad": 35,
+      "nombre": "",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-13T07:45:21.960Z",
+      "modified_date": "2023-06-13T07:45:21.960Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 42,
+    "fields": {
+      "universidad": 36,
+      "nombre": "Departamento Académico de Computación",
+      "sigla": "DAC",
+      "webpage": "https://dac.itam.mx",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-13T08:15:22.279Z",
+      "modified_date": "2023-06-13T08:38:13.370Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 43,
+    "fields": {
+      "universidad": 37,
+      "nombre": "Centro de Investigacion en Computacion",
+      "sigla": "CIC",
+      "webpage": "https://www.cic.ipn.mx/",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T22:39:43.253Z",
+      "modified_date": "2023-06-14T22:40:22.776Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 44,
+    "fields": {
+      "universidad": 38,
+      "nombre": "",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T22:43:22.399Z",
+      "modified_date": "2023-06-14T22:43:22.399Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 45,
+    "fields": {
+      "universidad": 39,
+      "nombre": "",
+      "sigla": "MCC",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T22:51:53.372Z",
+      "modified_date": "2023-06-14T22:53:39.562Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 46,
+    "fields": {
+      "universidad": 40,
+      "nombre": "",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T23:10:07.162Z",
+      "modified_date": "2023-06-14T23:10:07.162Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 47,
+    "fields": {
+      "universidad": 41,
+      "nombre": "",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T23:17:05.610Z",
+      "modified_date": "2023-06-14T23:17:05.610Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 48,
+    "fields": {
+      "universidad": 42,
+      "nombre": "",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T23:24:52.557Z",
+      "modified_date": "2023-06-14T23:24:52.557Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 49,
+    "fields": {
+      "universidad": 43,
+      "nombre": "",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T23:32:03.560Z",
+      "modified_date": "2023-06-14T23:32:03.560Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 50,
+    "fields": {
+      "universidad": 44,
+      "nombre": "",
+      "sigla": "",
+      "webpage": "",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-14T23:50:13.381Z",
+      "modified_date": "2023-06-14T23:50:13.381Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.unidad",
+    "pk": 51,
+    "fields": {
+      "universidad": 45,
+      "nombre": "Escuela de Informática",
+      "sigla": "ESCINF",
+      "webpage": "https://www.escinf.una.ac.cr/",
+      "foto_escudo": "",
+      "is_manual": false,
+      "created_date": "2023-06-16T03:23:55.943Z",
+      "modified_date": "2023-06-16T03:24:38.105Z",
+      "is_deleted": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucion",
+    "pk": 1,
+    "fields": { "user": 5, "institucion": 1 }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "0225b95d-0171-4cc6-8c51-db86884412e1",
+    "fields": {
+      "institucion": 37,
+      "expiration": "2023-06-27T04:25:04.412Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "031aa458-f24c-4f27-bd20-2b82679d6aaf",
+    "fields": {
+      "institucion": 37,
+      "expiration": "2023-06-27T04:27:23.247Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "044b2d63-2daa-4558-9289-5adbec1ebbdd",
+    "fields": {
+      "institucion": 35,
+      "expiration": "2023-06-27T04:27:14.312Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "08941e35-0251-41f1-958b-afcef654926a",
+    "fields": {
+      "institucion": 1,
+      "expiration": "2023-06-27T02:39:15.587Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "2020dc6a-cf81-45b1-ad20-1655de4348dc",
+    "fields": {
+      "institucion": 1,
+      "expiration": "2023-06-27T04:21:34.695Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "3b09dadf-433c-4316-ac36-bc11142aec05",
+    "fields": {
+      "institucion": 35,
+      "expiration": "2023-06-27T04:31:38.442Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "4d305923-209f-4d5e-bee2-3fe93414040b",
+    "fields": {
+      "institucion": 35,
+      "expiration": "2023-06-27T04:26:16.575Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "747b3a8a-4208-4d27-9671-c65a9fb73aeb",
+    "fields": {
+      "institucion": 14,
+      "expiration": "2023-06-27T07:46:23.081Z",
+      "is_confirmed": true
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "84296491-8267-4fd0-a0eb-f3e8aa7ca7e2",
+    "fields": {
+      "institucion": 35,
+      "expiration": "2023-06-27T04:29:57.945Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "8fa85285-ccd6-4ca4-96ad-7a6e3640ba08",
+    "fields": {
+      "institucion": 1,
+      "expiration": "2023-06-27T05:10:24.677Z",
+      "is_confirmed": true
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "9ccb322c-d81c-4aa3-b523-a62a672d9623",
+    "fields": {
+      "institucion": 37,
+      "expiration": "2023-06-27T04:27:38.371Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "a51b843d-b08d-4a8b-b032-939ca7800838",
+    "fields": {
+      "institucion": 1,
+      "expiration": "2023-06-27T04:33:22.818Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "bc389201-a791-4463-a170-d45b2c2a4116",
+    "fields": {
+      "institucion": 36,
+      "expiration": "2023-06-27T04:28:20.975Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "d4825154-bbe9-44f8-bb7f-6560e6245691",
+    "fields": {
+      "institucion": 41,
+      "expiration": "2023-06-27T04:26:26.261Z",
+      "is_confirmed": false
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "d90716bf-4372-4b2a-b1f0-961e9f61f7b1",
+    "fields": {
+      "institucion": 1,
+      "expiration": "2023-06-27T05:52:11.694Z",
+      "is_confirmed": true
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "ec85d8c7-6680-4060-aaaa-3e91ee17ee2a",
+    "fields": {
+      "institucion": 1,
+      "expiration": "2023-06-27T05:05:10.979Z",
+      "is_confirmed": true
+    }
+  },
+  {
+    "model": "universidad.secretarioinstitucioninvitacion",
+    "pk": "fcc90313-1ccb-40b6-b2f3-bab87242233e",
+    "fields": {
+      "institucion": 36,
+      "expiration": "2023-06-27T04:26:59.826Z",
+      "is_confirmed": false
+    }
+  }
+]

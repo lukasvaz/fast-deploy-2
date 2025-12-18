@@ -1,0 +1,64 @@
+{% load static %}
+<div class="h-100 p-3 text-bg-dark mt-1 ms-1" style="width: 280px; height: 80vh">
+  <a
+    href="#"
+    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+  >
+    <span class="fs-4">Administración</span>
+  </a>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+    {% if request.resolver_match.url_name == 'index' %}
+    <a href="{% url 'front:index' %}" class="nav-link active" aria-current="page">
+    {% else %}
+    <a href="{% url 'front:index' %}" class="nav-link text-white" aria-current="page">
+    {% endif %}
+        <i class="bi bi-house-door pe-none me-2"></i>
+        Inicio
+      </a>
+    </li>
+    <li>
+    <li class="nav-item">
+      {% if request.resolver_match.url_name == 'data' %}
+      <a href="{% url 'front:data' %}" class="nav-link active" aria-current="page">
+      {% else %}
+      <a href="{% url 'front:data' %}" class="nav-link text-white" aria-current="page">
+      {% endif %}
+          <i class="bi bi-pen pe-none me-2"></i>
+          Modificar Datos
+        </a>
+      </li>
+      <li>
+    {% if request.resolver_match.url_name == 'stats' %}
+    <a href="{% url 'front:stats' %}" class="nav-link active" aria-current="page">
+    {% else %}
+    <a href="{% url 'front:stats' %}" class="nav-link text-white" aria-current="page">
+    {% endif %}
+        <i class="bi bi-bar-chart pe-none me-2"></i>
+        Estadísticas
+      </a>
+    </li>
+    <li>
+    {% if request.resolver_match.url_name == 'etl' %}
+    <a href="{% url 'front:etl' %}" class="nav-link active" aria-current="page">
+    {% else %}
+    <a href="{% url 'front:etl' %}" class="nav-link text-white" aria-current="page">
+    {% endif %}
+        <i class="bi bi-motherboard pe-none me-2"></i>
+        ETL
+      </a>
+    </li>
+    <li>
+    {% if request.resolver_match.url_name == 'backup' %}
+    <a href="{% url 'front:backup' %}" class="nav-link active" aria-current="page">
+    {% else %}
+    <a href="{% url 'front:backup' %}" class="nav-link text-white" aria-current="page">
+    {% endif %}
+        <i class="bi bi-database pe-none me-2"></i>
+        Respaldo
+      </a>
+    </li>
+  </ul>
+  <hr />
+</div>

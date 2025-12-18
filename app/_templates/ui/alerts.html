@@ -1,0 +1,37 @@
+{% if messages %}
+    {% for message in messages %}
+        {% if message.level_tag == "success" %}
+            <div class="alert alert-success alert-dismissible fade show text-center"
+                 role="alert">
+                <i class="bi bi-check-circle-fill pe-1"></i>
+            {% elif message.level_tag == "warning" %}
+                <div class="alert alert-warning alert-dismissible fade show text-center"
+                     role="alert">
+                    <i class="bi bi-exclamation-circle-fill pe-1"></i>
+                {% elif message.level_tag == "info" %}
+                    <div class="alert alert-info alert-dismissible fade show text-center"
+                         role="alert">
+                        <i class="bi bi-info-circle-fill pe-1"></i>
+                    {% elif message.level_tag == "error" %}
+                        <div class="alert alert-danger alert-dismissible fade show text-center"
+                             role="alert">
+                            <i class="bi bi-radioactive pe-1"></i>
+                        {% endif %}
+                        <strong>{{ message|safe }}</strong>
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <style>
+    .alert {
+        opacity: 0.85;
+    }
+            </style>
+            <script>
+    $(".alert").delay(5500).slideUp(450, function() {
+        $(this).alert('close');
+    });
+            </script>

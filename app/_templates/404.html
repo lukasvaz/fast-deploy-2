@@ -1,0 +1,9 @@
+{% extends "error.html" %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-center mt-5">Página no encontrada <small>Error 404</small></h1>
+
+<img class="rounded mx-auto d-block mt-5" src="{% static "images/error/404.png" %}" alt="Error 404" height="320px">
+<p class="text-center lead mt-3 bold">But we found Wally!</p>
+{% endblock content %}

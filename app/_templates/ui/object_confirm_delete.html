@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+<form method="POST">
+    {% csrf_token %}
+    <p>
+        {% if not texto %}
+            Está seguro que quiere eliminar "{{ object }}"?
+        {% else %}
+            {{ texto }}
+        {% endif %}
+    </p>
+    <input class="btn btn-danger" type="submit" value="Eliminar">
+    <a class="btn btn-secondary" href="{{ cancel_url }}">Cancelar</a>
+</form>

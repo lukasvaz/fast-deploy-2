@@ -1,0 +1,3130 @@
+[
+  {
+    "model": "persona.area",
+    "pk": 12,
+    "fields": {
+      "nombre": "Applied Computing",
+      "nombre_es": "Applied Computing",
+      "nombre_en": "Applied Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 13,
+    "fields": {
+      "nombre": "Computer Vision And Multimedia Computation",
+      "nombre_es": "Computer Vision And Multimedia Computation",
+      "nombre_en": "Computer Vision And Multimedia Computation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 14,
+    "fields": {
+      "nombre": "Cybersecurity And Privacy",
+      "nombre_es": "Cybersecurity And Privacy",
+      "nombre_en": "Cybersecurity And Privacy",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 15,
+    "fields": {
+      "nombre": "Data Management And Data Science",
+      "nombre_es": "Data Management And Data Science",
+      "nombre_en": "Data Management And Data Science",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 16,
+    "fields": {
+      "nombre": "Distributed Computing And Systems Software",
+      "nombre_es": "Distributed Computing And Systems Software",
+      "nombre_en": "Distributed Computing And Systems Software",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 17,
+    "fields": {
+      "nombre": "Graphics, Augmented Reality And Games",
+      "nombre_es": "Graphics, Augmented Reality And Games",
+      "nombre_en": "Graphics, Augmented Reality And Games",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 18,
+    "fields": {
+      "nombre": "Human-Centred Computing",
+      "nombre_es": "Human-Centred Computing",
+      "nombre_en": "Human-Centred Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 19,
+    "fields": {
+      "nombre": "Information Systems",
+      "nombre_es": "Information Systems",
+      "nombre_en": "Information Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 20,
+    "fields": {
+      "nombre": "Library And Information Studies",
+      "nombre_es": "Library And Information Studies",
+      "nombre_en": "Library And Information Studies",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 21,
+    "fields": {
+      "nombre": "Theory Of Computation",
+      "nombre_es": "Theory Of Computation",
+      "nombre_en": "Theory Of Computation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 23,
+    "fields": {
+      "nombre": "Artificial Intelligence",
+      "nombre_es": "Artificial Intelligence",
+      "nombre_en": "Artificial Intelligence",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 24,
+    "fields": {
+      "nombre": "Computer System Structure",
+      "nombre_es": "Computer System Structure",
+      "nombre_en": "Computer System Structure",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 25,
+    "fields": {
+      "nombre": "Computer Software",
+      "nombre_es": "Computer Software",
+      "nombre_en": "Computer Software",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 26,
+    "fields": {
+      "nombre": "Computer Engineering",
+      "nombre_es": "Computer Engineering",
+      "nombre_en": "Computer Engineering",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 28,
+    "fields": {
+      "nombre": "Computer architecture",
+      "nombre_es": "Computer architecture",
+      "nombre_en": "Computer architecture",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 29,
+    "fields": {
+      "nombre": "Computer hardware technology",
+      "nombre_es": "Computer hardware technology",
+      "nombre_en": "Computer hardware technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 30,
+    "fields": {
+      "nombre": "Computer application technology",
+      "nombre_es": "Computer application technology",
+      "nombre_en": "Computer application technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.area",
+    "pk": 31,
+    "fields": {
+      "nombre": "Information safety",
+      "nombre_es": "Information safety",
+      "nombre_en": "Information safety",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1484,
+    "fields": {
+      "area": 12,
+      "nombre": "Document Management And Text Processing",
+      "nombre_es": "Document Management And Text Processing",
+      "nombre_en": "Document Management And Text Processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1485,
+    "fields": {
+      "area": 12,
+      "nombre": "Education",
+      "nombre_es": "Education",
+      "nombre_en": "Education",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1486,
+    "fields": {
+      "area": 12,
+      "nombre": "Arts And Humanities",
+      "nombre_es": "Arts And Humanities",
+      "nombre_en": "Arts And Humanities",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1487,
+    "fields": {
+      "area": 12,
+      "nombre": "Computer Forensics",
+      "nombre_es": "Computer Forensics",
+      "nombre_en": "Computer Forensics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1488,
+    "fields": {
+      "area": 12,
+      "nombre": "Law, Social And Behavioral Sciences",
+      "nombre_es": "Law, Social And Behavioral Sciences",
+      "nombre_en": "Law, Social And Behavioral Sciences",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1489,
+    "fields": {
+      "area": 12,
+      "nombre": "Life And Medical Sciences",
+      "nombre_es": "Life And Medical Sciences",
+      "nombre_en": "Life And Medical Sciences",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1490,
+    "fields": {
+      "area": 12,
+      "nombre": "Physical Sciences And Engineering",
+      "nombre_es": "Physical Sciences And Engineering",
+      "nombre_en": "Physical Sciences And Engineering",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1491,
+    "fields": {
+      "area": 12,
+      "nombre": "Enterprise Computing",
+      "nombre_es": "Enterprise Computing",
+      "nombre_en": "Enterprise Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1492,
+    "fields": {
+      "area": 13,
+      "nombre": "Active Sensing",
+      "nombre_es": "Active Sensing",
+      "nombre_en": "Active Sensing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1493,
+    "fields": {
+      "area": 13,
+      "nombre": "Audio Processing",
+      "nombre_es": "Audio Processing",
+      "nombre_en": "Audio Processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1494,
+    "fields": {
+      "area": 13,
+      "nombre": "Computational Imaging",
+      "nombre_es": "Computational Imaging",
+      "nombre_en": "Computational Imaging",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1495,
+    "fields": {
+      "area": 13,
+      "nombre": "Computer Vision",
+      "nombre_es": "Computer Vision",
+      "nombre_en": "Computer Vision",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1496,
+    "fields": {
+      "area": 13,
+      "nombre": "Image And Video Coding",
+      "nombre_es": "Image And Video Coding",
+      "nombre_en": "Image And Video Coding",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1497,
+    "fields": {
+      "area": 13,
+      "nombre": "Multimodal Analysis And Synthesis",
+      "nombre_es": "Multimodal Analysis And Synthesis",
+      "nombre_en": "Multimodal Analysis And Synthesis",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1498,
+    "fields": {
+      "area": 13,
+      "nombre": "Video Processing",
+      "nombre_es": "Video Processing",
+      "nombre_en": "Video Processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1499,
+    "fields": {
+      "area": 13,
+      "nombre": "Computer Vision And Multimedia Computation Not Elsewhere Classified",
+      "nombre_es": "Computer Vision And Multimedia Computation Not Elsewhere Classified",
+      "nombre_en": "Computer Vision And Multimedia Computation Not Elsewhere Classified",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1500,
+    "fields": {
+      "area": 14,
+      "nombre": "Human And Societal Aspects Of Security And Privacy",
+      "nombre_es": "Human And Societal Aspects Of Security And Privacy",
+      "nombre_en": "Human And Societal Aspects Of Security And Privacy",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1501,
+    "fields": {
+      "area": 14,
+      "nombre": "Database And Storage Security",
+      "nombre_es": "Database And Storage Security",
+      "nombre_en": "Database And Storage Security",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1502,
+    "fields": {
+      "area": 14,
+      "nombre": "Intrusion/Anomaly Detection And Malware Mitigation",
+      "nombre_es": "Intrusion/Anomaly Detection And Malware Mitigation",
+      "nombre_en": "Intrusion/Anomaly Detection And Malware Mitigation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1503,
+    "fields": {
+      "area": 14,
+      "nombre": "Security Services",
+      "nombre_es": "Security Services",
+      "nombre_en": "Security Services",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1504,
+    "fields": {
+      "area": 14,
+      "nombre": "Formal Methods And Theory Of Security",
+      "nombre_es": "Formal Methods And Theory Of Security",
+      "nombre_en": "Formal Methods And Theory Of Security",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1505,
+    "fields": {
+      "area": 14,
+      "nombre": "Data And Information Privacy",
+      "nombre_es": "Data And Information Privacy",
+      "nombre_en": "Data And Information Privacy",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1506,
+    "fields": {
+      "area": 14,
+      "nombre": "Data Security And Protection",
+      "nombre_es": "Data Security And Protection",
+      "nombre_en": "Data Security And Protection",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1507,
+    "fields": {
+      "area": 14,
+      "nombre": "Digital Forensics",
+      "nombre_es": "Digital Forensics",
+      "nombre_en": "Digital Forensics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1508,
+    "fields": {
+      "area": 14,
+      "nombre": "Hardware Security",
+      "nombre_es": "Hardware Security",
+      "nombre_en": "Hardware Security",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1509,
+    "fields": {
+      "area": 14,
+      "nombre": "Software And Application Security",
+      "nombre_es": "Software And Application Security",
+      "nombre_en": "Software And Application Security",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1510,
+    "fields": {
+      "area": 14,
+      "nombre": "System And Network Security",
+      "nombre_es": "System And Network Security",
+      "nombre_en": "System And Network Security",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1511,
+    "fields": {
+      "area": 15,
+      "nombre": "Data Engineering And Data Science",
+      "nombre_es": "Data Engineering And Data Science",
+      "nombre_en": "Data Engineering And Data Science",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1512,
+    "fields": {
+      "area": 15,
+      "nombre": "Data Mining And Knowledge Discovery",
+      "nombre_es": "Data Mining And Knowledge Discovery",
+      "nombre_en": "Data Mining And Knowledge Discovery",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1513,
+    "fields": {
+      "area": 15,
+      "nombre": "Data Models, Storage And Indexing",
+      "nombre_es": "Data Models, Storage And Indexing",
+      "nombre_en": "Data Models, Storage And Indexing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1514,
+    "fields": {
+      "area": 15,
+      "nombre": "Data Quality",
+      "nombre_es": "Data Quality",
+      "nombre_en": "Data Quality",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1515,
+    "fields": {
+      "area": 15,
+      "nombre": "Database Systems",
+      "nombre_es": "Database Systems",
+      "nombre_en": "Database Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1516,
+    "fields": {
+      "area": 15,
+      "nombre": "Graph, Social And Multimedia Data",
+      "nombre_es": "Graph, Social And Multimedia Data",
+      "nombre_en": "Graph, Social And Multimedia Data",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1517,
+    "fields": {
+      "area": 15,
+      "nombre": "Information Extraction And Fusion",
+      "nombre_es": "Information Extraction And Fusion",
+      "nombre_en": "Information Extraction And Fusion",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1518,
+    "fields": {
+      "area": 15,
+      "nombre": "Information Retrieval And Web Search",
+      "nombre_es": "Information Retrieval And Web Search",
+      "nombre_en": "Information Retrieval And Web Search",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1519,
+    "fields": {
+      "area": 15,
+      "nombre": "Query Processing And Optimisation",
+      "nombre_es": "Query Processing And Optimisation",
+      "nombre_en": "Query Processing And Optimisation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1520,
+    "fields": {
+      "area": 15,
+      "nombre": "Recommender Systems",
+      "nombre_es": "Recommender Systems",
+      "nombre_en": "Recommender Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1521,
+    "fields": {
+      "area": 15,
+      "nombre": "Stream And Sensor Data",
+      "nombre_es": "Stream And Sensor Data",
+      "nombre_en": "Stream And Sensor Data",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1522,
+    "fields": {
+      "area": 16,
+      "nombre": "Architectures",
+      "nombre_es": "Architectures",
+      "nombre_en": "Architectures",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1523,
+    "fields": {
+      "area": 16,
+      "nombre": "Cloud Computing",
+      "nombre_es": "Cloud Computing",
+      "nombre_en": "Cloud Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1524,
+    "fields": {
+      "area": 16,
+      "nombre": "Concurrent/Parallel Systems And Technologies",
+      "nombre_es": "Concurrent/Parallel Systems And Technologies",
+      "nombre_en": "Concurrent/Parallel Systems And Technologies",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1525,
+    "fields": {
+      "area": 16,
+      "nombre": "Cyberphysical Systems And Internet Of Things",
+      "nombre_es": "Cyberphysical Systems And Internet Of Things",
+      "nombre_en": "Cyberphysical Systems And Internet Of Things",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1526,
+    "fields": {
+      "area": 16,
+      "nombre": "Dependable Systems",
+      "nombre_es": "Dependable Systems",
+      "nombre_en": "Dependable Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1527,
+    "fields": {
+      "area": 16,
+      "nombre": "Distributed Systems And Algorithms",
+      "nombre_es": "Distributed Systems And Algorithms",
+      "nombre_en": "Distributed Systems And Algorithms",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1528,
+    "fields": {
+      "area": 16,
+      "nombre": "Energy-Efficient Computing",
+      "nombre_es": "Energy-Efficient Computing",
+      "nombre_en": "Energy-Efficient Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1529,
+    "fields": {
+      "area": 16,
+      "nombre": "High Performance Computing",
+      "nombre_es": "High Performance Computing",
+      "nombre_en": "High Performance Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1530,
+    "fields": {
+      "area": 16,
+      "nombre": "Mobile Computing",
+      "nombre_es": "Mobile Computing",
+      "nombre_en": "Mobile Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1531,
+    "fields": {
+      "area": 16,
+      "nombre": "Networking And Communications",
+      "nombre_es": "Networking And Communications",
+      "nombre_en": "Networking And Communications",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1532,
+    "fields": {
+      "area": 16,
+      "nombre": "Operating Systems",
+      "nombre_es": "Operating Systems",
+      "nombre_en": "Operating Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1533,
+    "fields": {
+      "area": 16,
+      "nombre": "Performance Evaluation",
+      "nombre_es": "Performance Evaluation",
+      "nombre_en": "Performance Evaluation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1534,
+    "fields": {
+      "area": 16,
+      "nombre": "Service Oriented Computing",
+      "nombre_es": "Service Oriented Computing",
+      "nombre_en": "Service Oriented Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1535,
+    "fields": {
+      "area": 17,
+      "nombre": "Entertainment And Gaming",
+      "nombre_es": "Entertainment And Gaming",
+      "nombre_en": "Entertainment And Gaming",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1536,
+    "fields": {
+      "area": 17,
+      "nombre": "Interactive Narrative",
+      "nombre_es": "Interactive Narrative",
+      "nombre_en": "Interactive Narrative",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1537,
+    "fields": {
+      "area": 17,
+      "nombre": "Procedural Content Generation",
+      "nombre_es": "Procedural Content Generation",
+      "nombre_en": "Procedural Content Generation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1538,
+    "fields": {
+      "area": 17,
+      "nombre": "Serious Games",
+      "nombre_es": "Serious Games",
+      "nombre_en": "Serious Games",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1539,
+    "fields": {
+      "area": 17,
+      "nombre": "Sound And Music Computing",
+      "nombre_es": "Sound And Music Computing",
+      "nombre_en": "Sound And Music Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1540,
+    "fields": {
+      "area": 17,
+      "nombre": "Virtual And Mixed Reality",
+      "nombre_es": "Virtual And Mixed Reality",
+      "nombre_en": "Virtual And Mixed Reality",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1541,
+    "fields": {
+      "area": 18,
+      "nombre": "Accessibility",
+      "nombre_es": "Accessibility",
+      "nombre_en": "Accessibility",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1542,
+    "fields": {
+      "area": 18,
+      "nombre": "Visualization",
+      "nombre_es": "Visualization",
+      "nombre_en": "Visualization",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1543,
+    "fields": {
+      "area": 18,
+      "nombre": "Ubiquitous And Mobile Computing",
+      "nombre_es": "Ubiquitous And Mobile Computing",
+      "nombre_en": "Ubiquitous And Mobile Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1544,
+    "fields": {
+      "area": 18,
+      "nombre": "Interaction Design",
+      "nombre_es": "Interaction Design",
+      "nombre_en": "Interaction Design",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1545,
+    "fields": {
+      "area": 18,
+      "nombre": "Human Computer Interaction (Hci)",
+      "nombre_es": "Human Computer Interaction (Hci)",
+      "nombre_en": "Human Computer Interaction (Hci)",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1546,
+    "fields": {
+      "area": 18,
+      "nombre": "Accessible Computing",
+      "nombre_es": "Accessible Computing",
+      "nombre_en": "Accessible Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1547,
+    "fields": {
+      "area": 18,
+      "nombre": "Collaborative And Social Computing",
+      "nombre_es": "Collaborative And Social Computing",
+      "nombre_en": "Collaborative And Social Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1548,
+    "fields": {
+      "area": 18,
+      "nombre": "Computing Education",
+      "nombre_es": "Computing Education",
+      "nombre_en": "Computing Education",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1549,
+    "fields": {
+      "area": 18,
+      "nombre": "Fairness, Accountability, Transparency, Trust And Ethics Of Computer Systems",
+      "nombre_es": "Fairness, Accountability, Transparency, Trust And Ethics Of Computer Systems",
+      "nombre_en": "Fairness, Accountability, Transparency, Trust And Ethics Of Computer Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1550,
+    "fields": {
+      "area": 18,
+      "nombre": "Information Visualisation",
+      "nombre_es": "Information Visualisation",
+      "nombre_en": "Information Visualisation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1551,
+    "fields": {
+      "area": 18,
+      "nombre": "Mixed Initiative And Human-In-The-Loop",
+      "nombre_es": "Mixed Initiative And Human-In-The-Loop",
+      "nombre_en": "Mixed Initiative And Human-In-The-Loop",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1552,
+    "fields": {
+      "area": 18,
+      "nombre": "Pervasive Computing",
+      "nombre_es": "Pervasive Computing",
+      "nombre_en": "Pervasive Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1553,
+    "fields": {
+      "area": 18,
+      "nombre": "Social Robotics",
+      "nombre_es": "Social Robotics",
+      "nombre_en": "Social Robotics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1555,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Retrieval",
+      "nombre_es": "Information Retrieval",
+      "nombre_en": "Information Retrieval",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1556,
+    "fields": {
+      "area": 19,
+      "nombre": "World Wide Web",
+      "nombre_es": "World Wide Web",
+      "nombre_en": "World Wide Web",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1557,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Systems Applications",
+      "nombre_es": "Information Systems Applications",
+      "nombre_en": "Information Systems Applications",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1558,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Storage Systems",
+      "nombre_es": "Information Storage Systems",
+      "nombre_en": "Information Storage Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1559,
+    "fields": {
+      "area": 19,
+      "nombre": "Data Management Systems",
+      "nombre_es": "Data Management Systems",
+      "nombre_en": "Data Management Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1560,
+    "fields": {
+      "area": 19,
+      "nombre": "Business Process Management",
+      "nombre_es": "Business Process Management",
+      "nombre_en": "Business Process Management",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1561,
+    "fields": {
+      "area": 19,
+      "nombre": "Decision Support And Group Support Systems",
+      "nombre_es": "Decision Support And Group Support Systems",
+      "nombre_en": "Decision Support And Group Support Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1562,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Modelling, Management And Ontologies",
+      "nombre_es": "Information Modelling, Management And Ontologies",
+      "nombre_en": "Information Modelling, Management And Ontologies",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1563,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Security Management",
+      "nombre_es": "Information Security Management",
+      "nombre_en": "Information Security Management",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1564,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Systems Development Methodologies And Practice",
+      "nombre_es": "Information Systems Development Methodologies And Practice",
+      "nombre_en": "Information Systems Development Methodologies And Practice",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1565,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Systems Education",
+      "nombre_es": "Information Systems Education",
+      "nombre_en": "Information Systems Education",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1566,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Systems For Sustainable Development And The Public Good",
+      "nombre_es": "Information Systems For Sustainable Development And The Public Good",
+      "nombre_en": "Information Systems For Sustainable Development And The Public Good",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1567,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Systems Organisation And Management",
+      "nombre_es": "Information Systems Organisation And Management",
+      "nombre_en": "Information Systems Organisation And Management",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1568,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Systems Philosophy, Research Methods And Theory",
+      "nombre_es": "Information Systems Philosophy, Research Methods And Theory",
+      "nombre_en": "Information Systems Philosophy, Research Methods And Theory",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1569,
+    "fields": {
+      "area": 19,
+      "nombre": "Information Systems User Experience Design And Development",
+      "nombre_es": "Information Systems User Experience Design And Development",
+      "nombre_en": "Information Systems User Experience Design And Development",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1570,
+    "fields": {
+      "area": 19,
+      "nombre": "Inter-Organisational, Extra-Organisational And Global Information Systems",
+      "nombre_es": "Inter-Organisational, Extra-Organisational And Global Information Systems",
+      "nombre_en": "Inter-Organisational, Extra-Organisational And Global Information Systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1571,
+    "fields": {
+      "area": 19,
+      "nombre": "Knowledge And Information Management",
+      "nombre_es": "Knowledge And Information Management",
+      "nombre_en": "Knowledge And Information Management",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1572,
+    "fields": {
+      "area": 20,
+      "nombre": "Digital Curation And Preservation",
+      "nombre_es": "Digital Curation And Preservation",
+      "nombre_en": "Digital Curation And Preservation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1573,
+    "fields": {
+      "area": 20,
+      "nombre": "Human Information Behaviour",
+      "nombre_es": "Human Information Behaviour",
+      "nombre_en": "Human Information Behaviour",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1574,
+    "fields": {
+      "area": 20,
+      "nombre": "Human Information Interaction And Retrieval",
+      "nombre_es": "Human Information Interaction And Retrieval",
+      "nombre_en": "Human Information Interaction And Retrieval",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1575,
+    "fields": {
+      "area": 20,
+      "nombre": "Information Governance, Policy And Ethics",
+      "nombre_es": "Information Governance, Policy And Ethics",
+      "nombre_en": "Information Governance, Policy And Ethics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1576,
+    "fields": {
+      "area": 20,
+      "nombre": "Informetrics",
+      "nombre_es": "Informetrics",
+      "nombre_en": "Informetrics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1577,
+    "fields": {
+      "area": 20,
+      "nombre": "Open Access",
+      "nombre_es": "Open Access",
+      "nombre_en": "Open Access",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1578,
+    "fields": {
+      "area": 20,
+      "nombre": "Organisation Of Information And Knowledge Resources",
+      "nombre_es": "Organisation Of Information And Knowledge Resources",
+      "nombre_en": "Organisation Of Information And Knowledge Resources",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1579,
+    "fields": {
+      "area": 20,
+      "nombre": "Recordkeeping Informatics",
+      "nombre_es": "Recordkeeping Informatics",
+      "nombre_en": "Recordkeeping Informatics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1580,
+    "fields": {
+      "area": 20,
+      "nombre": "Social And Community Informatics",
+      "nombre_es": "Social And Community Informatics",
+      "nombre_en": "Social And Community Informatics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1581,
+    "fields": {
+      "area": 21,
+      "nombre": "Semantics And Reasoning",
+      "nombre_es": "Semantics And Reasoning",
+      "nombre_en": "Semantics And Reasoning",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1582,
+    "fields": {
+      "area": 21,
+      "nombre": "Theory And Algorithms For Application Domains",
+      "nombre_es": "Theory And Algorithms For Application Domains",
+      "nombre_en": "Theory And Algorithms For Application Domains",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1583,
+    "fields": {
+      "area": 21,
+      "nombre": "Randomness, Geometry And Discrete Structures",
+      "nombre_es": "Randomness, Geometry And Discrete Structures",
+      "nombre_en": "Randomness, Geometry And Discrete Structures",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1584,
+    "fields": {
+      "area": 21,
+      "nombre": "Design And Analysis Of Algorithms",
+      "nombre_es": "Design And Analysis Of Algorithms",
+      "nombre_en": "Design And Analysis Of Algorithms",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1585,
+    "fields": {
+      "area": 21,
+      "nombre": "Logic",
+      "nombre_es": "Logic",
+      "nombre_en": "Logic",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1586,
+    "fields": {
+      "area": 21,
+      "nombre": "Computational Complexity And Cryptography",
+      "nombre_es": "Computational Complexity And Cryptography",
+      "nombre_en": "Computational Complexity And Cryptography",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1587,
+    "fields": {
+      "area": 21,
+      "nombre": "Formal Languages And Automata Theory",
+      "nombre_es": "Formal Languages And Automata Theory",
+      "nombre_en": "Formal Languages And Automata Theory",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1588,
+    "fields": {
+      "area": 21,
+      "nombre": "Models Of Computation",
+      "nombre_es": "Models Of Computation",
+      "nombre_en": "Models Of Computation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1589,
+    "fields": {
+      "area": 21,
+      "nombre": "Coding, Information Theory And Compression",
+      "nombre_es": "Coding, Information Theory And Compression",
+      "nombre_en": "Coding, Information Theory And Compression",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1590,
+    "fields": {
+      "area": 21,
+      "nombre": "Computational Complexity And Computability",
+      "nombre_es": "Computational Complexity And Computability",
+      "nombre_en": "Computational Complexity And Computability",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1591,
+    "fields": {
+      "area": 21,
+      "nombre": "Computational Logic And Formal Languages",
+      "nombre_es": "Computational Logic And Formal Languages",
+      "nombre_en": "Computational Logic And Formal Languages",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1592,
+    "fields": {
+      "area": 21,
+      "nombre": "Concurrency Theory",
+      "nombre_es": "Concurrency Theory",
+      "nombre_en": "Concurrency Theory",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1593,
+    "fields": {
+      "area": 21,
+      "nombre": "Data Structures And Algorithms",
+      "nombre_es": "Data Structures And Algorithms",
+      "nombre_en": "Data Structures And Algorithms",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1594,
+    "fields": {
+      "area": 21,
+      "nombre": "Numerical Computation And Mathematical Software",
+      "nombre_es": "Numerical Computation And Mathematical Software",
+      "nombre_en": "Numerical Computation And Mathematical Software",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1595,
+    "fields": {
+      "area": 21,
+      "nombre": "Quantum Computation",
+      "nombre_es": "Quantum Computation",
+      "nombre_en": "Quantum Computation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1602,
+    "fields": {
+      "area": 23,
+      "nombre": "Knowledge Engineering",
+      "nombre_es": "Knowledge Engineering",
+      "nombre_en": "Knowledge Engineering",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1603,
+    "fields": {
+      "area": 23,
+      "nombre": "Evolutionary Computation",
+      "nombre_es": "Evolutionary Computation",
+      "nombre_en": "Evolutionary Computation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1604,
+    "fields": {
+      "area": 23,
+      "nombre": "Fuzzy Computation",
+      "nombre_es": "Fuzzy Computation",
+      "nombre_en": "Fuzzy Computation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1605,
+    "fields": {
+      "area": 23,
+      "nombre": "Intelligent Robotics",
+      "nombre_es": "Intelligent Robotics",
+      "nombre_en": "Intelligent Robotics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1606,
+    "fields": {
+      "area": 23,
+      "nombre": "Knowledge Representation And Reasoning",
+      "nombre_es": "Knowledge Representation And Reasoning",
+      "nombre_en": "Knowledge Representation And Reasoning",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1607,
+    "fields": {
+      "area": 23,
+      "nombre": "Planning And Decision Making",
+      "nombre_es": "Planning And Decision Making",
+      "nombre_en": "Planning And Decision Making",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1608,
+    "fields": {
+      "area": 23,
+      "nombre": "Satisfiability And Optimisation",
+      "nombre_es": "Satisfiability And Optimisation",
+      "nombre_en": "Satisfiability And Optimisation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1609,
+    "fields": {
+      "area": 23,
+      "nombre": "Speech Production",
+      "nombre_es": "Speech Production",
+      "nombre_en": "Speech Production",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1610,
+    "fields": {
+      "area": 23,
+      "nombre": "Speech Recognition",
+      "nombre_es": "Speech Recognition",
+      "nombre_en": "Speech Recognition",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1611,
+    "fields": {
+      "area": 23,
+      "nombre": "Artificial Intelligence Theory",
+      "nombre_es": "Artificial Intelligence Theory",
+      "nombre_en": "Artificial Intelligence Theory",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1612,
+    "fields": {
+      "area": 23,
+      "nombre": "Natural Language Processing",
+      "nombre_es": "Natural Language Processing",
+      "nombre_en": "Natural Language Processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1613,
+    "fields": {
+      "area": 23,
+      "nombre": "Mt",
+      "nombre_es": "Mt",
+      "nombre_en": "Mt",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1614,
+    "fields": {
+      "area": 23,
+      "nombre": "Pattern Recognition",
+      "nombre_es": "Pattern Recognition",
+      "nombre_en": "Pattern Recognition",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1615,
+    "fields": {
+      "area": 23,
+      "nombre": "Computer Perception",
+      "nombre_es": "Computer Perception",
+      "nombre_en": "Computer Perception",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1616,
+    "fields": {
+      "area": 23,
+      "nombre": "Computer Neural Network",
+      "nombre_es": "Computer Neural Network",
+      "nombre_en": "Computer Neural Network",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1617,
+    "fields": {
+      "area": 23,
+      "nombre": "Fundamentals of artificial intelligence",
+      "nombre_es": "Fundamentals of artificial intelligence",
+      "nombre_en": "Fundamentals of artificial intelligence",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1618,
+    "fields": {
+      "area": 23,
+      "nombre": "Machine Learning",
+      "nombre_es": "Machine Learning",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1619,
+    "fields": {
+      "area": 23,
+      "nombre": "Machine perception and pattern recognition",
+      "nombre_es": "Machine perception and pattern recognition",
+      "nombre_en": "Machine perception and pattern recognition",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1620,
+    "fields": {
+      "area": 23,
+      "nombre": "Knowledge representation and processing",
+      "nombre_es": "Knowledge representation and processing",
+      "nombre_en": "Knowledge representation and processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1621,
+    "fields": {
+      "area": 23,
+      "nombre": "Intelligent systems and Applications",
+      "nombre_es": "Intelligent systems and Applications",
+      "nombre_en": "Intelligent systems and Applications",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1622,
+    "fields": {
+      "area": 23,
+      "nombre": "Cognitive and neuroscience inspired artificial intelligence",
+      "nombre_es": "Cognitive and neuroscience inspired artificial intelligence",
+      "nombre_en": "Cognitive and neuroscience inspired artificial intelligence",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1623,
+    "fields": {
+      "area": 24,
+      "nombre": "Computer System Design",
+      "nombre_es": "Computer System Design",
+      "nombre_en": "Computer System Design",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1624,
+    "fields": {
+      "area": 24,
+      "nombre": "Parallel Processing",
+      "nombre_es": "Parallel Processing",
+      "nombre_en": "Parallel Processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1625,
+    "fields": {
+      "area": 24,
+      "nombre": "Distributed Processing System",
+      "nombre_es": "Distributed Processing System",
+      "nombre_en": "Distributed Processing System",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1626,
+    "fields": {
+      "area": 24,
+      "nombre": "Computer Network",
+      "nombre_es": "Computer Network",
+      "nombre_en": "Computer Network",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1627,
+    "fields": {
+      "area": 24,
+      "nombre": "Computer Running Test And Performance Evaluation",
+      "nombre_es": "Computer Running Test And Performance Evaluation",
+      "nombre_en": "Computer Running Test And Performance Evaluation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1628,
+    "fields": {
+      "area": 25,
+      "nombre": "Software Theory",
+      "nombre_es": "Software Theory",
+      "nombre_en": "Software Theory",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1629,
+    "fields": {
+      "area": 25,
+      "nombre": "Operating System And Operating Environment",
+      "nombre_es": "Operating System And Operating Environment",
+      "nombre_en": "Operating System And Operating Environment",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1630,
+    "fields": {
+      "area": 25,
+      "nombre": "Programming And Its Language",
+      "nombre_es": "Programming And Its Language",
+      "nombre_en": "Programming And Its Language",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1631,
+    "fields": {
+      "area": 25,
+      "nombre": "Compiling System",
+      "nombre_es": "Compiling System",
+      "nombre_en": "Compiling System",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1632,
+    "fields": {
+      "area": 25,
+      "nombre": "Database",
+      "nombre_es": "Database",
+      "nombre_en": "Database",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1633,
+    "fields": {
+      "area": 25,
+      "nombre": "Software Development Environment And Technology",
+      "nombre_es": "Software Development Environment And Technology",
+      "nombre_en": "Software Development Environment And Technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1634,
+    "fields": {
+      "area": 25,
+      "nombre": "Software Engineering",
+      "nombre_es": "Software Engineering",
+      "nombre_en": "Software Engineering",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1635,
+    "fields": {
+      "area": 25,
+      "nombre": "Software theory and software methodology",
+      "nombre_es": "Software theory and software methodology",
+      "nombre_en": "Software theory and software methodology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1636,
+    "fields": {
+      "area": 25,
+      "nombre": "Programming language and supporting environment",
+      "nombre_es": "Programming language and supporting environment",
+      "nombre_en": "Programming language and supporting environment",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1637,
+    "fields": {
+      "area": 25,
+      "nombre": "Database and data engineering",
+      "nombre_es": "Database and data engineering",
+      "nombre_en": "Database and data engineering",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1638,
+    "fields": {
+      "area": 25,
+      "nombre": "Systems software",
+      "nombre_es": "Systems software",
+      "nombre_en": "Systems software",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1639,
+    "fields": {
+      "area": 25,
+      "nombre": "Parallel and distributed software",
+      "nombre_es": "Parallel and distributed software",
+      "nombre_en": "Parallel and distributed software",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1640,
+    "fields": {
+      "area": 25,
+      "nombre": "Real time and embedded software",
+      "nombre_es": "Real time and embedded software",
+      "nombre_en": "Real time and embedded software",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1641,
+    "fields": {
+      "area": 25,
+      "nombre": "Trusted software",
+      "nombre_es": "Trusted software",
+      "nombre_en": "Trusted software",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1642,
+    "fields": {
+      "area": 25,
+      "nombre": "Software evolution and adaptive technology",
+      "nombre_es": "Software evolution and adaptive technology",
+      "nombre_en": "Software evolution and adaptive technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1643,
+    "fields": {
+      "area": 25,
+      "nombre": "Service Computing",
+      "nombre_es": "Service Computing",
+      "nombre_en": "Service Computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1644,
+    "fields": {
+      "area": 26,
+      "nombre": "Computer Components",
+      "nombre_es": "Computer Components",
+      "nombre_en": "Computer Components",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1645,
+    "fields": {
+      "area": 26,
+      "nombre": "Computer Processor Technology",
+      "nombre_es": "Computer Processor Technology",
+      "nombre_en": "Computer Processor Technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1646,
+    "fields": {
+      "area": 26,
+      "nombre": "Computer Storage Technology",
+      "nombre_es": "Computer Storage Technology",
+      "nombre_en": "Computer Storage Technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1647,
+    "fields": {
+      "area": 26,
+      "nombre": "Computer Peripherals",
+      "nombre_es": "Computer Peripherals",
+      "nombre_en": "Computer Peripherals",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1648,
+    "fields": {
+      "area": 26,
+      "nombre": "Computer Manufacturing And Testing",
+      "nombre_es": "Computer Manufacturing And Testing",
+      "nombre_en": "Computer Manufacturing And Testing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1649,
+    "fields": {
+      "area": 26,
+      "nombre": "Computer High Density Assembly Technology",
+      "nombre_es": "Computer High Density Assembly Technology",
+      "nombre_en": "Computer High Density Assembly Technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1658,
+    "fields": {
+      "area": 28,
+      "nombre": "Computer system modeling and simulation",
+      "nombre_es": "Computer system modeling and simulation",
+      "nombre_en": "Computer system modeling and simulation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1659,
+    "fields": {
+      "area": 28,
+      "nombre": "Computer system design and performance evaluation",
+      "nombre_es": "Computer system design and performance evaluation",
+      "nombre_en": "Computer system design and performance evaluation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1660,
+    "fields": {
+      "area": 28,
+      "nombre": "Computer system security and evaluation",
+      "nombre_es": "Computer system security and evaluation",
+      "nombre_en": "Computer system security and evaluation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1661,
+    "fields": {
+      "area": 28,
+      "nombre": "Parallel and distributed processing",
+      "nombre_es": "Parallel and distributed processing",
+      "nombre_en": "Parallel and distributed processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1662,
+    "fields": {
+      "area": 28,
+      "nombre": "High performance computing and supercomputers",
+      "nombre_es": "High performance computing and supercomputers",
+      "nombre_en": "High performance computing and supercomputers",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1663,
+    "fields": {
+      "area": 28,
+      "nombre": "New computing system",
+      "nombre_es": "New computing system",
+      "nombre_en": "New computing system",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1664,
+    "fields": {
+      "area": 28,
+      "nombre": "Computing system reliability",
+      "nombre_es": "Computing system reliability",
+      "nombre_en": "Computing system reliability",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1665,
+    "fields": {
+      "area": 28,
+      "nombre": "Embedded system",
+      "nombre_es": "Embedded system",
+      "nombre_en": "Embedded system",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1666,
+    "fields": {
+      "area": 28,
+      "nombre": "Structure and computing model of information physics system",
+      "nombre_es": "Structure and computing model of information physics system",
+      "nombre_en": "Structure and computing model of information physics system",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1667,
+    "fields": {
+      "area": 29,
+      "nombre": "Robustness",
+      "nombre_es": "Robustness",
+      "nombre_en": "Robustness",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1668,
+    "fields": {
+      "area": 29,
+      "nombre": "Hardware Test",
+      "nombre_es": "Hardware Test",
+      "nombre_en": "Hardware Test",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1669,
+    "fields": {
+      "area": 29,
+      "nombre": "Hardware Validation",
+      "nombre_es": "Hardware Validation",
+      "nombre_en": "Hardware Validation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1670,
+    "fields": {
+      "area": 29,
+      "nombre": "Electronic Design Automation",
+      "nombre_es": "Electronic Design Automation",
+      "nombre_en": "Electronic Design Automation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1671,
+    "fields": {
+      "area": 29,
+      "nombre": "Power And Energy",
+      "nombre_es": "Power And Energy",
+      "nombre_en": "Power And Energy",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1672,
+    "fields": {
+      "area": 29,
+      "nombre": "Very Large Scale Integration Design",
+      "nombre_es": "Very Large Scale Integration Design",
+      "nombre_en": "Very Large Scale Integration Design",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1673,
+    "fields": {
+      "area": 29,
+      "nombre": "Integrated Circuits",
+      "nombre_es": "Integrated Circuits",
+      "nombre_en": "Integrated Circuits",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1674,
+    "fields": {
+      "area": 29,
+      "nombre": "Communication Hardware, Interfaces And Storage",
+      "nombre_es": "Communication Hardware, Interfaces And Storage",
+      "nombre_en": "Communication Hardware, Interfaces And Storage",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1675,
+    "fields": {
+      "area": 29,
+      "nombre": "Printed Circuit Boards",
+      "nombre_es": "Printed Circuit Boards",
+      "nombre_en": "Printed Circuit Boards",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1676,
+    "fields": {
+      "area": 29,
+      "nombre": "Test and diagnosis technology",
+      "nombre_es": "Test and diagnosis technology",
+      "nombre_en": "Test and diagnosis technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1677,
+    "fields": {
+      "area": 29,
+      "nombre": "Processor design methods and tools",
+      "nombre_es": "Processor design methods and tools",
+      "nombre_en": "Processor design methods and tools",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1678,
+    "fields": {
+      "area": 29,
+      "nombre": "Mass storage devices and systems",
+      "nombre_es": "Mass storage devices and systems",
+      "nombre_en": "Mass storage devices and systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1679,
+    "fields": {
+      "area": 29,
+      "nombre": "Interactive devices and systems",
+      "nombre_es": "Interactive devices and systems",
+      "nombre_en": "Interactive devices and systems",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1680,
+    "fields": {
+      "area": 29,
+      "nombre": "Component interconnection and data transmission technology",
+      "nombre_es": "Component interconnection and data transmission technology",
+      "nombre_en": "Component interconnection and data transmission technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1681,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer Simulation",
+      "nombre_es": "Computer Simulation",
+      "nombre_en": "Computer Simulation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1682,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer Graphics",
+      "nombre_es": "Computer Graphics",
+      "nombre_en": "Computer Graphics",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1683,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer Image Processing",
+      "nombre_es": "Computer Image Processing",
+      "nombre_en": "Computer Image Processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1684,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer Aided Design",
+      "nombre_es": "Computer Aided Design",
+      "nombre_en": "Computer Aided Design",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1685,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer Process Control",
+      "nombre_es": "Computer Process Control",
+      "nombre_en": "Computer Process Control",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1686,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer Information Management System",
+      "nombre_es": "Computer Information Management System",
+      "nombre_en": "Computer Information Management System",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1687,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer Decision Support System",
+      "nombre_es": "Computer Decision Support System",
+      "nombre_en": "Computer Decision Support System",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1688,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer image and video processing",
+      "nombre_es": "Computer image and video processing",
+      "nombre_en": "Computer image and video processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1689,
+    "fields": {
+      "area": 30,
+      "nombre": "Virtual reality and augmented reality technology",
+      "nombre_es": "Virtual reality and augmented reality technology",
+      "nombre_en": "Virtual reality and augmented reality technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1690,
+    "fields": {
+      "area": 30,
+      "nombre": "Multimedia technology",
+      "nombre_es": "Multimedia technology",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1691,
+    "fields": {
+      "area": 30,
+      "nombre": "Social networks and social computing",
+      "nombre_es": "Social networks and social computing",
+      "nombre_en": "Social networks and social computing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1692,
+    "fields": {
+      "area": 30,
+      "nombre": "Biological information computing and system",
+      "nombre_es": "Biological information computing and system",
+      "nombre_en": "Biological information computing and system",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1693,
+    "fields": {
+      "area": 30,
+      "nombre": "Scientific engineering computing and high performance computing applications",
+      "nombre_es": "Scientific engineering computing and high performance computing applications",
+      "nombre_en": "Scientific engineering computing and high performance computing applications",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1694,
+    "fields": {
+      "area": 30,
+      "nombre": "Visualization and visual analysis",
+      "nombre_es": "Visualization and visual analysis",
+      "nombre_en": "Visualization and visual analysis",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1695,
+    "fields": {
+      "area": 30,
+      "nombre": "Human-computer interaction",
+      "nombre_es": "Human-computer interaction",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1696,
+    "fields": {
+      "area": 30,
+      "nombre": "Computer aided technology",
+      "nombre_es": "Computer aided technology",
+      "nombre_en": "Computer aided technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1697,
+    "fields": {
+      "area": 30,
+      "nombre": "Information system technology",
+      "nombre_es": "Information system technology",
+      "nombre_en": "Information system technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1698,
+    "fields": {
+      "area": 30,
+      "nombre": "Information retrieval and mining",
+      "nombre_es": "Information retrieval and mining",
+      "nombre_en": "Information retrieval and mining",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1699,
+    "fields": {
+      "area": 30,
+      "nombre": "Network search technology",
+      "nombre_es": "Network search technology",
+      "nombre_en": "Network search technology",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1700,
+    "fields": {
+      "area": 30,
+      "nombre": "Language and text information processing",
+      "nombre_es": "Language and text information processing",
+      "nombre_en": "Language and text information processing",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1704,
+    "fields": {
+      "area": 31,
+      "nombre": "Security architecture and protocol",
+      "nombre_es": "Security architecture and protocol",
+      "nombre_en": "Security architecture and protocol",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1705,
+    "fields": {
+      "area": 31,
+      "nombre": "Information confrontation",
+      "nombre_es": "Information confrontation",
+      "nombre_en": "Information confrontation",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1706,
+    "fields": {
+      "area": 31,
+      "nombre": "System security",
+      "nombre_es": "System security",
+      "nombre_en": "System security",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1707,
+    "fields": {
+      "area": 31,
+      "nombre": "Privacy protection",
+      "nombre_es": "Privacy protection",
+      "nombre_en": "Privacy protection",
+      "descripcion": "",
+      "descripcion_es": "",
+      "descripcion_en": ""
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1709,
+    "fields": {
+      "area": 12,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1710,
+    "fields": {
+      "area": 13,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1711,
+    "fields": {
+      "area": 14,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1712,
+    "fields": {
+      "area": 15,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1713,
+    "fields": {
+      "area": 16,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1714,
+    "fields": {
+      "area": 17,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1715,
+    "fields": {
+      "area": 18,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1716,
+    "fields": {
+      "area": 19,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1717,
+    "fields": {
+      "area": 20,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1718,
+    "fields": {
+      "area": 21,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1719,
+    "fields": {
+      "area": 23,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1720,
+    "fields": {
+      "area": 24,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1721,
+    "fields": {
+      "area": 25,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1722,
+    "fields": {
+      "area": 26,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1723,
+    "fields": {
+      "area": 28,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1724,
+    "fields": {
+      "area": 29,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1725,
+    "fields": {
+      "area": 31,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  },
+  {
+    "model": "persona.subarea",
+    "pk": 1726,
+    "fields": {
+      "area": 30,
+      "nombre": "Otro",
+      "nombre_es": "Otro",
+      "nombre_en": null,
+      "descripcion": "",
+      "descripcion_es": null,
+      "descripcion_en": null
+    }
+  }
+]

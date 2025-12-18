@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-center justify-content-lg-end m-3">
+    <div class="btn-group {% if margin %}pt-3 pb-3{% endif %}">
+        {% if add %}
+            <a href="{{ add }}"
+               class="{% if outline %}btn-outline-primary{% else %}btn btn-primary{% endif %} btn-sm">
+                {% if texto %}Agregar{% endif %}
+                <i class="bi bi-plus-lg{% if texto %} pe-1{% endif %}"></i>
+            </a>
+        {% endif %}
+    </div>
+</div>

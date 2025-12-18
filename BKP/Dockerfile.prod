@@ -1,0 +1,54 @@
+FROM python:3.12-alpine3.19
+
+# Metadata
+LABEL maintainer="DCC FCFM Universidad de Chile"
+LABEL description="Repositorio Académicos - Production"
+
+# set work directory
+WORKDIR /usr/src/app
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    DJANGO_SETTINGS_MODULE=memoria.settings.prod
+
+COPY ./requirements.txt .
+
+# install dependencies
+RUN \
+    apk add --no-cache postgresql-libs netcat-openbsd && \
+    apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
+    apk add --no-cache g++ libxml2-dev libxslt-dev libffi-dev openssl-dev make && \
+    python3 -m pip install --upgrade pip && \
+    python3 -m pip install -r requirements.txt --no-cache-dir && \
+    apk --purge del .build-deps
+
+# copy entrypoint.prod.sh
+COPY ./entrypoint.prod.sh .
+RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.prod.sh && \
+    chmod +x /usr/src/app/entrypoint.prod.sh
+
+# copy project
+COPY . .
+
+# create necessary directories for staticfiles and uploads (ephemeral)
+RUN mkdir -p /usr/src/app/staticfiles && \
+    mkdir -p /usr/src/app/uploads
+
+# Collect static files during build (baked into image)
+# Using minimal DB settings to avoid DB connection during collectstatic
+RUN DJANGO_SECRET_KEY=build-secret \
+    POSTGRES_DB=build \
+    POSTGRES_USER=build \
+    POSTGRES_PASSWORD=build \
+    POSTGRES_HOST=localhost \
+    python manage.py collectstatic --noinput
+
+# expose port
+EXPOSE 8000
+
+ENTRYPOINT ["/usr/src/app/entrypoint.prod.sh"]
+
+# default command for production (gunicorn)
+CMD ["gunicorn", "--workers=4", "--threads=4", "--worker-class=gthread", "--worker-tmp-dir=/dev/shm", "--bind=0.0.0.0:8000", "wsgi:application"]

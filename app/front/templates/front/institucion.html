@@ -1,0 +1,1428 @@
+{% extends "base.html" %} {% block content %} {% load static %} {% load countries %} {% get_countries as countries_full %}
+<link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+<script>
+  var csrftoken = "{{csrf_token}}";
+  const unidades_id = '{% for unidad in unidades %}{{unidad.id}},{% endfor %}'
+  const ajaxUrl1 = "{% url 'etl:match_name_to_dblp' %}";
+  const ajaxUrl2 = "{% url 'etl:save_academico' %}";
+  const openalexSuggestionsUrl = "{% url 'inst:get_openalex_suggestions' %}";
+  const rorSuggestionsUrl = "{% url 'inst:get_ror_suggestions' %}";
+</script>
+<script src="{% static 'front/institucion.js' %}"></script>
+<style>
+.shield-missing {
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  border-color: #adb5bd;
+  border-width: 1px;
+  border-style: solid;
+  background-color: #adb5bd;
+}
+</style>
+
+<!-- TOAST ERROR -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_error"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <i class="bi bi-exclamation-diamond text-danger me-2"></i>
+      <strong class="me-auto" id="toast_error_msg">Ha ocurrido un error inesperado.</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+</div>
+<!-- TOAST SPINNER -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <div
+    id="toast_spinner"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    data-bs-autohide="false"
+  >
+    <div class="toast-header">
+      <div
+        class="spinner-border text-primary spinner-border-sm me-1"
+        role="status"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <strong class="me-auto" id="toast_spinner_msg">Cargando...</strong>
+    </div>
+    <div class="toast-body">Esta acción puede tardar unos minutos.</div>
+  </div>
+</div>
+
+<div class="pb-5 pt-3 bg-light w-100">
+  <div class="container-xxl">
+    <!--HEADER -->
+    <div class="pt-2 mb-1 d-flex w-100 justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <h3 class="me-2 text-break">{{ universidad.nombre }} {% if universidad.get_sigla %}<strong>({{ universidad.get_sigla }})</strong>{% endif %}</h3>    
+        <span class="d-flex align-items-center gap-2">
+          {% if universidad.get_webpage %}
+          <a href="{{universidad.get_webpage}}" target="_blank" type="button" class="btn btn-outline-dark mb-2 btn-sm"><i class="bi bi-box-arrow-up-right"></i></a>
+          {% endif %}
+          <button data-bs-toggle="dropdown" aria-expanded="false" type="button" class="btn btn-outline-dark mb-2 btn-sm dropdown-toggle">IDs</button>
+          <ul class="dropdown-menu">
+            <li class="mx-3 mb-1"><strong>IDs externos</strong></li>
+            {% if universidad.id_wikidata %}
+            <li><a target="_blank" class="dropdown-item" href="https://www.wikidata.org/wiki/{{universidad.id_wikidata}}">wikidata</a></li>
+            {%elif universdiad.openalex_institution.openalex_id_wikidata%}
+            <li><a target="_blank" class="dropdown-item" href="https://www.wikidata.org/wiki/{{universidad.openalex_institution.openalex_id_wikidata}}">wikidata</a></li>
+            {% endif %}
+
+            {% if universidad.id_ror %}
+              <li><a target="_blank" class="dropdown-item" href="https://ror.org/{{universidad.id_ror}}">ROR</a></li>
+              {% elif universidad.openalex_institution.openalex_id_ror %}
+              <li><a target="_blank" class="dropdown-item" href="https://ror.org/{{universidad.openalex_institution.openalex_id_ror}}">ROR</a></li>
+            {% endif %}
+            
+            {% if universidad.id_isni %}
+            <li><a target="_blank" class="dropdown-item" href="https://isni.org/isni/{{universidad.id_isni}}">ISNI</a></li>
+            {% endif %}
+
+            {% if universidad.openalex_id %}
+            <li><a target="_blank" class="dropdown-item" href="https://openalex.org/{{universidad.openalex_id}}">OpenAlex</a></li>
+            {% endif %}
+            
+            {% if universidad.openalex_insitution.openalex_id_grid %}
+            <li><a target="_blank" class="dropdown-item" href="https://www.grid.ac/institutes/{{universidad.openalex_insitution.openalex_id_grid}}">GRID</a></li>
+            {% endif %}
+            
+          </ul>
+        </span>
+        
+      
+        {% if universidad.is_unverified and universidad.get_verification_error == "ID_MISSING"  %}
+          <button type="button"
+              class="btn btn-link p-0 ms-2"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="bottom"
+                   data-bs-html="true"
+                   title="Falta almenos un ID externo individualizar la Institución.">
+                    <i class="bi bi-exclamation-triangle-fill text-warning ms-2" ></i>
+              </button>
+      
+        {% elif universidad.is_verified %}
+          <button type="button"
+              class="btn btn-link p-0 ms-2"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="bottom"
+                   title="La Institución posee uno o más IDs externos válidos.">
+                    <i class="bi bi-check-circle-fill text-success ms-2"></i>
+              </button>
+        {% endif %}
+      </div>
+      <div>
+        {% if editable %}
+        <div>
+          {% if anonimo %}
+          <a class="btn btn-link" href="?" role="button">Ver como editor</a>
+          {% else %}
+          <a class="btn btn-link" href="?a=true" role="button">Ver como anónimo</a>
+          <button
+            role="button"
+            class="btn btn-secondary"
+            data-bs-toggle="modal"
+            data-bs-target="#editarInstitucionModal"
+          >
+            Editar Institución
+          </button>
+          <button
+  type="button"
+  class="btn btn-danger"
+  data-bs-toggle="modal"
+  data-bs-target="#eliminarInstitucionModal"
+>
+  <i class="bi bi-trash"></i> Eliminar Institución
+</button>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <hr />
+    <!--END HEADER -->
+    <!-- Data Institucion -->
+    <div class="row align-items-center" style="max-width: 700px;">
+      <div class="col-auto">
+        {% if universidad.foto_escudo %}
+          <img src="{% get_media_prefix %}{{ universidad.foto_escudo }}" alt="Escudo {{ universidad.sigla }}" style="width:64px; height:64px; object-fit:contain;" class="rounded" />
+        {% elif universidad.openalex_institution.openalex_thumbnail_url %}
+          <img src="{{ universidad.openalex_institution.openalex_thumbnail_url }}" alt="Thumbnail {{ universidad.sigla }}" style="width:64px; height:64px; object-fit:contain;" class="rounded" />
+        {% endif %}
+      </div>
+      <div class="col ps-0">
+        {% if universidad.openalex_institution.get_alternative_names %}
+        <div class="mb-1 d-flex">
+          <div class="fw-bold me-2" style="min-width: 150px;">Nombres Alternativos:</div>
+          <div>
+            {% for name in universidad.openalex_institution.get_alternative_names %}
+              <span>{{ name }}&nbsp;&nbsp; </span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% if universidad.get_alternative_siglas %}
+        <div class="mb-1 d-flex">
+          <div class="fw-bold me-2" style="min-width: 150px;">Acrónimos:</div>
+          <div>
+            {% for name in universidad.get_alternative_siglas %}
+              <span>{{ name }}&nbsp;&nbsp; </span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        <div class="mb-1 d-flex">
+          <div class="fw-bold me-2" style="min-width: 150px;">Ubicación:</div>
+          <div>
+            {% if universidad.openalex_institution.openalex_city_name %}
+              <span>{{ universidad.openalex_institution.openalex_city_name }},</span>
+            {% endif %}
+            {% if universidad.pais %}
+              <span class="mb-0">
+                <i class="{% if universidad.pais != '0' %}{{ universidad.pais.flag_css }}{% endif %} me-1"></i>{{universidad.pais.name}}
+                {% if universidad.openalex_institution.openalex_region_latitude and universidad.openalex_institution.openalex_region_longitude %}
+                  <button type="button"
+                          class="btn btn-link p-0 ms-2"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="Latitud: {{ universidad.openalex_institution.openalex_region_latitude }}
+                          <br>Longitud: {{ universidad.openalex_institution.openalex_region_longitude }}">
+                    <i class="bi bi-geo-alt-fill"></i>
+                  </button>
+                {% endif %}
+              </span>
+            {% endif %}
+          </div>
+        </div>
+        {% if universidad.openalex_institution.openalex_type%}
+        <div class="mb-1 d-flex">
+          <div class="fw-bold me-2" style="min-width: 150px;">Tipo de Institución:</div>
+          <div>
+            <span>{{ universidad.openalex_institution.openalex_type|capfirst }}</span>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+</div>
+<!-- UNIDADES SELECTOR -->
+<div class="text-center mb-3" style="border-bottom: 1px solid #adb5bd">
+  {% for unidad in unidades %}
+  <button
+    type="button"
+    class="btn btn-light query-type-selector me-1"
+    id="unidad-{{unidad.id}}-button-tab"
+    onclick="toggletab('{{unidad.id}}')"
+    style="text-transform:uppercase;"
+  >
+  {%if unidad.is_default%}
+      Computacion
+    {% else %}
+    {% if unidad.sigla %}
+    {{unidad.sigla}}
+    {% elif unidad.nombre %}
+    {{unidad.nombre}}
+      {% endif %}
+  {% endif %}
+  </button>
+  {% endfor %}
+  {% if editable and not anonimo %}
+  <span class="">
+    <button
+      role="button"
+      class="btn btn-outline-danger"
+      data-bs-toggle="modal"
+      data-bs-target="#nuevoModal"
+    >
+      Nuevo
+    </button>
+  </span>
+  {% endif %}
+</div>
+<!-- UNIDADES SELECTOR END -->
+<!-- UNIDADES -->
+{% for unidad in unidades %}
+<div id="unidad-{{unidad.id}}-box-tab" class="d-none">
+  <div class="pt-2 mb-3 d-flex w-100 justify-content-between">
+    <span>
+      <h4 class="d-inline-flex me-2">
+        {{unidad.nombre}}
+      </h4>
+      {% if unidad.webpage %}
+      <a href="{{unidad.webpage}}" target="_blank" type="button" class="btn btn-outline-dark mb-2 btn-sm"><i class="bi bi-box-arrow-up-right"></i></a>
+      {% endif %}
+    </span>
+    {% if editable and not anonimo %}
+    <span>
+      <button
+        type="button"
+        class="btn btn-danger me-2"
+        data-bs-toggle="modal"
+        data-bs-target="#eliminarModal{{unidad.id}}"
+      >
+        <i class="bi bi-trash me-1"></i>Eliminar
+      </button>
+      <button
+        role="button"
+        class="btn btn-secondary"
+        data-bs-toggle="modal"
+        data-bs-target="#editarModal{{unidad.id}}"
+      >
+        Editar
+      </button>
+    </span>
+    {% endif %}
+  </div>
+  <div class="accordion mb-4" id="unidad-{{unidad.id}}-accordion">
+    <!-- Acordion Academicos -->
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading-academicos-{{unidad.id}}">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapse-academicos-{{unidad.id}}" aria-expanded="true"
+        aria-controls="collapse-academicos-{{unidad.id}}">
+        Académicos
+      </button>
+    </h2>
+    <div id="collapse-academicos-{{unidad.id}}" class="accordion-collapse collapse show"
+      aria-labelledby="heading-academicos-{{unidad.id}}" data-bs-parent="#unidad-{{unidad.id}}-accordion">
+      <div class="accordion-body">
+        {% if academicos|length > 0 %}
+          <table id="table-{{unidad.id}}" class="table table-hover ">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>DBLP</th>
+                <th class="d-none d-md-table-cell">ORCID</th>
+                <th class="d-none d-sm-table-cell">Nº Journals</th>
+                <th class="d-none d-sm-table-cell">Nº Conferencias</th>
+                {% if editable and not anonimo %}
+                <th>Acción</th>
+                {% endif %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for academico in academicos %} {% if academico.unidad.id == unidad.id %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>
+                  <a
+                    href="{% url 'front:academico' academico.id %}"
+                    role="button"
+                    >
+                      {{ academico.get_full_name }}   
+                    </a
+                  >
+                </td>
+                <td>
+                  <a
+                    href="https://dblp.org/pid/{{academico.investigador_ondemand.dblp_id}}"
+                    role="button"
+                    target="_blank"
+                    >{% if academico.investigador_ondemand.dblp_id != "0" %}{{academico.investigador_ondemand.dblp_id}}{% endif %}</a
+                  >
+                </td>
+                <td class="d-none d-md-table-cell">
+                  <a
+                  href="https://orcid.org/{{academico.investigador_ondemand.orcid_id}}"
+                  role="button"
+                  target="_blank"
+                  >{{academico.investigador_ondemand.orcid_id}}</a
+                  >
+                </td>
+                <td class="d-none d-sm-table-cell">{{academico.investigador_ondemand.dblp_n_journal}}</td>
+                <td class="d-none d-sm-table-cell">{{academico.investigador_ondemand.dblp_n_conference}}</td>
+                {% if editable and not anonimo %}
+                <th>
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="bi bi-gear"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <button
+                          role="button"
+                          class="dropdown-item"
+                          data-bs-toggle="modal"
+                          data-bs-target="#eleminarAcademicoModal"
+                          data-bs-id="{{academico.id}}"
+                          data-bs-nombre="{{academico.nombre}}"
+                          data-bs-unidad="{{academico.unidad.id}}"
+                        >
+                          <i class="bi bi-trash me-2"></i>Eliminar
+                        </button>
+                      </li>
+                      <li><a class="dropdown-item" href="{% url 'front:academico_edit' academico.id %}"><i class="bi bi-pencil me-2"></i>Editar</a></li>
+                      {% if unidades|length > 1 %}
+                      <li>
+                        <button
+                          role="button"
+                          class="dropdown-item"
+                          data-bs-toggle="modal"
+                          data-bs-target="#cambiarUnidadAcademicoModal"
+                          data-bs-id="{{academico.id}}"
+                          data-bs-nombre="{{academico.nombre}}"
+                          data-bs-unidad="{{academico.unidad.id}}"
+                        >
+                          <i class="bi bi-archive me-2"></i>Cambiar Unidad
+                        </button>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                </th>
+                {% endif %}
+              </tr>
+              {% endif %} {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="text-center">No hay registros de académicos disponibles</p>
+        {% endif %}
+        <!-- actions -->
+         {% if editable and not anonimo %}
+          <div class="d-flex justify-content-end mt-3">
+            <a class="btn btn-danger btn-sm me-2" href="{% url 'front:carga_masiva' universidad.id %}" role="button">Carga académicos</a>
+            <button
+              role="button"
+              class="btn btn-primary btn-sm"
+              data-bs-toggle="modal"
+              data-bs-target="#nuevoAcademicoModal"
+            >
+              Nuevo Académico
+            </button>
+          </div>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+    <!-- Acordion Grados -->
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="heading-grados-{{unidad.id}}">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+        data-bs-target="#collapse-grados-{{unidad.id}}" aria-expanded="false"
+        aria-controls="collapse-grados-{{unidad.id}}">
+        Programas Académicos
+      </button>
+    </h2>
+    <div id="collapse-grados-{{unidad.id}}" class="accordion-collapse collapse"
+      aria-labelledby="heading-grados-{{unidad.id}}" data-bs-parent="#unidad-{{unidad.id}}-accordion">
+      <div class="accordion-body">
+        {% if grados %}
+       <table class="table table-hover" id="grados-table-{{unidad.id}}">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th class="d-none d-md-table-cell">Nombre</th>
+            <th class="d-none d-md-table-cell">Tipo</th>
+            <th class="d-none d-md-table-cell">Fecha de creación</th>
+            <th class="d-none d-md-table-cell">Página Web</th>
+            {% if editable and not anonimo %}
+              <th>Acción</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for grado in grados %}
+          {% if grado.unidad.id == unidad.id %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>
+                <a href="{% url 'front:grado' grado.id %}">
+                  {{ grado.nombre }}
+                </a>
+              </td>
+              <td>{{ grado.tipo }}</td>
+              <td>{% if grado.fecha_creacion %}{{ grado.fecha_creacion|date:"Y-m-d" }}{% else %}n/a{% endif %}</td>
+              <td>
+                {% if grado.web_site %}
+                  <a href="{{ grado.web_site }}" target="_blank">{{ grado.web_site }}</a>
+                {% else %}
+                  n/a
+                {% endif %}
+              </td>
+              {% if editable and not anonimo %}
+              <td>
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-gear"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <button
+                        role="button"
+                        class="dropdown-item"
+                        data-bs-toggle="modal"
+                        data-bs-target="#eliminarGradoModal{{ grado.id }}"
+                        data-bs-id="{{grado.id}}"
+                        data-bs-nombre="{{grado.nombre}}"
+                        data-bs-unidad="{{grado.unidad.id}}"
+                      >
+                        <i class="bi bi-trash me-2"></i>Eliminar
+                      </button>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'grados:grado_edit' grado.id %}">
+                        <i class="bi bi-pencil me-2"></i>Editar
+                      </a>
+                    </li>
+                    <!-- Puedes agregar más acciones aquí si lo necesitas -->
+                  </ul>
+                </div>
+              </td>
+              {% endif %}
+            </tr>
+          {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+        {% else %}
+          <p class="text-center">No hay registros de programas académicos disponibles.</p>
+        {% endif %}
+        <!-- actions -->
+          {% if editable and not anonimo %}
+        <div class="d-flex justify-content-end mt-3">
+          <button
+            role="button"
+            class="btn btn-primary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#nuevoGradoModal"
+          >
+            Nuevo Programa Académico
+          </button>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endfor %}
+</div>
+
+
+<!-- Modal Nueva Unidad -->
+<div
+  class="modal fade"
+  id="nuevoModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="nuevoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="nuevoModalLabel">Nueva Unidad</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'inst:unidad_new' %}" method="post" id="unidad-nueva-form">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            id="inputUniversidad"
+            name="inputUniversidad"
+            value="{{ universidad.id }}"
+          />
+          <div class="row mb-3">
+            <label for="inputNombre" class="col-sm-3 col-form-label">
+              Nombre<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputNombre"
+                name="inputNombre"
+                onfocus="remove_feedback('inputNombre')"
+                required
+              />
+              <div class="invalid-feedback" id="inputNombreFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputSigla" class="col-sm-3 col-form-label">
+              Nombre corto (sigla)
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputSigla"
+                name="inputSigla"
+                onfocus="remove_feedback('inputSigla')"
+              />
+              <div class="invalid-feedback" id="inputSiglaFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputWebpage" class="col-sm-3 col-form-label">
+              Página Web
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="url"
+                class="form-control"
+                id="inputWebpage"
+                name="inputWebpage"
+                onfocus="remove_feedback('inputWebpage')"
+              />
+              <div class="invalid-feedback" id="inputWebpageFeedback"></div>
+            </div>
+          </div>
+          <!-- FOTO -->
+          <!-- <div class="row mb-3">
+            <label for="formFileFoto" class="col-sm-3 col-form-label">Foto</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="file" id="formFileFoto" name="formFileFoto">
+            </div>
+          </div> -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" onclick="validate_form_new_unidad()">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar Unidad-->
+{% for unidad in unidades %}
+<div
+  class="modal fade"
+  id="eliminarModal{{unidad.id}}"
+  tabindex="-2"
+  data-bs-backdrop="static"
+  aria-labelledby="eliminarModal{{unidad.id}}Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="eliminarModal{{unidad.id}}Label">
+          Eliminar Unidad
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'inst:unidad_delete' %}" method="post">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            id="inputUniversidad"
+            name="inputUniversidad"
+            value="{{ universidad.id }}"
+          />
+          <input
+            type="hidden"
+            id="inputUnidad"
+            name="inputUnidad"
+            value="{{ unidad.id }}"
+          />
+          <div>
+            <p>¿Estás seguro que desea eliminar la unidad <strong>{% if unidad.nombre %}{{ unidad.nombre }}{% else %}Computación{% endif %}</strong>?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Unidad-->
+<div
+  class="modal fade"
+  id="editarModal{{unidad.id}}"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="editarModal{{unidad.id}}Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editarModal{{unidad.id}}Label">
+          Editar Unidad {{ unidad.nombre }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'inst:unidad_edit' %}" method="post" id="unidad-edit-form-{{unidad.id}}">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            id="inputUniversidad"
+            name="inputUniversidad"
+            value="{{ universidad.id }}"
+          />
+          <input
+            type="hidden"
+            id="inputUnidad"
+            name="inputUnidad"
+            value="{{ unidad.id }}"
+          />
+          <div class="row mb-3">
+            <label for="inputNombre" class="col-sm-3 col-form-label">
+              Nombre<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputNombreEdit{{unidad.id}}"
+                name="inputNombre"
+                value="{{ unidad.nombre }}"
+                onfocus="remove_feedback('inputNombreEdit{{unidad.id}}')"
+              />
+              <div class="invalid-feedback" id="inputNombreEdit{{unidad.id}}Feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputSigla" class="col-sm-3 col-form-label">
+              Nombre corto<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputSiglaEdit{{unidad.id}}"
+                name="inputSigla"
+                value="{{ unidad.sigla }}"
+                onfocus="remove_feedback('inputSiglaEdit{{unidad.id}}')"
+              />
+              <div class="invalid-feedback" id="inputSiglaEdit{{unidad.id}}Feedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputWebpage" class="col-sm-3 col-form-label">
+              Página Web
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="url"
+                class="form-control"
+                id="inputWebpageEdit{{unidad.id}}"
+                name="inputWebpage"
+                value="{{ unidad.webpage }}"
+                onfocus="remove_feedback('inputWebpageEdit{{unidad.id}}')"
+              />
+              <div class="invalid-feedback" id="inputWebpageEdit{{unidad.id}}Feedback"></div>
+            </div>
+          </div>
+          <!-- FOTO -->
+          <!-- <div class="row mb-3">
+            <label for="formFileFoto" class="col-sm-3 col-form-label">Foto</label>
+            <div class="col-sm-9">
+              <input class="form-control" type="file" id="formFileFoto" name="formFileFoto">
+            </div>
+          </div> -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" onclick="validate_form_update_unidad('{{unidad.id}}')">Actualizar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Modal Nuevo academico -->
+<div
+  class="modal fade"
+  id="nuevoAcademicoModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="nuevoAcademicoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="nuevoAcademicoModalLabel">
+          Nuevo académico
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'persona:academico_new' %}" method="post" id="academico-new-form">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            id="inputInstitucionAcademicoNuevo"
+            name="inputInstitucion"
+            value="{{ universidad.id }}"
+          />
+          <div class="row mb-3">
+            <label for="inputUnidadAcademicoNuevo" class="col-sm-3 col-form-label">
+              Unidad<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <select class="form-select" aria-label="Default select example" name="inputUnidad" id="inputUnidadAcademicoNuevo" onfocus="remove_feedback('inputUnidadAcademicoNuevo')">
+                <option value="0" selected>Seleccione una Unidad</option>
+                {% for unidad in unidades %}
+                <option value="{{unidad.id}}">{% if unidad.nombre %}{{unidad.nombre}}{% else %}Computación{% endif %}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback" id="inputUnidadAcademicoNuevoFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputNombreAcademicoNuevo" class="col-sm-3 col-form-label">
+              Nombre<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputNombreAcademicoNuevo"
+                name="inputNombre"
+                onfocus="remove_feedback('inputNombreAcademicoNuevo')"
+                required
+              />
+              <div class="invalid-feedback" id="inputNombreAcademicoNuevoFeedback"></div>
+            </div>
+          </div>
+          <!-- apellido -->
+          <div class="row mb-3">
+            <label for="inputApellidoAcademicoNuevo" class="col-sm-3 col-form-label">
+              Apellidos
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputApellidoAcademicoNuevo"
+                name="inputApellido"
+                onfocus="remove_feedback('inputApellidoAcademicoNuevo')"
+              />
+              <div class="invalid-feedback" id="inputApellidoAcademicoNuevoFeedback"></div>
+            </div>
+          </div>
+
+          <!-- correo  -->
+          <div class="row mb-3">
+            <label for="inputCorreoAcademicoNuevo" class="col-sm-3 col-form-label">
+              Correo electrónico
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="email"
+                class="form-control"
+                id="inputCorreoAcademicoNuevo"
+                name="inputCorreo"
+                onfocus="remove_feedback('inputCorreoAcademicoNuevo')"
+              />
+              <div class="invalid-feedback" id="inputCorreoAcademicoNuevoFeedback"></div>
+            </div>
+          </div>
+            <!-- webpage -->
+          <div class="row mb-3">
+            <label for="inputWebpageAcademicoNuevo" class="col-sm-3 col-form-label">
+              Página Web
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="url"
+                class="form-control"
+                id="inputWebpageAcademicoNuevo"
+                name="inputWebpage"
+                onfocus="remove_feedback('inputWebpageAcademicoNuevo')"
+              />
+              <div class="invalid-feedback" id="inputWebpageAcademicoNuevoFeedback"></div>
+            </div>
+          </div>
+
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" onclick="validate_form_academico_new()">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Eliminar académico -->
+<div
+  class="modal fade"
+  id="eleminarAcademicoModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="eleminarAcademicoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="eleminarAcademicoModalLabel">
+          Eliminar académico
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-body-text">
+        </p>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cancelar
+          </button>
+          <a href="{% url 'persona:academico_delete' %}" type="button" class="btn btn-danger" id="deleteAcademicoButton">Eliminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal cambiar Unidad académico  -->
+<div
+  class="modal fade"
+  id="cambiarUnidadAcademicoModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="cambiarUnidadAcademicoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="cambiarUnidadAcademicoModalLabel">
+          Cambiar Unidad académico
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-body-text">
+          Selecciona una unidad.
+        </p>
+        <form action="{% url 'persona:academico_change_unidad' %}" method="post" id="academico-change-unidad-form">
+          {% csrf_token %}
+          <input
+            type="hidden"
+            id="inputAcademicoChangeUnidad"
+            name="inputAcademico"
+            value=""
+          />
+          <input
+            type="hidden"
+            id="inputUnidadOldAcademicoChangeUnidad"
+            name="inputUnidadOld"
+            value=""
+          />
+          <select
+            class="form-select"
+            aria-label="Select change unidad"
+            name="inputUnidadNew"
+            id="inputUnidadNewAcademicoChangeUnidad"
+            onchange="remove_feedback('inputUnidadNewAcademicoChangeUnidad')"
+          >
+            <option value="0">Selecciona una Unidad.</option>
+            {% for unidad in unidades %}
+            <option value="{{unidad.id}}">{% if unidad.nombre %}{{unidad.nombre}}{% else %}Unidad Computación{% endif %}</option>
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback" id="inputUnidadNewFeedback"></div>
+          <div class="modal-footer mt-4">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger" onclick="validate_form_academico_cambiar_unidad()">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal Editar Institución  -->
+<div
+  class="modal fade"
+  id="editarInstitucionModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="editarInstitucionModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editarInstitucionModalLabel">
+          Editar Institución
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <form method="post" action="{% url 'inst:institucion_edit' %}" id="institucion-edit-form">
+        {% csrf_token %}
+        <input
+          type="hidden"
+          name="inputInstitucion"
+          value="{{universidad.id}}"
+        >
+        <div class="modal-body">
+          <div class="row mb-3">
+            <label for="inputNombre" class="col-sm-2 col-form-label">Nombre<span class="text-danger">*</span></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputNombreEditInst" name="inputNombre" value="{{universidad.nombre}}" required minlength="5" maxlength="200" onfocus="remove_feedback('inputNombreEditInst')">
+              <div class="invalid-feedback" id="input-nombre-feedback-edit-inst"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputSigla" class="col-sm-2 col-form-label">Sigla<span class="text-danger">*</span></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputSiglaEditInst" name="inputSigla" value="{{universidad.sigla}}" required minlength="1" maxlength="10" onfocus="remove_feedback('inputSiglaEditInst')">
+              <div class="invalid-feedback" id="input-sigla-feedback-edit-inst"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputWebpage" class="col-sm-2 col-form-label">Página Web</label>
+            <div class="col-sm-10">
+              <input type="url" class="form-control" id="inputWebpageEditInst" name="inputWebpage" value="{{universidad.webpage}}"  onfocus="remove_feedback('inputWebpageEditInst')">
+              <div class="invalid-feedback" id="input-webpage-feedback-edit-inst"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputPais" class="col-sm-2 col-form-label">País<span class="text-danger">*</span></label>
+            <div class="col-sm-10">
+              <select class="form-select" aria-label="Select country" name="inputPais" id="inputPaisEditInst" required onfocus="remove_feedback('inputPaisEditInst')">
+                <option value="0">Seleccione un país</option>
+                {% for country in countries_full %}
+                <option value="{{ country.code }}" {% if universidad.pais == country.code %}selected{% endif %}>{{ country.name }}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback" id="input-pais-feedback-edit-inst"></div>
+            </div>
+          </div>
+          <!-- <div class="row mb-3">
+            <label for="inputFileEscudo" class="col-sm-2 col-form-label">Escudo</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="file" id="inputFileEscudoEditInst" name="inputFileEscudo" onfocus="remove_feedback('inputFileEscudoEditInst')">
+              <div class="invalid-feedback" id="input-escudo-feedback-edit-inst"></div>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col">
+              <div class="row mb-3">
+                <label for="inputIDRinggold" class="col-sm-3 col-form-label">ID Ringgold</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="inputIDRinggoldEditInst" name="inputIDRinggold" {% if universidad.id_ringgold %}value="{{universidad.id_ringgold}}"{% endif %} maxlength="50" onfocus="remove_feedback('inputIDRinggoldEditInst')">
+                  <div class="invalid-feedback" id="input-ringgold-feedback-edit-inst"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputIDCrossref" class="col-sm-3 col-form-label">ID Crossref</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="inputIDCrossrefEditInst" name="inputIDCrossref" {% if universidad.id_crossref %}value="{{universidad.id_crossref}}"{% endif %} maxlength="50" onfocus="remove_feedback('inputIDCrossrefEditInst')">
+                  <div class="invalid-feedback" id="input-crossref-feedback-edit-inst"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row mb-3">
+                <label for="inputIDWikidata" class="col-sm-3 col-form-label">ID Wikidata</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="inputIDWikidataEditInst" name="inputIDWikidata" {% if universidad.id_wikidata %}value="{{universidad.id_wikidata}}"{% endif %} maxlength="50" onfocus="remove_feedback('inputIDWikidataEditInst')">
+                  <div class="invalid-feedback" id="input-wikidata-feedback-edit-inst"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputIDISNI" class="col-sm-3 col-form-label">ID ISNI</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="inputIDISNIEditInst" name="inputIDISNI" {% if universidad.id_isni %}value="{{universidad.id_isni}}"{% endif %} maxlength="50" onfocus="remove_feedback('inputIDISNIEditInst')">
+                  <div class="invalid-feedback" id="input-isni-feedback-edit-inst"></div>
+                </div>
+              </div>
+              <div class="row mb-3">
+          </div>
+            </div>
+          </div>
+    <div class="mb-3 row">
+    <label for="inputOpenAlex" class="col-sm-2 col-form-label">ID OpenAlex</label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <button
+                type="button"
+                class="btn btn-secondary sm-2"
+                onclick="determinarOpenAlexID()"
+                id="determinarOpenAlexButton"
+              >
+                <span class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinnerSearchOpenAlex"></span>
+                <span id="openalex-button-text">Ver Sugerencias</span>
+              </button>
+              <div class="d-none w-25" id="openalex-suggestions-box">
+                <select class="form-select" id="openalex-suggestions-select" aria-label="Default select example" onchange="determinarDBLPselectChange()">
+                  <option value="0" selected>Seleccione una opción</option>
+                </select>
+              </div>
+            <a 
+            id="openalex-nav-icon"
+            class="input-group-text"
+            href="{% if universidad.openalex_id %}https://openalex.org/institutions/{{universidad.openalex_id}}{% else %}#{% endif %}" 
+            target="_blank"
+            title="Ir a OpenAlex"
+            aria-disabled="{% if not universidad.openalex_id %}true{% endif %}"
+            onclick="return handleOpenAlexNavClick();"
+          >
+            https://openalex.org/institutions/
+            <i class="bi bi-box-arrow-up-right ms-1"></i>
+          </a>
+              </span>
+              <input type="text" class="form-control" id="inputOpenAlexEditInst" name="inputOpenAlex"
+              {% if universidad.openalex_id %}value="{{universidad.openalex_id}}"{% endif %}
+              maxlength="50" onfocus="remove_feedback('inputOpenAlexEditInst')">
+            </div>
+            <div class="form-text d-none fs-6" id="OpenAlexFeedback"></div>
+            </div>
+          </div>
+          <div class="mb-3 row">
+  
+<label for="inputIDROREditInst" class="col-sm-2 col-form-label">ID ROR</label>
+  <div class="col-sm-10">
+    <div class="input-group">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="determinarRORID()"
+        id="determinarRORButton"
+      >
+        <span class="d-none spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinnerSearchROR"></span>
+        <span id="ror-button-text">Ver Sugerencias</span>
+      </button>
+      <div class="d-none w-25" id="ror-suggestions-box">
+        <select class="form-select" id="ror-suggestions-select" aria-label="Default select example">
+          <option value="0" selected>Seleccione una opción</option>
+        </select>
+      </div>
+      <a 
+        id="ror-nav-icon"
+        class="input-group-text"
+        href="{% if universidad.id_ror %}https://ror.org/{{universidad.id_ror}}{% else %}#{% endif %}" 
+        target="_blank"
+        title="Ir a ROR"
+        aria-disabled="{% if not universidad.id_ror %}true{% endif %}"
+        onclick="return handleRORNavClick();"
+      >
+        https://ror.org/
+        <i class="bi bi-box-arrow-up-right ms-1"></i>
+      </a>
+      <input
+        type="text"
+        class="form-control"
+        id="inputIDROREditInst"
+        name="inputIDROR"
+        {% if universidad.id_ror %}value="{{universidad.id_ror}}"{% endif %}
+        maxlength="50"
+        onfocus="remove_feedback('inputIDROREditInst')"
+      >
+    </div>
+    <div class="form-text d-none fs-6" id="RORFeedback"></div>
+  </div>
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" onclick="validate_form_institucion_edit()" class="btn btn-danger">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Eliminar institucion Modal -->
+<div class="modal fade" id="eliminarInstitucionModal" tabindex="-1" aria-labelledby="eliminarInstitucionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="{% url 'inst:institucion_delete'%}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="eliminarInstitucionModalLabel">Eliminar Institución</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro que deseas eliminar la institución <strong>{{ universidad.nombre }}</strong>? Esta acción no se puede deshacer.
+        </div>
+        <input type="hidden" name="inputInstitucion" value="{{ universidad.id }}">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal Nuevo Programa  -->
+<div
+  class="modal fade"
+  id="nuevoGradoModal"
+  tabindex="-1"
+  data-bs-backdrop="static"
+  aria-labelledby="nuevoGradoModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog pt-5">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="nuevoGradoModalLabel">
+          Nuevo Programa
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'grados:grado_new' %}" method="post" id="grado-new-form">
+          {% csrf_token %}
+          <div class="row mb-3">
+            <label for="inputUnidadGradoNuevo" class="col-sm-3 col-form-label">
+              Unidad<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <select class="form-select" name="InputUnidad" id="inputUnidadGradoNuevo" required>
+                <option value="" selected>Seleccione una Unidad</option>
+                {% for unidad in unidades %}
+                <option value="{{unidad.id}}">{% if unidad.nombre %}{{unidad.nombre}}{% else %}Computación{% endif %}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback" id="inputUnidadGradoNuevoFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputNombreGradoNuevo" class="col-sm-3 col-form-label">
+              Nombre<span class="text-danger">*</span>
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputNombreGradoNuevo"
+                name="InputNombre"
+                required
+              />
+              <div class="invalid-feedback" id="inputNombreGradoNuevoFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputNombreEsGradoNuevo" class="col-sm-3 col-form-label">
+              Nombre (Español)
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="inputNombreEsGradoNuevo"
+                name="InputNombreEs"
+              />
+              <div class="invalid-feedback" id="inputNombreEsGradoNuevoFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputTipoGradoNuevo" class="col-sm-3 col-form-label">
+              Tipo
+            </label>
+            <div class="col-sm-9">
+              <select class="form-select" name="InputTipo" id="inputTipoGradoNuevo">
+                {% for value, label in tipo_choices %}
+                  <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+              <div class="invalid-feedback" id="inputTipoGradoNuevoFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputWebGradoNuevo" class="col-sm-3 col-form-label">
+              Página web
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="url"
+                class="form-control"
+                id="inputWebGradoNuevo"
+                name="InputWeb"
+              />
+              <div class="invalid-feedback" id="inputWebGradoNuevoFeedback"></div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label for="inputFechaGradoNuevo" class="col-sm-3 col-form-label">
+              Fecha de creación
+            </label>
+            <div class="col-sm-9">
+              <input
+                type="date"
+                class="form-control"
+                id="inputFechaGradoNuevo"
+                name="InputFecha"
+              />
+              <div class="invalid-feedback" id="inputFechaGradoNuevoFeedback"></div>
+            </div>
+          </div>
+          <!-- <div class="row mb-3">
+            <label for="inputActivoGradoNuevo" class="col-sm-3 col-form-label">
+              Activo
+            </label>
+            <div class="col-sm-9 d-flex align-items-center">
+              <input
+                type="checkbox"
+                id="inputActivoGradoNuevo"
+                name="InputActivo"
+                checked
+              />
+              <label for="inputActivoGradoNuevo" class="ms-2 mb-0">Sí</label>
+            </div>
+          </div> -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-danger">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 
+<!-- Modal Eliminar Programa  -->
+  {% for grado in grados %}
+  <div
+    class="modal fade"
+    id="eliminarGradoModal{{ grado.id }}"
+    tabindex="-1"
+    data-bs-backdrop="static"
+    aria-labelledby="eliminarGradoModalLabel{{ grado.id }}"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog pt-5">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="eliminarGradoModalLabel{{ grado.id }}">
+            Eliminar Programa
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro que deseas eliminar el grado <strong>{{ grado.nombre }}</strong>?</p>
+          <form action="{% url 'grados:grado_delete' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="grado_id" value="{{ grado.id }}">
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% if editable %}
+<script src="{% static 'front/institucion_action.js' %}"></script>
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
+{% endif %}
+{% endblock content %}

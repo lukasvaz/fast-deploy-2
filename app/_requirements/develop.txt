@@ -1,0 +1,12 @@
+black
+flake8
+pur
+isort
+debugpy
+bandit
+pylint
+pytest
+coverage
+pygraphviz
+djlint
+django-debug-toolbar==4.2.0

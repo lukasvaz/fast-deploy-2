@@ -1,0 +1,3 @@
+# crontab -e
+0 0,3,5 * * * docker exec acad_micros python manage.py runcrons >/home/instalar/logs/acad_micros
+

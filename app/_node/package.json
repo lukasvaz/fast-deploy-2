@@ -1,0 +1,25 @@
+{
+    "dependencies": {
+      "bootstrap": "^5.3.8",
+      "bootstrap-icons": "^1.13.1",
+      "bootstrap-select": "^1.13.18",
+      "bootstrap-table": "^1.25.0",
+      "chart.js": "^4.5.1",
+      "htmx.org": "^2.0.8",
+      "intl-tel-input": "^25.12.5",
+      "jquery": "^3.7.1"
+    },
+    "devDependencies": {
+      "sass": "^1.94.2"
+    },
+    "name": "servicios",
+    "version": "1.0.0",
+    "main": "",
+    "scripts": {
+      "sass-dev": "sass --watch --update --style=expanded scss/:../_staticfiles/css",
+      "sass-prod": "sass --no-source-map --style=compressed scss/:../_staticfiles/css"
+    },
+    "author": "Área de Desarrollo de Software",
+    "license": "UNLICENSED",
+    "description": ""
+  }
