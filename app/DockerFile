@@ -12,6 +12,5 @@ COPY app/ .
 
 RUN pip install -r _requirements/base.txt
 RUN pip install -r _requirements/production.txt
-RUN pip install -r _requirements/develop.txt
 
 
