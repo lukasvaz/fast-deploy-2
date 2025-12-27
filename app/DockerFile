@@ -16,9 +16,4 @@ RUN pip install -r _requirements/production.txt
 RUN  echo "Production requirements installed"
 RUN pip install -r _requirements/develop.txt
 RUN echo "develop requirements installed"
-
-# Command to prepare and start the Django service on Render
-CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata fixture_all.json && gunicorn core.wsgi:application --bind 0.0.0.0:8000"]
 RUN echo "Production setup complete"
-FROM base AS develop
-ENV PYDEVD_DISABLE_FILE_VALIDATION=1
