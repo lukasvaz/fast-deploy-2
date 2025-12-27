@@ -12,6 +12,7 @@ COPY app/ .
 
 RUN pip install -r _requirements/base.txt
 RUN pip install -r _requirements/production.txt
+RUN pip install -r _requirements/develop.txt
 RUN echo "Base and production requirements installed"
 
 FROM base AS production
