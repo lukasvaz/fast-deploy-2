@@ -6,16 +6,18 @@ ALLOWED_HOSTS = [
     "apps.dcc.uchile.cl",
     "test.dcc.uchile.cl",
     "labs.test.dcc.uchile.cl",
+    "fast-deploy-2.onrender.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://apps.dcc.uchile.cl",
     "https://test.dcc.uchile.cl",
     "https://labs.test.dcc.uchile.cl",
+    "https://fast-deploy-2.onrender.com",
 ]
 
 ADMINS = [
-    ("Área de Desarrollo de Software", "desarrollo@dcc.uchile.cl"),
+    # ("Área de Desarrollo de Software", "desarrollo@dcc.uchile.cl"),
 ]
 
 
