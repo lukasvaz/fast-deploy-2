@@ -7,12 +7,14 @@ ALLOWED_HOSTS = [
     "apps.dcc.uchile.cl",
     "test.dcc.uchile.cl",
     "labs.test.dcc.uchile.cl",
+    "fast-deploy-2.onrender.com",
 ]
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
     "https://apps.dcc.uchile.cl",
     "https://test.dcc.uchile.cl",
     "https://labs.test.dcc.uchile.cl",
+    "https://fast-deploy-2.onrender.com",
 ]
 
 
