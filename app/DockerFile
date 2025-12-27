@@ -13,8 +13,5 @@ COPY app/ .
 RUN pip install -r _requirements/base.txt
 RUN pip install -r _requirements/production.txt
 RUN pip install -r _requirements/develop.txt
-RUN python manage.py makemigrations
-RUN python manage.py migrate
-RUN python manage.py collectstatic --noinput
 
 
