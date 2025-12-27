@@ -27,7 +27,7 @@ USER instalar
 RUN pip install -r _requirements/develop.txt
 
 # Command to prepare and start the Django service on Render
-CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata fixture_all.json && gunicorn core.wsgi:application --bind 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata fixture_all.json"]
 
 FROM base AS develop
 ENV PYDEVD_DISABLE_FILE_VALIDATION=1
