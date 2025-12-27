@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Error {{ error_code or "Error" }}{% if error_message %} — {{ error_message }}{% endif %}</title>
+    <title>Error {{ error_code|default:"Error" }}{% if error_message %} — {{ error_message|default:"Something went wrong" }}{% endif %}</title>
     <style>
         :root { --bg:#0f1724; --card:#0b1220; --accent:#ff6b6b; --muted:#9aa4b2; --glass: rgba(255,255,255,0.03);}
         html,body{height:100%}
@@ -74,15 +74,14 @@
 <body>
     <main class="card" role="main" aria-labelledby="title">
         <div class="header">
-            <div class="code" aria-hidden="true">{{ error_code or "500" }}</div>
+            <div class="code" aria-hidden="true">{{ error_code|default:"500" }}</div>
             <div>
-                <h1 id="title">{{ error_message or "Something went wrong" }}</h1>
+                <h1 id="title">{{ error_message|default:"Something went wrong" }}</h1>
                 <p class="lead">An unexpected error occurred while processing your request.</p>
                 <div class="actions" role="group" aria-label="Error actions">
                     <a class="btn" href="/" title="Go to home">Home</a>
                     <a class="btn" href="javascript:history.back()" title="Go back">Back</a>
                     {% if support_url %}
-                    <a class="btn primary" href="{{ support_url }}">Contact support</a>
                     {% endif %}
                 </div>
             </div>
