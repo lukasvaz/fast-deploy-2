@@ -12,5 +12,14 @@ COPY app/ .
 
 RUN pip install -r _requirements/base.txt
 RUN pip install -r _requirements/production.txt
+# /bin/bash -c python manage.py loaddata _fixtures/users/fixtures/users_fixture_23_12_2025.json && python manage.py loaddata _fixtures/universidad/fixtures/universidad_fixture_23_12_2025.json && python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_23_12_2025.json 	python manage.py loaddata _fixtures/grados/fixtures/grados_fixture_23_12_2025.json python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:10000
 
+CMD [ "python manage.py makemigrations && \
+python manage.py migrate && \   
+python manage.py loaddata _fixtures/users/fixtures/users_fixture_23_12_2025.json && \
+python manage.py loaddata _fixtures/universidad/fixtures/universidad_fixture_23_12_2025.json && \
+python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_23_12_2025.json && \
+python manage.py loaddata _fixtures/grados/fixtures/grados_fixture_23_12_2025.json && \
+python manage.py collectstatic --noinput && \
+gunicorn core.wsgi:application --bind 0.0.0.0:10000" ]
 
