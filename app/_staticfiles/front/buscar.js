@@ -91,11 +91,12 @@ const toggletab = (tab) => {
   const grado = document.getElementById("filter-grado");
   let gradosFilters = [grado]
   if (section === "academicos") {
-      academicoFilters.forEach ((filter) => {
-        filter.disabled = false,
-        filter.classList.remove("d-none")
-      }
-    )
+    // area subarea hided  for now
+    //   academicoFilters.forEach ((filter) => {
+    //     filter.disabled = false,
+    //     filter.classList.remove("d-none")
+    //   }
+    // )
       commonFilters.forEach ((filter) => {
         filter.classList.remove("d-none"),
         filter.disabled = false

@@ -56,13 +56,13 @@
                 {% endfor %}
               </select>
               <!-- academicos filters -->
-              <select class="form-select form-select-sm" aria-label="Select país" name="fa" id="fa" onchange="areachange()" autocomplete="on">
+              <select class="form-select form-select-sm d-none" aria-label="Select país" name="fa" id="fa" onchange="areachange()" autocomplete="on">
                 <option value="0">Área: Todos</option>
                 {% for area in areas_subareas.areas %}
                 <option value="{{area.id}}" {% if area.subareas|length == 0 %}disabled{% endif %}{% if area.id == fa %}selected{% endif %}>{{area.nombre}}</option>
                 {% endfor %}
               </select>
-              <select class="form-select form-select-sm" aria-label="Select área" name="fs" disabled autocomplete="on" id="fs" autocomplete="on" style="border-top-right-radius: 0;">
+              <select class="form-select form-select-sm d-none" aria-label="Select área" name="fs" disabled autocomplete="on" id="fs" autocomplete="on" style="border-top-right-radius: 0;">
                 <option value="0">Subárea: Todos</option>
               </select>
               <!-- programas filters -->
@@ -165,14 +165,19 @@
                         {% endfor %}
                       </div>
                       {% else %}
-                      n/a
+                      No especificado
                       {% endif %}
                   </div>
                   <div class="mb-1">
-                    <h6 class="mb-0 text-secondary">Keywords</h6>
-                    {% for keyword in academico_group.3 %}
-                    <span class="badge bg-secondary">{{ keyword }}</span>
-                    {% endfor %}
+                    {% if academico_group.3 %}
+                      <h6 class="mb-0 text-secondary">Keywords</h6>
+                      {% for keyword in academico_group.3 %}
+                      <span class="badge bg-secondary">{{ keyword }}</span>
+                      {% endfor %}
+                    {% else %}
+                      <h6 class="mb-0 text-secondary">Keywords</h6>
+                      Sin Datos
+                    {% endif %}
                   </div>
                 </div>
                 <div

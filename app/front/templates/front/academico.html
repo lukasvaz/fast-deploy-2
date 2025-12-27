@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block content %} {% load static %}
 <link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
+ <link rel="stylesheet" href="{% static 'css/leaflet.css' %}">
+ <script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>
 <script>
   var csrftoken = "{{csrf_token}}";
   const academico_id = "{{academico.id}}"
@@ -31,78 +33,12 @@
 
 <div class="pb-5 pt-3 bg-light w-100">
   <div class="container-lg">
+
+    <!-- Existing Content -->
     <div class="d-flex justify-content-between align-items-center gap-2">
       <!-- NOMBRE + AKA + ID -->
       <div class="d-flex align-items-center">
         <h1 class="mb-0"><span class="fs-2 me-2">{{ academico.get_full_name }}</span></h1>
-        <button data-bs-toggle="dropdown" aria-expanded="false" type="button" class="btn btn-outline-dark btn-sm dropdown-toggle">ID</button>
-        <ul class="dropdown-menu">
-          <li class="mx-3 mb-1"><strong>IDs externos</strong></li>
-          {% if investigador and investigador.dblp_id %}
-          <li>
-            <a target="_blank" class="dropdown-item" href="https://dblp.org/pid/{{ investigador.dblp_id }}">
-              <img
-                src="{% static 'images/base/dblp.120x120.png' %}"
-                alt="dblp"
-                width="20"
-                height="20"
-              />
-              {{ investigador.dblp_id }}
-            </a>
-          </li>
-          {% endif %}
-          {% if investigador and  investigador.orcid_id %}
-          <li>
-            <a target="_blank" class="dropdown-item" href="https://orcid.org/{{ investigador.orcid_id }}">
-              <img
-                src="{% static 'images/base/orcid.logo.icon.svg' %}"
-                width="20"
-                height="20"
-                alt="orcid"
-              />
-              {{ investigador.orcid_id }}
-            </a>
-          </li>
-          {% endif %}
-          {% if investigador and investigador.openalex_id %}
-          <li>
-            <a target="_blank" class="dropdown-item" href="https://openalex.org/{{ investigador.openalex_id }}">
-              <!-- TODO -->
-              <!-- <img
-                src="{% static 'images/base/openalex.png' %}"
-                width="20"
-                height="20"
-                alt="openalex"
-              /> -->
-              OpenAlex {{ investigador.openalex_id }}
-            </a>
-          </li>
-          {% endif %}
-          {% if investigador and investigador.openalex_id_scopus %}
-          <li>
-            <a target="_blank" class="dropdown-item" href="{{investigador.openalex_id_scopus }}">
-              Scopus ID
-            </a>
-          </li>
-          {% endif %}
-          {% if investigador and investigador.aminer_id %}
-           <li>
-            <div class="dropdown-item">
-              <img
-                src="{% static 'images/base/aminer.png' %}"
-                width="20"
-                height="20"
-                alt="aminer"
-              />
-              {{ investigador.aminer_id }}
-
-            </div>
-          </li> 
-          {% endif %}
-            {% if not investigador%}
-          <li class="mx-3"><p>No hay información.</p></li>
-          {% endif %}
-        </ul>
         {% if academico.is_verification_pending %}
           <button type="button"
                           class="btn btn-link p-0"
@@ -161,7 +97,72 @@
     </div>
     <hr />
     <!-- DATOS -->
-    {% if academico.get_webpage or academico.get_email or academico.grado_maximo%}
+    <!-- External IDs Section -->
+     {%if investigador.dblp_id or investigador.orcid_id or investigador.openalex_id or investigador.openalex_id_scopus or investigador.aminer_id %}
+      <h2 class="fs-3">IDs Externos</h2>
+      <div class="p-2">
+        <ul class="list-unstyled d-flex flex-column gap-2 space-between mb-0">
+          {% if investigador and investigador.dblp_id %}
+          <li>
+            <a target="_blank" href="https://dblp.org/pid/{{ investigador.dblp_id }}">
+              <img
+                src="{% static 'images/base/dblp.120x120.png' %}"
+                alt="dblp"
+                width="20"
+                height="20"
+              />
+              {{ investigador.dblp_id }}
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and investigador.orcid_id %}
+          <li>
+            <a target="_blank" href="https://orcid.org/{{ investigador.orcid_id }}">
+              <img
+                src="{% static 'images/base/orcid.logo.icon.svg' %}"
+                width="20"
+                height="20"
+                alt="orcid"
+              />
+              {{ investigador.orcid_id }}
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and investigador.openalex_id %}
+          <li>
+            <a target="_blank" href="https://openalex.org/{{ investigador.openalex_id }}">
+              OpenAlex {{ investigador.openalex_id }}
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and investigador.openalex_id_scopus %}
+          <li>
+            <a target="_blank" href="{{ investigador.openalex_id_scopus }}">
+              Scopus ID
+            </a>
+          </li>
+          {% endif %}
+          {% if investigador and investigador.aminer_id %}
+          <li>
+            <img
+              src="{% static 'images/base/aminer.png' %}"
+              width="20"
+              height="20"
+              alt="aminer"
+            />
+            <a target="_blank" href="https://www.aminer.org/profile/{{ investigador.aminer_id }}">
+              {{ investigador.aminer_id }}
+              </a>
+          </li>
+          {% endif %}
+          {% if not investigador %}
+          <li><p>No hay información.</p></li>
+          {% endif %}
+        </ul>
+      </div>
+    <hr>
+    {%endif%}
+    {% if academico.get_webpage  or academico.grado_maximo%}
     <h2 class="fs-3">Datos Personales</h2>
     <div class="p-2">
       {% if academico.grado_maximo %}
@@ -172,11 +173,6 @@
       {% if academico.get_webpage %}
       <p class="mb-1">
         <span class="fs-5">Página web: </span><a href="{{ academico.get_webpage }}" target="_blank">{{ academico.get_webpage }}</a>
-      </p>
-      {% endif %}
-      {% if academico.get_email %}
-      <p class="mb-1">
-        <span class="fs-5">Email: </span><span id="email_span">{{academico.get_email}}</span>
       </p>
       {% endif %}
       {% if investigador and investigador.get_alternative_names %}
@@ -198,7 +194,7 @@
     {% endif %}
     <!-- Afiliación -->
     <h2 class="fs-3">Afiliación</h2>
-    <div class="d-flex align-items-end p-2">
+    <div class="d-flex align-items-center p-2">
       {% if academico.universidad.foto_escudo %}
       <div class="me-3">
         <img src="{% get_media_prefix %}{{ academico.universidad.foto_escudo }}" style="width:30px; height: 100%; object-fit: contain; object-position: 50% top;" alt="escudo {{academico.universidad.sigla}}">
@@ -215,7 +211,7 @@
           <span class="fs-5">Unidad: </span>{% if academico.unidad.nombre and not academico.unidad.is_default %}{{ academico.unidad.nombre }}{% else %}Computación{% endif %}
         </p>
         {% if academico.universidad.pais != "0" %}
-        <p class="mb-0">
+        <div class="mb-0 d-flex align-items-center gap-1">
           <span class="fs-5">Ubicación: 
           </span>
           {% if academico.universidad.openalex_institution.openalex_city_name %}
@@ -223,16 +219,18 @@
           {% endif %}
           <i class="{{ academico.universidad.pais.flag_css }} me-1"></i>{{ academico.universidad.pais.name }}
           {% if academico.universidad.openalex_institution.openalex_region_latitude and academico.universidad.openalex_institution.openalex_region_longitude %}
-          <button type="button"
-                  class="btn btn-link p-0 ms-2"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  data-bs-html="true"
-                  title="Latitud: {{ academico.universidad.openalex_institution.openalex_region_latitude }}<br>Longitud: {{ academico.universidad.openalex_institution.openalex_region_longitude }}">
-            <i class="bi bi-geo-alt-fill"></i>
-          </button>
+            <div class="position-relative p-2 pe-5" id="map-container">
+              <i class="bi bi-geo-alt-fill" id="map-icon" ></i>
+              <div id="map" style="height: 250px; width: 300px; position: absolute; top: -210px; left: 30px; z-index: 10;" class="rounded shadow">
+              </div>
+            </div>
+          <script>
+            const insitutionLatitud = "{{ academico.universidad.openalex_institution.openalex_region_latitude }}";
+            const insitutionLongitud = "{{ academico.universidad.openalex_institution.openalex_region_longitude }}";
+            const institutuionNombre = "{{ academico.universidad.nombre }}";
+          </script>
         {% endif %}
-        </p>
+        </div>
         {% endif %}
       </div>
     </div>
@@ -285,11 +283,8 @@
             </div>
           </div>
       {%endif%}
-          
-        
-      
+      <hr>
     {% endif %}
-    <hr>
     <!-- COAUTORES -->
     {% if coautores %}
     <h2 class="fs-3">Colaboraciones</h2>

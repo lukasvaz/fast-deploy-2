@@ -287,6 +287,8 @@ def load_data_academicos(request):
                                 unidad = universidad.unidades_set.filter(sigla__in=domain_options).first()
                             else:
                                 unidad = universidad.get_or_create_default_unidad()
+                        else:
+                            unidad = universidad.get_or_create_default_unidad()
 
                         academico_obj, academico_created = Academico.objects.get_or_create(
                             nombre=nombre,
@@ -447,6 +449,8 @@ def load_data_grados(request):
                             unidad = universidad.unidades_set.filter(sigla__in=domain_options).first()
                         else:
                             unidad = universidad.get_or_create_default_unidad()
+                    else:
+                        unidad = universidad.get_or_create_default_unidad()
 
                     grado, created = GradoInstancia.objects.get_or_create(
                         nombre=nombre,

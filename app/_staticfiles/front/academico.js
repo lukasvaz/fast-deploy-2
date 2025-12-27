@@ -63,10 +63,28 @@ $(".modal").on("hidden.bs.modal", function (e) {
   $(this).html(template);
 });
 
-  
 
-// assignign  colors 
+// // toggle map on hover
+// const mapIcon = document.getElementById('map-icon');
+// if (mapIcon) {
+//   console.log('map icon found');
+//   const mapDiv = document.getElementById('map');
+//   if (mapDiv) {
+//     console.log('map div found');
+//   }
+//   mapIcon.addEventListener('mouseenter', function() {
+//       console.log('hovered');
+//       mapDiv.classList.remove('d-none');
+//     });
+//     mapIcon.addEventListener('mouseleave', function() {
+//       console.log('unhovered'); 
+//       mapDiv.classList.add('d-none');
+//     });
+// }
+
+
 document.addEventListener("DOMContentLoaded", function () {
+  // assignign colors to area subarea
   const AREA_COLORS = {
     "Aplicaciones de Informática": "bg-success",
     "Hardware y Arquitectura": "bg-danger",
@@ -87,4 +105,40 @@ document.addEventListener("DOMContentLoaded", function () {
     el.classList.add(color);
     
   });
+  if (document.getElementById('map')) {
+
+  // initializing map rendering
+      var tooltipMap = L.map('map').setView([
+                  parseFloat(insitutionLatitud),
+                  parseFloat(insitutionLongitud)
+                ], 13);
+    
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  maxZoom: 19,
+                }).addTo(tooltipMap);
+    
+      L.marker([
+                  parseFloat(insitutionLatitud),
+                  parseFloat(insitutionLongitud)
+                ]).addTo(tooltipMap)
+                  .bindPopup('<b>' + institutuionNombre + '</b> <br />' + 'Lat: ' + insitutionLatitud + ',<br> Lon: ' + insitutionLongitud)
+                  .openPopup();
+
+    // adding listeners on hover
+    const mapIcon = document.getElementById('map-icon');
+    const mapDiv = document.getElementById('map');
+    const mapContainer = document.getElementById('map-container');
+
+  if (mapIcon && mapDiv) {
+    mapContainer.addEventListener('mouseenter', function () {
+      mapDiv.classList.remove('d-none');
+    });
+    mapContainer.addEventListener('mouseleave', function () {
+      mapDiv.classList.add('d-none');
+    });
+    mapDiv.classList.add('d-none'); // initially hide the map after render
+  }
+  }
+
 })
+

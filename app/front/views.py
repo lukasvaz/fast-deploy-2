@@ -241,8 +241,11 @@ def buscar(request):
         # [Academico, Investigador, [subareas], [keywords], [areas]]
         academico_ambitos = academico_group[0].ambitotrabajo_set.all()
         academico_group[2] = list(academico_ambitos.exclude(deleted=True).select_related("subarea").order_by("-peso")[:3])
-        if academico_group[1] and getattr(academico_group[1], "aminer_profile"):
-            keywords = [(keyword, peso) for keyword, peso in academico_group[1].aminer_profile.aminer_interests.items()]
+        if academico_group[1]:
+            keywords_investigador = (
+                KeywordInvestigador.objects.filter(investigador=academico_group[1]).select_related("keyword").order_by("-peso")[:20]
+            )
+            keywords = [(keyword_inv.keyword, keyword_inv.peso) for keyword_inv in keywords_investigador]
             keywords.sort(key=lambda x: x[1], reverse=True)
             keywords = [x[0] for x in keywords][:20]
             academico_group[3] = keywords
@@ -318,11 +321,14 @@ def instituciones(request):
     country_filter_name = ""
     if country_filter:
         instituciones_list = (
-            institutions_qs.filter(pais=country_filter).exclude(id__in=[i.id for i in instituciones_secretario_list]).order_by("id").all()
+            institutions_qs.filter(pais=country_filter)
+            .exclude(id__in=[i.id for i in instituciones_secretario_list])
+            .order_by_priority()
+            .all()
         )
         country_filter_name = dict(d_countries)[country_filter]
     else:
-        instituciones_list = institutions_qs.exclude(id__in=[i.id for i in instituciones_secretario_list]).order_by("id").all()
+        instituciones_list = institutions_qs.exclude(id__in=[i.id for i in instituciones_secretario_list]).order_by_priority().all()
 
     # Page
     len_inst = len(instituciones_list) + len(instituciones_secretario_list)
@@ -345,6 +351,7 @@ def instituciones(request):
         )
 
     instituciones_list_show = list(instituciones_secretario_list) + list(instituciones_list)
+    raw_data = build_serialized_data("universidades", instituciones_list, None)
     context = {
         "instituciones_list": instituciones_list_show[
             (page - 1) * instituciones_per_page : (page - 1) * instituciones_per_page + instituciones_per_page
@@ -358,6 +365,7 @@ def instituciones(request):
         "rest": range(instituciones_per_page - len_inst % instituciones_per_page),
         "header_text": "Instituciones",
         "countries": countries,
+        "raw_data": list(raw_data),
     }
     return render(request, "front/instituciones.html", context)
 
@@ -400,7 +408,10 @@ def academico(request, id_academico):
     areas = Area.objects.filter(subarea__in=subarea_ids).distinct()
 
     if investigador_ob and getattr(investigador_ob, "aminer_profile"):
-        keywords = [(keyword, peso) for keyword, peso in investigador_ob.aminer_profile.aminer_interests.items()]
+        keywords_investigador = (
+            KeywordInvestigador.objects.filter(investigador=investigador_ob).select_related("keyword").order_by("-peso")[:20]
+        )
+        keywords = [(keyword_inv.keyword, keyword_inv.peso) for keyword_inv in keywords_investigador]
         keywords.sort(key=lambda x: x[1], reverse=True)
         keywords = [x[0] for x in keywords][:20]
     else:

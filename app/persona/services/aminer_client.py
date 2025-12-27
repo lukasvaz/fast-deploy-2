@@ -281,14 +281,6 @@ def update_investigador_aminer_data(academico, aminer_id, is_manual=False, prefe
             investigador_obj.save()
             KeywordInvestigador.update_investigador_keywords(investigador_obj)
         else:
-            # existing profile found
-            if InvestigadorOnDemand.objects.filter(aminer_profile=aminer_profile).exclude(id=investigador_obj.id).exists():
-                aminer_profile.reassign_to(investigador_obj)
-            # reassign profile to current investigador
-            else:
-                investigador_obj.aminer_profile = aminer_profile
-                investigador_obj.save()
-
             if aminer_data["aminer_mail"]:
                 aminer_profile.aminer_email = aminer_data["aminer_mail"]
             if aminer_data["aminer_homepage"]:
@@ -297,7 +289,7 @@ def update_investigador_aminer_data(academico, aminer_id, is_manual=False, prefe
                 assert isinstance(aminer_data["aminer_interests"], dict)
                 aminer_profile.aminer_interests = aminer_data["aminer_interests"]
             aminer_profile.save()
-            # existing profile found
+            # edge case: existing profile assigned  to another investigador
             if InvestigadorOnDemand.objects.filter(aminer_profile=aminer_profile).exclude(id=investigador_obj.id).exists():
                 aminer_profile.reassign_to(investigador_obj)
             # reassign profile to current investigador

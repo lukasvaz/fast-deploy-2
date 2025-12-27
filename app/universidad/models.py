@@ -143,17 +143,10 @@ class Universidad(models.Model):
                 4. Number of associated grados (desc)
                 """
                 qs = self.annotate(
-                    openalex_type_rank=Case(
-                        When(openalex_institution__openalex_type__iexact="funder", then=Value(3)),
-                        When(openalex_institution__openalex_type__iexact="education", then=Value(2)),
-                        When(openalex_institution__openalex_type__isnull=False, then=Value(1)),
-                        default=Value(0),
-                        output_field=models.IntegerField(),
-                    ),
                     academicos_count=Count("unidades_set__academico", distinct=True),
                     grados_count=Count("unidades_set__gradoinstancia", distinct=True),
                 )
-                order_fields = ["-openalex_type_rank", "-academicos_count", "-grados_count"]
+                order_fields = ["-academicos_count", "-grados_count"]
                 if query:
                     name_cases = [
                         Greatest(

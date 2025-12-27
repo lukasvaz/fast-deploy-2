@@ -82,20 +82,16 @@ class ApiAcademicoSerializer(serializers.ModelSerializer):
 
     afiliacion = serializers.SerializerMethodField()
     external_ids = serializers.SerializerMethodField()
-    email = serializers.SerializerMethodField()
     areas = serializers.SerializerMethodField()
 
     class Meta:
         model = Academico
-        fields = ["id", "nombre", "apellido", "email", "webpage", "grado_maximo", "afiliacion", "external_ids", "areas"]
+        fields = ["id", "nombre", "apellido", "webpage", "grado_maximo", "afiliacion", "external_ids", "areas"]
 
     def get_afiliacion(self, obj):
         unidad_data = ApiUnidadSerializer(obj.unidad).data
         universidad_data = ApiInstitutionDehydratedSerializer(obj.unidad.universidad).data
         return {"unidad": unidad_data, "universidad": universidad_data}
-
-    def get_email(self, obj):
-        return obj.get_email
 
     def get_webpage(self, obj):
         return obj.get_webpage

@@ -305,13 +305,7 @@ const dt = $(table).DataTable({
         .then(res => res.json())
         .then(data => {
         if (data.status === "success") {
-  const row = document.getElementById("academico-" + entryId);
-  if (row) {
-    row.remove();
-    const idx = rows.indexOf(row);
-    if (idx !== -1) rows.splice(idx, 1);
-  }
-  // renderTable();
+          window.location.reload();
 }
         }).catch(err => {   
         showErrorToast("Error al eliminar el académico.");

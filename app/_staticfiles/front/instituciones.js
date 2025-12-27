@@ -1,3 +1,5 @@
+const rawData= JSON.parse(document.getElementById('raw-data-script').textContent);
+
 const validate_form = () => {
   // Validate by hand (add warnings in case of errors)
 
@@ -269,6 +271,36 @@ function handleRORNavClick() {
     return false;
   }
 }
+// export to excel
+function exportToExcel() {
+    if (!rawData) {
+        return;
+    }
+    
+    // Prepare data for the second sheet (Raw Data)
+    const rawDataSheet = [];
+    if (rawData.length > 0) {
+        // Dynamically generate headers based on the keys of the first object
+        const headers = Object.keys(rawData[0]);
+        rawDataSheet.push(headers);
+
+        // Add rows dynamically based on the attributes in each object
+        rawData.forEach(item => {
+            const row = headers.map(header => item[header] || ""); // Use empty string for missing values
+            rawDataSheet.push(row);
+        });
+    }
+
+    // Create workbook and append sheets
+    const workbook = XLSX.utils.book_new();
+    const rawDataWorksheet = XLSX.utils.aoa_to_sheet(rawDataSheet);
+
+    XLSX.utils.book_append_sheet(workbook, rawDataWorksheet, "Raw Data");
+
+    // Export to Excel file
+    XLSX.writeFile(workbook, "instituciones.xlsx");
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('nueva-modal').addEventListener('shown.bs.modal', function () {
     const inputIDROR = document.getElementById('inputIDROR');

@@ -2,12 +2,13 @@ from django.db.models import F
 
 
 def build_serialized_data(model_key, qs, group_id):
+    if group_id:
+        qs = qs.order_by(group_id)
     # to optimize raw data
     if model_key == "academicos":
-        return qs.order_by(group_id).values(
+        return qs.values(
             "nombre",
             "apellido",
-            "email",
             "webpage",
             "grado_maximo",
             universidad=F("unidad__universidad__nombre"),
@@ -15,7 +16,7 @@ def build_serialized_data(model_key, qs, group_id):
         )
 
     elif model_key == "universidades":
-        return qs.order_by(group_id).values(
+        return qs.values(
             "nombre",
             "sigla",
             "webpage",
@@ -26,7 +27,7 @@ def build_serialized_data(model_key, qs, group_id):
         )
 
     elif model_key == "grados":
-        return qs.order_by(group_id).values(
+        return qs.values(
             "nombre",
             "web_site",
             "tipo",

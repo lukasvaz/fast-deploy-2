@@ -1,8 +1,8 @@
 loaddata:
-	python manage.py loaddata _fixtures/users/fixtures/users_fixture_28_11_2025.json
-	python manage.py loaddata _fixtures/universidad/fixtures/universidad_fixture_28_11_2025.json
-	python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_28_11_2025.json
-	python manage.py loaddata _fixtures/grados/fixtures/grados_fixture_28_11_2025.json
+	python manage.py loaddata _fixtures/users/fixtures/users_fixture_23_12_2025.json
+	python manage.py loaddata _fixtures/universidad/fixtures/universidad_fixture_23_12_2025.json
+	python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_23_12_2025.json
+	python manage.py loaddata _fixtures/grados/fixtures/grados_fixture_23_12_2025.json
 
 # backup:
 # 	mkdir bkp
@@ -11,10 +11,10 @@ loaddata:
 # 	rm -rf bkp
 
 dumpdata:
-	python manage.py dumpdata universidad --indent 2 > _fixtures/universidad/fixtures/universidad_fixture_25_11_2025.json
-	python manage.py dumpdata users --indent 2 > _fixtures/users/fixtures/users_fixture_17_11_2025.json
-	python manage.py dumpdata persona --indent 2 > _fixtures/persona/fixtures/persona_fixture_25_11_2025.json
-	python manage.py dumpdata grados --indent 2 > _fixtures/grados/fixtures/grados_fixture_25_11_2025.json
+	python manage.py dumpdata universidad --indent 2 > _fixtures/universidad/fixtures/universidad_fixture_23_12_2025.json
+	python manage.py dumpdata users --indent 2 > _fixtures/users/fixtures/users_fixture_23_12_2025.json
+	python manage.py dumpdata persona --indent 2 > _fixtures/persona/fixtures/persona_fixture_23_12_2025.json
+	python manage.py dumpdata grados --indent 2 > _fixtures/grados/fixtures/grados_fixture_23_12_2025.json
 
 precommit:
 	isort . --skip ./sso --skip ./users --settings-path pyproject.toml

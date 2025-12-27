@@ -50,7 +50,7 @@ CRON_CLASSES = [
     "etl.cron.AminerFetchCronJob",
     "etl.cron.OpenAlexFetchCronJob",
     "etl.cron.DblpUpdateCronJob",
-    "etl.cron.AminerUpdateCronJob",
+    # "etl.cron.AminerUpdateCronJob", needs review
     "etl.cron.OpenAlexUpdateCronJob",
     "etl.cron.ValidateGradoUrlCronJob",
     "etl.cron.DeleteUnusedInvestigadorOnDemandCronJob",

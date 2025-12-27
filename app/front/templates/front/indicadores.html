@@ -17,7 +17,7 @@
     <h1 class="fs-3 mb-2 mt-2">Indicadores de Agregación</h1>
     <div class="container-lg">
       <p class="fs-6 p-2 mb-3 rounded">
-        En esta sección puedes explorar los indicadores de agregación. Selecciona el modelo, el criterio de agrupación y los filtros para visualizar los datos en gráficos interactivos.
+        En esta sección puedes explorar los indicadores de agregación. Selecciona el recurso, el criterio de agrupación y los filtros para visualizar los datos en gráficos interactivos.
       </p>
     </div>
     <div class="row">
@@ -26,7 +26,7 @@
         action ="{% url 'front:compute_indicadores' %}"
         >
           <div class="card">
-            <label class="form-label card-header">Modelo</label>
+            <label class="form-label card-header">Recurso a Filtrar</label>
             <div class="card-body p-3">
               <select name="model" id="model" class="form-select form-select-sm">
                 {% for choice in model_choices %}
@@ -46,7 +46,8 @@
               </select>
             </div>
           </div>
-          <div class="card">
+          <div class="card d-none">
+            <!-- se esconde esto por ahora, solo confunde -->
             <label class="form-label card-header">Filtrar por</label>
             <div class="card-body p-3 d-flex gap-1" style="width: 328px;">
               <div>
@@ -55,19 +56,6 @@
                 </select>
               </div>
               <div>
-                <!-- <label class="form-label">Valores filtro</label> -->
-                <!-- <div class="dropdown">
-                  <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button"
-                          id="filterValuesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Seleccionar...
-                  </button>
-                  <div class="dropdown-menu p-2" aria-labelledby="filterValuesDropdown"
-                       id="filter_values_menu" style="max-height:260px; overflow:auto; min-width:320px;">
-                    <div id="filter_values_container" class="d-flex flex-column gap-1">
-                      
-                    </div>
-                  </div>
-                </div> -->
                 <select name="filter_values" id="filter_values" class="form-select form-select-sm" multiple="multiple"  style="min-width:165px;">
                 </select>
               </div>

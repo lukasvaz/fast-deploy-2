@@ -11,8 +11,8 @@ class CorruptedAcademicoEntry(models.Model):
     apellido = models.CharField(max_length=200, null=True, blank=True)
     universidad = models.CharField(max_length=200, blank=True)
     pais_universidad = models.CharField(max_length=100, blank=True, null=True)
-    webpage = models.URLField(blank=True)
-    email = models.EmailField(blank=True)
+    webpage = models.URLField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
     grado_maximo = models.CharField(max_length=20, default=None, blank=True, null=True)
     # history data
     created_date = models.DateTimeField(auto_now_add=True)

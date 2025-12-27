@@ -13,9 +13,13 @@ if (eliminarAcademicoModal) {
     // Update the modal's content.
     const modalTitle = eliminarAcademicoModal.querySelector(".modal-title");
     const modalText = eliminarAcademicoModal.querySelector(".modal-body-text");
+    const modalInputAcademicoID = document.getElementById("academicoIdEliminar");
+    const modalInputUnidadID = document.getElementById("unidadIdEliminar");
 
     modalTitle.textContent = `Eliminar academico ${academico_nombre}`;
     modalText.textContent = `¿Estás seguro de eliminar al academico ${academico_nombre}?`;
+    modalInputAcademicoID.value = academico_id;
+    modalInputUnidadID.value = academico_unidad_id;
     var delete_button = document.getElementById("deleteAcademicoButton");
     delete_button.href += `?id=${academico_id}&unidad=${academico_unidad_id}`;
   });

@@ -213,8 +213,9 @@ def bulk_correct_entries(request):
                     )
                     corrupted.delete()
             except IntegrityError:
-                corrupted.delete()
                 continue
+            finally:
+                corrupted.delete()
         for academico in academicos:
             print(academico)
             try:
@@ -231,8 +232,9 @@ def bulk_correct_entries(request):
                     )
                     academico.save()
             except IntegrityError:
-                corrupted.delete()
                 continue
+            finally:
+                corrupted.delete()
         return JsonResponse({"status": "success"})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)

@@ -1,12 +1,13 @@
 {% extends "base.html" %} {% block content %} {% load static %} {% load countries %} {% get_countries as countries_full %}
 <link rel="stylesheet" href="{% static 'flags/sprite.css' %}">
-<script src="{% static 'front/instituciones.js' %}"></script>
 <script>
   var csrftoken = "{{csrf_token}}";
   const openalexSuggestionsUrl = "{% url 'inst:get_openalex_suggestions' %}"; 
-  const rorSuggestionsUrl = "{% url 'inst:get_ror_suggestions' %}";
-  
+  const rorSuggestionsUrl = "{% url 'inst:get_ror_suggestions' %}";  
 </script>
+
+
+{{ raw_data|json_script:"raw-data-script" }};
 
 {% if user.is_staff and not anonimo %}
 <!-- Modal -->
@@ -214,6 +215,9 @@
       </div>
     </div>
     <hr />
+    <div class="text-start mt-3 page-link">
+  <p >{{ raw_data|length }} resultados encontrados.</p>
+</div>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 gy-3 mb-4">
       {% for institucion in instituciones_list %}
       <div class="col">
@@ -288,7 +292,20 @@
         </li>
       </ul>
     </nav>
+    <div class="d-flex justify-content-end mt-3">  
+                <a
+                  id="btn_export_excel"
+                  style="cursor:pointer"
+                  onclick="exportToExcel()"
+                >
+                  Descargar Detalle
+                  <i class="bi bi-download ms-1"></i>
+              </a>
+  
+              </div>
+
   </div>
 </div>
-
+<script src="{% static 'front/instituciones.js' %}"></script>
+<script src="{% static 'vendor/xlsx/xlsx.full.min.js' %}"></script>
 {% endblock content %}
