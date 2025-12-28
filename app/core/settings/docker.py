@@ -1,4 +1,8 @@
 from core.settings.base import *
+from pathlib import Path
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = Path("/data/media")
 
 DEBUG = True
 
