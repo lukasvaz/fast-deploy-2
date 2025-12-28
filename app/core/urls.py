@@ -61,6 +61,9 @@ if settings.DEBUG:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT)
 else:
+    print("Serving media files in production mode.")
+    print("Media URL:", settings.MEDIA_URL)
+    print("Media Root:", settings.MEDIA_ROOT)
     urlpatterns += [
         re_path(
             r"^media/(?P<path>.*)$",
