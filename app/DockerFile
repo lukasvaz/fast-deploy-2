@@ -15,10 +15,7 @@ RUN pip install -r _requirements/production.txt
 
 # /bin/bash -c python manage.py loaddata _fixtures/users/fixtures/users_fixture_23_12_2025.json && python manage.py loaddata _fixtures/universidad/fixtures/universidad_fixture_23_12_2025.json && python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_23_12_2025.json 	python manage.py loaddata _fixtures/grados/fixtures/grados_fixture_23_12_2025.json python manage.py migrate && python manage.py collectstatic --noinput && gunicorn core.wsgi:application --bind 0.0.0.0:10000
 
-CMD ["sh", "-c", "python manage.py migrate && python manage.py loaddata _fixtures/users/fixtures/users_fixture_23_12_2025.json && \
-python manage.py loaddata _fixtures/universidad/fixtures/universidad_fixture_23_12_2025.json && \
-python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_23_12_2025.json && \
-python manage.py loaddata _fixtures/grados/fixtures/grados_fixture_23_12_2025.json && \
+CMD ["sh", "-c", "python manage.py migrate && \
 python manage.py collectstatic --noinput && \
 gunicorn core.wsgi:application --bind 0.0.0.0:10000"]
 
