@@ -43,3 +43,9 @@ MIDDLEWARE = [
 ]
 
 STATIC_FILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+INSTALLED_APPS += ["sendfile"]
+
+MEDIA_ROOT = "/data/media"
+MEDIA_URL = "/media/"
+SENDFILE_BACKEND = "sendfile.backends.simple"
