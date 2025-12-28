@@ -52,5 +52,7 @@ urlpatterns = [
     path("subir_archivos/", include(("subir_archivos.urls", "subir_archivos"), namespace="subir_archivos")),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT)
