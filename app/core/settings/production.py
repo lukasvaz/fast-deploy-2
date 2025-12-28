@@ -44,5 +44,5 @@ MIDDLEWARE = [
 
 STATIC_FILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_ROOT = "/_media"
+MEDIA_ROOT = "./_media"
 MEDIA_URL = "/media/"
