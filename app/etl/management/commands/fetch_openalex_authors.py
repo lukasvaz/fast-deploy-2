@@ -38,7 +38,7 @@ class Command(BaseCommand):
                 & models.Q(openalex_last_fetched_date__lt=timezone.now() - timezone.timedelta(weeks=2))
             )
             .order_by("id")
-            .distinct()[:200]
+            .distinct()[:50]
         )
         academicos_qs = list(academicos_qs) + list(academicos_update_qs)
         total = 0

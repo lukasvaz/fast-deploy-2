@@ -38,7 +38,7 @@ class Command(BaseCommand):
                     models.Q(investigador_ondemand__aminer_profile__isnull=True)
                     & models.Q(aminer_last_fetched_date__lt=timezone.now() - timezone.timedelta(weeks=2))
                 )
-                .order_by("id")[:200]
+                .order_by("id")[:50]
             )
             academicos_qs = list(new_academicos_qs) + list(retry_academicos_qs)
             for i, academico in enumerate(academicos_qs):

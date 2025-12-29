@@ -21,7 +21,7 @@ class Command(BaseCommand):
                     models.Q(investigador_ondemand__aminer_profile__isnull=False)
                     & models.Q(aminer_last_fetched_date__lt=timezone.now() - timezone.timedelta(weeks=2))
                 )
-                .distinct()[:200]
+                .distinct()[:50]
             )
 
             for i, academico in enumerate(academicos_qs):

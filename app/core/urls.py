@@ -63,14 +63,6 @@ if settings.DEBUG:
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT)
 else:
-    print("Serving media files in production mode.")
-    print("Media URL:", settings.MEDIA_URL)
-    print("Media Root:", settings.MEDIA_ROOT)
-    media_root = Path(settings.MEDIA_ROOT)
-    if media_root.exists():
-        print("Media root exists:", media_root)
-    else:
-        print("Media root does not exist. Attempting to create:", media_root)
     urlpatterns += [
         re_path(
             r"^media/(?P<path>.*)$",

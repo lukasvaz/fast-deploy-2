@@ -37,7 +37,7 @@ class Command(BaseCommand):
                 models.Q(investigador_ondemand__dblp_profile__isnull=True)
                 & models.Q(dblp_last_fetched_date__lt=timezone.now() - timezone.timedelta(weeks=2))
             )
-            .order_by("id")[:200]
+            .order_by("id")[:50]
         )
         academicos_qs = list(academicos_qs) + list(academicos_retry_qs)
         for i, a in enumerate(academicos_qs):

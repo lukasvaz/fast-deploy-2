@@ -20,7 +20,7 @@ class Command(BaseCommand):
                 models.Q(investigador_ondemand__openalex_profile__isnull=False)
                 & models.Q(openalex_last_fetched_date__lt=timezone.now() - timezone.timedelta(weeks=2))
             )
-            .distinct()[:200]
+            .distinct()[:50]
         )
         total = 0
         failed = 0
