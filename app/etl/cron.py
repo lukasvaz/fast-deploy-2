@@ -6,8 +6,8 @@ from django_cron import CronJobBase, Schedule
 class DblpFetchCronJob(CronJobBase):
     """fetch dblp data  for new academics"""
 
-    # every day at 00000
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["00:00"])
+    # every minute
+    schedule = Schedule(run_every_mins=1)
     # Identificador único para este CronJob
     code = "etl.dblp_update_cron_job"
 
@@ -22,7 +22,7 @@ class DblpFetchCronJob(CronJobBase):
 class DblpUpdateCronJob(CronJobBase):
     """updates dblp data for academics with dblp id"""
 
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["03:00"])
+    schedule = Schedule(run_every_mins=1)
     code = "etl.dblp_investigator_update_cron_job"
 
     def do(self):
@@ -36,7 +36,7 @@ class DblpUpdateCronJob(CronJobBase):
 class AminerFetchCronJob(CronJobBase):
     """fetch aminer data for new academics"""
 
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["00:00"])
+    schedule = Schedule(run_every_mins=1)
     code = "etl.aminer_update_cron_job"
 
     def do(self):
@@ -50,7 +50,7 @@ class AminerFetchCronJob(CronJobBase):
 class AminerUpdateCronJob(CronJobBase):
     """updates aminer data for academics with aminer id"""
 
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["03:00"])
+    schedule = Schedule(run_every_mins=1)
     code = "etl.aminer_investigator_update_cron_job"
 
     def do(self):
@@ -64,7 +64,7 @@ class AminerUpdateCronJob(CronJobBase):
 class OpenAlexFetchCronJob(CronJobBase):
     """fetch openalex data for new academics"""
 
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["00:00"])
+    schedule = Schedule(run_every_mins=1)
     code = "etl.openalex_authors_update_cron_job"
 
     def do(self):
@@ -78,7 +78,7 @@ class OpenAlexFetchCronJob(CronJobBase):
 class OpenAlexUpdateCronJob(CronJobBase):
     """updates openalex data for academics with openalex id"""
 
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["03:00"])
+    schedule = Schedule(run_every_mins=1)
     code = "etl.openalex_investigator_update_cron_job"
 
     def do(self):
@@ -92,7 +92,7 @@ class OpenAlexUpdateCronJob(CronJobBase):
 class ValidateGradoUrlCronJob(CronJobBase):
     """validate grado url for all programas academicos"""
 
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["00:00"])
+    schedule = Schedule(run_every_mins=1)
     # schedule = Schedule(run_every_mins=1)  # run every hour
     code = "etl.validate_grado_url_cron_job"
 
@@ -108,7 +108,7 @@ class ValidateGradoUrlCronJob(CronJobBase):
 class DeleteUnusedInvestigadorOnDemandCronJob(CronJobBase):
     """delete unused investigador on demand (not linked to any academico and not used in any coauthorship)"""
 
-    schedule = Schedule(run_on_days=[0, 1, 2, 3, 4, 5, 6], run_at_times=["05:00"])
+    schedule = Schedule(run_every_mins=1)
     code = "etl.delete_unused_investigadorondemand_cron_job"
 
     def do(self):
