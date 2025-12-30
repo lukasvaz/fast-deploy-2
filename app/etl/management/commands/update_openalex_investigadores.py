@@ -29,7 +29,7 @@ class Command(BaseCommand):
             try:
                 # Fetch OpenAlex data (sync function)
                 print(
-                    f"Updating OpenAlex data for Academico {i} {len(academicos_qs)}: {a.get_full_name()} {a.unidad.universidad} {a.unidad.universidad.openalex_id}"
+                    f"Updating OpenAlex for Academico {i} {len(academicos_qs)}: {a.get_full_name()} {a.unidad.universidad} {a.unidad.universidad.openalex_id}"
                 )
                 with transaction.atomic():
                     inv, err = update_investigador_openalex_data(a, a.investigador_ondemand.openalex_id)

@@ -41,7 +41,7 @@ class Command(BaseCommand):
         )
         academicos_qs = list(academicos_qs) + list(academicos_retry_qs)
         for i, a in enumerate(academicos_qs):
-            print(f"Processing Academico {i}/{len(academicos_qs)}: {a.get_full_name()} (ID: {a.id})")
+            print(f"Fetching DBLP for Academico {i}/{len(academicos_qs)}: {a.get_full_name()} (ID: {a.id})")
             try:
                 with transaction.atomic():
                     ob, error = fetch_investigador_dblp_data(academico=a)

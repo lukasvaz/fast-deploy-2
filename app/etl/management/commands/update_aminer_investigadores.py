@@ -25,7 +25,7 @@ class Command(BaseCommand):
             )
 
             for i, academico in enumerate(academicos_qs):
-                print(f"Processing Academico {i}/{len(academicos_qs)}: {academico.get_full_name()} (ID: {academico.id})")
+                print(f"Updating Aminer for Academico {i}/{len(academicos_qs)}: {academico.get_full_name()} (ID: {academico.id})")
                 try:
 
                     with transaction.atomic():

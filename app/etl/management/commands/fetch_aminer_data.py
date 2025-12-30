@@ -43,7 +43,7 @@ class Command(BaseCommand):
             academicos_qs = list(new_academicos_qs) + list(retry_academicos_qs)
             for i, academico in enumerate(academicos_qs):
                 print(
-                    f"Processing Academico {i}/{len(academicos_qs)}: {academico.get_full_name()} -{academico.unidad.universidad} (ID: {academico.id})"
+                    f"Fetching Aminer for Academico {i}/{len(academicos_qs)}: {academico.get_full_name()} -{academico.unidad.universidad} (ID: {academico.id})"
                 )
                 try:
                     # if academico.investigador_ondemand:

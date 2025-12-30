@@ -24,7 +24,7 @@ class Command(BaseCommand):
             .distinct()[:50]
         )
         for i, a in enumerate(academicos_qs):
-            print(f"Processing Academico {i}/{len(academicos_qs)}: {a.get_full_name()} (ID: {a.id})")
+            print(f"Updating DBLP for Academico {i}/{len(academicos_qs)}: {a.get_full_name()} (ID: {a.id})")
             try:
                 with transaction.atomic():
                     ob, error = update_investigador_dblp_data(a, a.investigador_ondemand.dblp_id)
