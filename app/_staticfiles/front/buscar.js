@@ -86,17 +86,21 @@ const toggletab = (tab) => {
   // academico filters
   const fa = document.getElementById("fa");
   const fs = document.getElementById("fs");
-  let academicoFilters = [fa ,fs]
+  const fk = document.getElementById("fk");
+  // area subarea hidden for now
+  // let academicoFilters = [fa ,fs, fk]
+  let academicoFilters = [fk]
+  let academicosFiltersContainer = document.getElementById("academico-filters-container");
   // programa filters
   const grado = document.getElementById("filter-grado");
   let gradosFilters = [grado]
   if (section === "academicos") {
-    // area subarea hided  for now
-    //   academicoFilters.forEach ((filter) => {
-    //     filter.disabled = false,
-    //     filter.classList.remove("d-none")
-    //   }
-    // )
+      academicoFilters.forEach ((filter) => {
+        filter.disabled = false,
+        filter.classList.remove("d-none")
+      }
+    )
+    academicosFiltersContainer.classList.remove("d-none")
       commonFilters.forEach ((filter) => {
         filter.classList.remove("d-none"),
         filter.disabled = false
@@ -116,10 +120,10 @@ const toggletab = (tab) => {
       }
       )
       academicoFilters.forEach ((filter) => {
-        filter.classList.add("d-none"),
         filter.disabled = true
       }
     )
+      academicosFiltersContainer.classList.add("d-none")
       gradosFilters.forEach ((filter) => {
         filter.classList.add("d-none"),
         filter.disabled = true
@@ -139,11 +143,11 @@ const toggletab = (tab) => {
       }
       )
       academicoFilters.forEach ((filter) => {
-        filter.classList.add("d-none"),
         filter.disabled = true
       }
-  ) 
-  } 
+    )
+    academicosFiltersContainer.classList.add("d-none")
+  }
 
   
 };
@@ -216,4 +220,9 @@ const toggletab = (tab) => {
 window.onload = () => {
   chooseInitTab();
   selectSubareaInit();
+  $('#fk').select2({
+    width: '100%',
+    placeholder: 'Seleccione un keyword',
+    allowClear: true
+  });  
 };

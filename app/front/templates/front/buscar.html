@@ -56,15 +56,22 @@
                 {% endfor %}
               </select>
               <!-- academicos filters -->
-              <select class="form-select form-select-sm d-none" aria-label="Select país" name="fa" id="fa" onchange="areachange()" autocomplete="on">
-                <option value="0">Área: Todos</option>
-                {% for area in areas_subareas.areas %}
-                <option value="{{area.id}}" {% if area.subareas|length == 0 %}disabled{% endif %}{% if area.id == fa %}selected{% endif %}>{{area.nombre}}</option>
-                {% endfor %}
-              </select>
-              <select class="form-select form-select-sm d-none" aria-label="Select área" name="fs" disabled autocomplete="on" id="fs" autocomplete="on" style="border-top-right-radius: 0;">
-                <option value="0">Subárea: Todos</option>
-              </select>
+               <div id="academico-filters-container" >
+                 <select class="form-select form-select-sm d-none" aria-label="Select país" name="fa" id="fa" onchange="areachange()" autocomplete="on">
+                   <option value="0">Área: Todos</option>
+                   {% for area in areas_subareas.areas %}
+                   <option value="{{area.id}}" {% if area.subareas|length == 0 %}disabled{% endif %}{% if area.id == fa %}selected{% endif %}>{{area.nombre}}</option>
+                   {% endfor %}
+                 </select>
+                 <select class="form-select form-select-sm d-none" aria-label="Select área" name="fs" disabled autocomplete="on" id="fs" autocomplete="on" style="border-top-right-radius: 0;">
+                   <option value="0">Subárea: Todos</option>
+                 </select>
+                 <select class="form-select form-select-sm d-none" aria-label="Select área" name="fk" disabled autocomplete="on" id="fk" autocomplete="on" style="border-top-right-radius: 0;"  multiple>
+                   {% for keyword in keywords %}
+                   <option value="{{keyword.id}}" {% if keyword.id|stringformat:"s" in fk %} selected {% endif %}>{{keyword.nombre}}</option>
+                   {% endfor %}
+                 </select>
+               </div>
               <!-- programas filters -->
                <select class="form-select form-select-sm d-none" aria-label="Select Grado" name="fg" disabled autocomplete="on" id="filter-grado" autocomplete="on" style="border-top-right-radius: 0; max-width: 160px;">
                 <option value="">Grado : Todos</option>
@@ -202,19 +209,20 @@
             <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center mt-2">
               <li class="page-item {% if academicos.number == 1 %}disabled{% endif %}">
-                <a class="page-link" href="?q={{query}}&fp={{fp}}&fa={{fa}}&fs={{fs}}&fg={{fg}}&pa={{academicos_group.paginated.number|add:'-1'}}&section=academicos">Anterior</a>
+                <!-- <a class="page-link" href="?q={{query}}&fp={{fp}}&fa={{fa}}&fs={{fs}}&fg={{fg}}{% for keyword in fk %}&fk={{keyword}}{% endfor %}&pa={{academicos_group.paginated.number|add:'1'}}&section=academicos">Siguiente</a> -->
+                <a class="page-link" href="?q={{query}}&fp={{fp}}&fa={{fa}}&fs={{fs}}&fg={{fg}}{% for keyword in fk %}&fk={{keyword}}{% endfor %}&pa={{academicos_group.paginated.number|add:'-1'}}&section=academicos">Anterior</a>
               </li>
               {% with window=5 %}
                   {% for p in academicos_paginator.page_range%}
                   {% if p >= academicos_group.paginated.number|add:'-3' and p <= academicos_group.paginated.number|add:'2' %}
                     <li class="page-item {% if academicos_group.paginated.number == p %}active{% endif %}">
-                        <a class="page-link" href="?q={{query}}&fp={{fp}}&fa={{fa}}&fs={{fs}}&fg={{fg}}&pa={{p}}&section=academicos">{{p}}</a>
+                        <a class="page-link" href="?q={{query}}&fp={{fp}}&fa={{fa}}&fs={{fs}}&fg={{fg}}{% for keyword in fk %}&fk={{keyword}}{% endfor %}&pa={{p}}&section=academicos">{{p}}</a>
                     </li>
                   {% endif %}
                 {% endfor %}
               {% endwith %}
               <li class="page-item {% if not academicos_group.paginated.has_next %}disabled{% endif %}">
-                <a class="page-link" href="?q={{query}}&fp={{fp}}&fa={{fa}}&fs={{fs}}&fg={{fg}}&pa={{academicos_group.paginated.number|add:'1'}}&section=academicos">Siguiente</a>
+                <a class="page-link" href="?q={{query}}&fp={{fp}}&fa={{fa}}&fs={{fs}}&fg={{fg}}{% for keyword in fk %}&fk={{keyword}}{% endfor %}&pa={{academicos_group.paginated.number|add:'1'}}&section=academicos">Siguiente</a>
               </li>
             </ul>
           </nav>
@@ -354,4 +362,6 @@
     </div>
   </div>
 </div>
+<link href="{% static 'css/select2.min.css' %}" rel="stylesheet">
+<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
 {% endblock content %}

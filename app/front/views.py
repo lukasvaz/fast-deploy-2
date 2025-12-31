@@ -114,8 +114,13 @@ def buscar(request):
                     "id": subarea_obj.id,
                 }
             )
+    # keywords for context
+    #descending order by count
+    keywords_context = Keyword.objects.annotate(num_investigadores=Count("keywordinvestigador__investigador")).order_by("-num_investigadores")
+
     # grados
     grados_context = [choice for choice in GradoTipo.choices if choice[0] != GradoTipo.UNKNOWN]  # excluding unknown
+    
     # Query
     query_original = request.GET.get("q", "")
     query = request.GET.get("q", "").lower()
@@ -124,6 +129,7 @@ def buscar(request):
     filter_pais = request.GET.get("fp", "")
     filter_area = int(request.GET.get("fa", "0"))
     filter_subarea = int(request.GET.get("fs", "0"))
+    filter_keywords = request.GET.getlist("fk", [])
     filter_grado = request.GET.get("fg", "")
     uni_page_num = request.GET.get("pu", "1")
     acad_page_num = request.GET.get("pa", "1")
@@ -201,7 +207,11 @@ def buscar(request):
     if filter_subarea:
         academicos_ambitos_ids = AmbitoTrabajo.objects.filter(subarea__id=filter_subarea).values_list("academico", flat=True).distinct()
         academicos = academicos.filter(id__in=academicos_ambitos_ids)
-
+    if filter_keywords:
+        academicos_investigador_ids = KeywordInvestigador.objects.filter(
+            keyword__id__in=filter_keywords
+        ).values_list("investigador__academico", flat=True)
+        academicos = academicos.filter(id__in=academicos_investigador_ids)
     if filter_pais:
         academicos = academicos.filter(unidad__universidad__pais=filter_pais)
     # sorting
@@ -283,13 +293,13 @@ def buscar(request):
         grados_objs = grado_paginator.page(grado_page_num)
     except Exception:
         grados_objs = grado_paginator.page(1)
-
     context = {
         "query": query_original,
         "fp": filter_pais,
         "fa": filter_area,
         "fs": filter_subarea,
         "fg": filter_grado,
+        "fk": filter_keywords,
         "current_section": current_section,
         "academicos_group": academicos_group,
         "academicos_paginator": acad_paginator,
@@ -302,6 +312,7 @@ def buscar(request):
         "areas": areas_objs,
         "areas_subareas": areas_context,
         "grados": grados_context,
+        "keywords": keywords_context
     }
     return render(request, "front/buscar.html", context)
 
