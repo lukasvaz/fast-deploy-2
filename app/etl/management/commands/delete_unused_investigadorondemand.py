@@ -8,6 +8,8 @@ from persona.models import (
     InvestigadorCandidato,
     InvestigadorOnDemand,
     OpenAlexProfile,
+    Keyword,
+    KeywordInvestigador
 )
 
 
@@ -72,7 +74,19 @@ class Command(BaseCommand):
         count = empty_candidates.count()
         if count == 0:
             self.stdout.write(self.style.NOTICE("No InvestigadorCandidato with empty candidatos found."))
-            return
-        deleted_count, _ = empty_candidates.delete()
+        else:
+            deleted_count, _ = empty_candidates.delete()
+            self.stdout.write(self.style.SUCCESS(f"✓ Deleted {deleted_count} InvestigadorCandidato(s)."))
+        # delete all keywords not linked to any keywordinvestigador
+        total_keywords = Keyword.objects.count()
+        unused_keywords = Keyword.objects.exclude(
+            id__in=KeywordInvestigador.objects.values_list("keyword_id", flat=True)
+        )
 
-        self.stdout.write(self.style.SUCCESS(f"✓ Deleted {deleted_count} InvestigadorCandidato(s)."))
+        count_keywords = unused_keywords.count()        
+        if count_keywords:
+            unused_keywords.delete()
+            self.stdout.write(self.style.SUCCESS(f"✓ Deleted {count_keywords} Keyword(s)"))
+        else:
+            self.stdout.write(self.style.NOTICE("No unused Keyword found."))
+        
