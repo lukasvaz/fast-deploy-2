@@ -77,6 +77,7 @@ class Command(BaseCommand):
         else:
             deleted_count, _ = empty_candidates.delete()
             self.stdout.write(self.style.SUCCESS(f"✓ Deleted {deleted_count} InvestigadorCandidato(s)."))
+        
         # delete all keywords not linked to any keywordinvestigador
         total_keywords = Keyword.objects.count()
         unused_keywords = Keyword.objects.exclude(
@@ -89,4 +90,16 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS(f"✓ Deleted {count_keywords} Keyword(s)"))
         else:
             self.stdout.write(self.style.NOTICE("No unused Keyword found."))
+        # delete all keywordInvestigador without investigador_ondemand.aminer profile or investigador_ondemand
+        #investigadores without aminer profile 
+        invs_ids=InvestigadorOnDemand.objects.filter(aminer_profile__isnull=True).values_list('id',flat=True)
+        orphan_keyword_investigador = KeywordInvestigador.objects.filter(
+            investigador__in=invs_ids
+        )
+        count_ki = orphan_keyword_investigador.count()
+        if count_ki:
+            orphan_keyword_investigador.delete()
+            self.stdout.write(self.style.SUCCESS(f"✓ Deleted {count_ki} orphan KeywordInvestigador(s)"))
+        else:
+            self.stdout.write(self.style.NOTICE("No orphan KeywordInvestigador found."))
         
