@@ -214,6 +214,8 @@ def update_investigador_openalex_data(academico, openalex_id, is_manual=False, p
         author_data = prefetched_data
     else:
         author_data = client.fetch_by_openalex_id(openalex_id)
+        print("fetching by id", openalex_id)    
+        print("response data",author_data)
     if author_data:
         # getting investigador
         if getattr(academico, "investigador_ondemand", None):
