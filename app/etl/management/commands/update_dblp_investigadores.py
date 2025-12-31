@@ -54,7 +54,7 @@ class Command(BaseCommand):
                 a.dblp_last_fetched_date = timezone.now()
                 a.save()
             finally: 
-                time.sleep(2)  # to avoid hitting rate limits
+                time.sleep(5)  # to avoid hitting rate limits
         elapsed_time = time.time() - start_time
         self.stdout.write(
             self.style.SUCCESS(
