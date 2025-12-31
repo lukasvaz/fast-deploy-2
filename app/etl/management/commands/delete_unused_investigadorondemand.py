@@ -93,9 +93,12 @@ class Command(BaseCommand):
         # delete all keywordInvestigador without investigador_ondemand.aminer profile or investigador_ondemand
         #investigadores without aminer profile 
         invs_ids=InvestigadorOnDemand.objects.filter(aminer_profile__isnull=True).values_list('id',flat=True)
+    
         orphan_keyword_investigador = KeywordInvestigador.objects.filter(
             investigador__in=invs_ids
         )
+        print(invs_ids)
+        print(orphan_keyword_investigador)
         count_ki = orphan_keyword_investigador.count()
         if count_ki:
             orphan_keyword_investigador.delete()
