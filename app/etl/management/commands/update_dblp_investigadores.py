@@ -53,6 +53,8 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.ERROR(f"Error processing Academico ID {a.id}: {str(e)}"))
                 a.dblp_last_fetched_date = timezone.now()
                 a.save()
+            finally: 
+                time.sleep(2)  # to avoid hitting rate limits
         elapsed_time = time.time() - start_time
         self.stdout.write(
             self.style.SUCCESS(
