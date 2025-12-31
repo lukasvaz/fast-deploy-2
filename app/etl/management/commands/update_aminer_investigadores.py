@@ -19,7 +19,7 @@ class Command(BaseCommand):
                 .filter(
                     # update after two weeks, just top 200 to avoid large porcesses
                     models.Q(investigador_ondemand__aminer_profile__isnull=False)
-                    & models.Q(aminer_last_fetched_date__lt=timezone.now() - timezone.timedelta(weeks=2))
+                    # & models.Q(aminer_last_fetched_date__lt=timezone.now() - timezone.timedelta(weeks=2))
                 )
                 .distinct()[:50]
             )
