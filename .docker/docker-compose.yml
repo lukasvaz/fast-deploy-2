@@ -1,0 +1,44 @@
+services:
+    postgresql:
+        container_name: postgresql
+        image: postgres:13.3
+        ports:
+            - 5432:5432
+        expose:
+            - 5432
+        restart: on-failure
+        volumes:
+            - ./data/postgres/:/var/lib/postgresql:rw
+        environment: 
+            POSTGRES_USER: desarrollo
+            POSTGRES_PASSWORD: desarroll0
+            POSTGRES_DB: acad_micros
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U desarrollo -d acad_micros"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+    django:
+        container_name: acad_micros
+        build: 
+            context: ../
+            dockerfile: .docker/app/Dockerfile
+            target: develop
+        # command: ["sh", "-c", "python -m debugpy --wait-for-client --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:8000 --settings=core.settings.docker --nothreading"]
+        command: ["sh", "-c", "python -m debugpy --listen 0.0.0.0:5678 manage.py runserver 0.0.0.0:8000 --settings=core.settings.docker --nothreading"]
+        tty: true
+        stdin_open: true
+        restart: always
+        volumes:
+            - ../app/:/app/:cached
+            - ../app/_media/:/media/:cached
+            - ../app/_staticfiles/:/static/:cached
+            - ./data/logs:/logs:cached
+            - ../docs/:/docs/:cached
+        ports: 
+            - 8000:8000
+            - 5678:5678
+        env_file: ./app/.env
+        depends_on:
+            postgresql:
+                condition: service_healthy
