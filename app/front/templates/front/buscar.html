@@ -310,6 +310,14 @@
                       </a>
                     </p>
                     <div class="mb-1">
+                      <h6 class="mb-0 text-secondary">Nombre Español</h6>
+                      {% if programa.nombre_es %}
+                      <p class="mb-0">{{programa.nombre_es}}</p>
+                      {% else %}
+                      <p class="mb-0">No especificado</p>
+                      {% endif %}
+                    </div>
+                    <div class="mb-1">
                       <h6 class="mb-0 text-secondary">Tipo</h6>
                       <p class="mb-0">{{programa.get_tipo_display}}</p>
                     </div>
