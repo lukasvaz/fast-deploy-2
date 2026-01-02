@@ -213,28 +213,26 @@ def bulk_correct_entries(request):
                     )
                     corrupted.delete()
             except IntegrityError:
-                continue
-            finally:
                 corrupted.delete()
+                continue
+
         for academico in academicos:
-            print(academico)
             try:
                 with transaction.atomic():
                     unidad = Unidad.objects.get(id=unidad_id)
                     corrupted = CorruptedAcademicoEntry.objects.get(id=academico)
-                    academico = Academico.objects.create(
+                    academico=Academico.objects.create(
                         nombre=corrupted.nombre,
                         apellido=corrupted.apellido,
                         unidad=unidad,
-                        webpage=corrupted.webpage,
-                        email=corrupted.email,
+                        webpage=corrupted.webpage if corrupted.webpage else "",
+                        email=corrupted.email if corrupted.email else "",
                         grado_maximo=corrupted.grado_maximo,
                     )
-                    academico.save()
-            except IntegrityError:
-                continue
-            finally:
+                    corrupted.delete()
+            except IntegrityError as e:
                 corrupted.delete()
+                continue
         return JsonResponse({"status": "success"})
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=400)
