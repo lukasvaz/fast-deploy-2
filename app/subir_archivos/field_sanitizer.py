@@ -8,7 +8,6 @@ from django_countries import countries
 from grados.forms import SanitizeGradoForm
 from grados.models import GradoTipo
 
-
 class FieldCleaner:
     """
     A class to clean, validate, and infer data for a given field.
@@ -84,24 +83,41 @@ def clean_academico_text(text):
 
 def clean_grado_maximo(grado):
     """
-    Clean the grado_maximo field to match the GRADOS codes.
+    Normalize the `grado_maximo` value and return the canonical GradoTipo code
+    (e.g. "PHD", "MSC", "LIC", "TECH"). Returns GradoTipo.UNKNOWN if not recognized
+    or None if input is empty.
     """
-    GRADO_MAXIMO_TAGS = {
-        "Phd": ["phd", "doctorado", "dr", "doctor", "ph.d", "doctorante", "doc"],
-        "Master": ["master", "magíster", "magister", "msc", "maestria", "maestría", "maestro"],
-        "Graduate": ["licenciado", "ingeniero", "graduate", "licenciatura", "ingenieria", "ing", "lic"],
-        "Bachelor": ["bachiller", "bachelor", "universitario", "universidad"],
-        "Technician": ["técnico", "tecnico", "technician"],
-    }
     if not grado:
         return None
     grado_norm = grado.strip().lower()
-    for code, tags in GRADO_MAXIMO_TAGS.items():
+
+    GRADO_TAGS = {
+        GradoTipo.DOCTORADO: ["phd", "doctorado", "dr", "doctor", "ph.d", "doctorante", "doc"],
+        GradoTipo.MAESTRIA: ["msc","master", "magíster", "magister", "msc", "maestria", "maestría", "maestro"],
+        GradoTipo.LICENCIATURA: [
+            "lic",
+            "licenciado",
+            "ingeniero",
+            "graduate",
+            "licenciatura",
+            "ingenieria",
+            "ing",
+            "lic",
+            "bachiller",
+            "bachelor",
+            "universitario",
+            "universidad",
+        ],
+        GradoTipo.TECHNICIAN: ["tech","técnico", "tecnico", "technician"],
+    }
+
+    for code, tags in GRADO_TAGS.items():
         for tag in tags:
             if tag in grado_norm:
                 return code
-    print(f"Warning: '{grado}' not recognized as grado_maximo.")
-    return None
+
+    print(f"Warning: '{grado}' not recognized as grado_maximo. Returning UNKNOWN")
+    return GradoTipo.UNKNOWN
 
 
 def clean_email(email):
