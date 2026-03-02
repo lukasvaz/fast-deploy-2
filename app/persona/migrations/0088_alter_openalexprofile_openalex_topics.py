@@ -11,13 +11,11 @@ def convert_array_to_jsonb(apps, schema_editor):
     """
     Safely convert varchar[] to jsonb using PostgreSQL's to_jsonb().
     """
-    schema_editor.execute(
-        """
+    schema_editor.execute("""
         ALTER TABLE persona_openalexprofile
         ALTER COLUMN openalex_topics TYPE jsonb
         USING to_jsonb(openalex_topics);
-    """
-    )
+    """)
 
 
 class Migration(migrations.Migration):

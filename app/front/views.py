@@ -115,12 +115,14 @@ def buscar(request):
                 }
             )
     # keywords for context
-    #descending order by count
-    keywords_context = Keyword.objects.annotate(num_investigadores=Count("keywordinvestigador__investigador")).order_by("-num_investigadores")
+    # descending order by count
+    keywords_context = Keyword.objects.annotate(num_investigadores=Count("keywordinvestigador__investigador")).order_by(
+        "-num_investigadores"
+    )
 
     # grados
     grados_context = [choice for choice in GradoTipo.choices if choice[0] != GradoTipo.UNKNOWN]  # excluding unknown
-    
+
     # Query
     query_original = request.GET.get("q", "")
     query = request.GET.get("q", "").lower()
@@ -208,9 +210,9 @@ def buscar(request):
         academicos_ambitos_ids = AmbitoTrabajo.objects.filter(subarea__id=filter_subarea).values_list("academico", flat=True).distinct()
         academicos = academicos.filter(id__in=academicos_ambitos_ids)
     if filter_keywords:
-        academicos_investigador_ids = KeywordInvestigador.objects.filter(
-            keyword__id__in=filter_keywords
-        ).values_list("investigador__academico", flat=True)
+        academicos_investigador_ids = KeywordInvestigador.objects.filter(keyword__id__in=filter_keywords).values_list(
+            "investigador__academico", flat=True
+        )
         academicos = academicos.filter(id__in=academicos_investigador_ids)
     if filter_pais:
         academicos = academicos.filter(unidad__universidad__pais=filter_pais)
@@ -312,7 +314,7 @@ def buscar(request):
         "areas": areas_objs,
         "areas_subareas": areas_context,
         "grados": grados_context,
-        "keywords": keywords_context
+        "keywords": keywords_context,
     }
     return render(request, "front/buscar.html", context)
 

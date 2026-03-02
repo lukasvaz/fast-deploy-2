@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db.models import Q
+
 from persona.models import (
     Academico,
     AminerProfile,
@@ -7,9 +8,9 @@ from persona.models import (
     DblpProfile,
     InvestigadorCandidato,
     InvestigadorOnDemand,
-    OpenAlexProfile,
     Keyword,
-    KeywordInvestigador
+    KeywordInvestigador,
+    OpenAlexProfile,
 )
 
 
@@ -79,8 +80,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS(f"✓ Deleted {deleted_count} InvestigadorCandidato(s)."))
         # delete all keywordInvestigador without investigador_ondemand.aminer profile or investigador_ondemand has no academico
         orphan_keyword_investigador = KeywordInvestigador.objects.filter(
-            Q(investigador__aminer_profile__isnull=True) |
-            Q(investigador__academico__isnull=True)
+            Q(investigador__aminer_profile__isnull=True) | Q(investigador__academico__isnull=True)
         )
         count_ki = orphan_keyword_investigador.count()
         if count_ki:
@@ -90,15 +90,11 @@ class Command(BaseCommand):
             self.stdout.write(self.style.NOTICE("No orphan KeywordInvestigador found."))
         # delete all keywords not linked to any keywordinvestigador
         total_keywords = Keyword.objects.count()
-        unused_keywords = Keyword.objects.exclude(
-            id__in=KeywordInvestigador.objects.values_list("keyword_id", flat=True)
-        )
+        unused_keywords = Keyword.objects.exclude(id__in=KeywordInvestigador.objects.values_list("keyword_id", flat=True))
 
-        count_keywords = unused_keywords.count()        
+        count_keywords = unused_keywords.count()
         if count_keywords:
             unused_keywords.delete()
             self.stdout.write(self.style.SUCCESS(f"✓ Deleted {count_keywords} Keyword(s)"))
         else:
             self.stdout.write(self.style.NOTICE("No unused Keyword found."))
-        
-        

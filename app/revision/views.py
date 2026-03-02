@@ -221,7 +221,7 @@ def bulk_correct_entries(request):
                 with transaction.atomic():
                     unidad = Unidad.objects.get(id=unidad_id)
                     corrupted = CorruptedAcademicoEntry.objects.get(id=academico)
-                    academico=Academico.objects.create(
+                    academico = Academico.objects.create(
                         nombre=corrupted.nombre,
                         apellido=corrupted.apellido,
                         unidad=unidad,
