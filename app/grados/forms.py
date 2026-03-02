@@ -2,6 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 
+from grados.models import GradoTipo
+
 
 def validate_file_size(file):
     max_size_mb = 5
@@ -93,12 +95,12 @@ class SanitizeGradoForm(SanitizeDataForm):
 
     @staticmethod
     def get_type_tags():
+        # Use GradoTipo codes (.value) as keys so downstream code receives canonical codes
         return {
-            # include  portuguese names
-            "LIC": ["Licenciatura", "Lic", "Lic.", "Undergraduate", "Bachiller", "Bachelor", "Grado", "Bacharelado", "Bacharel"],
-            "MSC": ["Maestría", "Master", "Maestria", "Magister", "Magíster", "Msc", "Masters", "Mestrado"],
-            "PHD": ["Doctorado", "Doctorate", "Phd", "PostDoctorate", "Ph.D.", "Doutorado", "Doctorante"],
-            "TECH": ["Técnico Superior", "Technician", "Technical"],
+            GradoTipo.LICENCIATURA.value: ["Licenciatura", "Lic", "Lic.", "Undergraduate", "Bachiller", "Bachelor", "Grado", "Bacharelado", "Bacharel"],
+            GradoTipo.MAESTRIA.value: ["Maestría", "Master", "Maestria", "Magister", "Magíster", "Msc", "Masters", "Mestrado"],
+            GradoTipo.DOCTORADO.value: ["Doctorado", "Doctorate", "Phd", "PostDoctorate", "Ph.D.", "Doutorado", "Doctorante"],
+            GradoTipo.TECHNICIAN.value: ["Técnico Superior", "Technician", "Technical"],
         }
 
     @staticmethod

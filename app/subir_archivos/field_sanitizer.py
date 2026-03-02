@@ -92,9 +92,9 @@ def clean_grado_maximo(grado):
     grado_norm = grado.strip().lower()
 
     GRADO_TAGS = {
-        GradoTipo.DOCTORADO: ["phd", "doctorado", "dr", "doctor", "ph.d", "doctorante", "doc"],
-        GradoTipo.MAESTRIA: ["msc","master", "magíster", "magister", "msc", "maestria", "maestría", "maestro"],
-        GradoTipo.LICENCIATURA: [
+        GradoTipo.DOCTORADO.value: ["phd", "doctorado", "dr", "doctor", "ph.d", "doctorante", "doc"],
+        GradoTipo.MAESTRIA.value: ["msc","master", "magíster", "magister", "msc", "maestria", "maestría", "maestro"],
+        GradoTipo.LICENCIATURA.value: [
             "lic",
             "licenciado",
             "ingeniero",
@@ -108,7 +108,7 @@ def clean_grado_maximo(grado):
             "universitario",
             "universidad",
         ],
-        GradoTipo.TECHNICIAN: ["tech","técnico", "tecnico", "technician"],
+        GradoTipo.TECHNICIAN.value: ["tech","técnico", "tecnico", "technician"],
     }
 
     for code, tags in GRADO_TAGS.items():
