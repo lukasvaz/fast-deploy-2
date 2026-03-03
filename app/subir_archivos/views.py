@@ -279,13 +279,14 @@ def load_data_academicos(request):
                 try:
                     if universidad:
                         # getting unidad by email
+                        unidad = None
                         if email:
                             unidades_siglas = universidad.unidades_set.values_list("sigla", flat=True)
                             # lowercase comparison
                             domain_options = [option.lower() for option in email.split("@")[-1].split(".")]
                             if any(sigla.lower() in domain_options for sigla in unidades_siglas if sigla):
                                 unidad = universidad.unidades_set.filter(sigla__in=domain_options).first()
-                            else:
+                            if not unidad:
                                 unidad = universidad.get_or_create_default_unidad()
                         else:
                             unidad = universidad.get_or_create_default_unidad()
@@ -436,27 +437,36 @@ def load_data_grados(request):
                 fecha = entry.get("fecha")
                 tipo = entry.get("tipo")
 
+                # Resolve country code
+                pais_code = None
+                for code, name in countries:
+                    if name.lower() == (pais_nombre or "").lower():
+                        pais_code = code
+                        break
+                    
                 # Buscar universidad
-                universidad = Universidad.objects.get_by_name_or_sigla(universidad_nombre)
+                universidad = Universidad.objects.filter(pais=pais_code).get_by_name_or_sigla(universidad_nombre)
                 # Crear la instancia de grado solo si se encontró la universidad
                 if universidad:
                     # getting unidad
+                    unidad=None
                     if web_site:
                         unidades_siglas = universidad.unidades_set.values_list("sigla", flat=True)
                         # lowercase comparison
                         domain_options = [option.lower() for option in web_site.split(".")]
+                        print(domain_options)
                         if any(sigla.lower() in domain_options for sigla in unidades_siglas if sigla):
                             unidad = universidad.unidades_set.filter(sigla__in=domain_options).first()
-                        else:
+                        if not unidad:
                             unidad = universidad.get_or_create_default_unidad()
                     else:
                         unidad = universidad.get_or_create_default_unidad()
-
                     grado, created = GradoInstancia.objects.get_or_create(
                         nombre=nombre,
                         tipo=tipo,
                         unidad=unidad,
                     )
+                    print(grado, created, grado.id )
 
                     if created:
                         created_count += 1

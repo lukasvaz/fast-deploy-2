@@ -1,7 +1,7 @@
 loaddata:
 	python manage.py loaddata _fixtures/users/fixtures/users_fixture_23_12_2025.json
 	python manage.py loaddata _fixtures/universidad/fixtures/universidad_fixture_23_12_2025.json
-	python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_23_12_2025.json
+	python manage.py loaddata _fixtures/persona/fixtures/persona_fixture_02_03_2026.json
 	python manage.py loaddata _fixtures/grados/fixtures/grados_fixture_23_12_2025.json
 
 # backup:

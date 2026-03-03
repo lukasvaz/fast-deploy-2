@@ -97,7 +97,17 @@ class SanitizeGradoForm(SanitizeDataForm):
     def get_type_tags():
         # Use GradoTipo codes (.value) as keys so downstream code receives canonical codes
         return {
-            GradoTipo.LICENCIATURA.value: ["Licenciatura", "Lic", "Lic.", "Undergraduate", "Bachiller", "Bachelor", "Grado", "Bacharelado", "Bacharel"],
+            GradoTipo.LICENCIATURA.value: [
+                "Licenciatura",
+                "Lic",
+                "Lic.",
+                "Undergraduate",
+                "Bachiller",
+                "Bachelor",
+                "Grado",
+                "Bacharelado",
+                "Bacharel",
+            ],
             GradoTipo.MAESTRIA.value: ["Maestría", "Master", "Maestria", "Magister", "Magíster", "Msc", "Masters", "Mestrado"],
             GradoTipo.DOCTORADO.value: ["Doctorado", "Doctorate", "Phd", "PostDoctorate", "Ph.D.", "Doutorado", "Doctorante"],
             GradoTipo.TECHNICIAN.value: ["Técnico Superior", "Technician", "Technical"],

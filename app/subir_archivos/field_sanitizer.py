@@ -8,6 +8,7 @@ from django_countries import countries
 from grados.forms import SanitizeGradoForm
 from grados.models import GradoTipo
 
+
 class FieldCleaner:
     """
     A class to clean, validate, and infer data for a given field.
@@ -93,7 +94,7 @@ def clean_grado_maximo(grado):
 
     GRADO_TAGS = {
         GradoTipo.DOCTORADO.value: ["phd", "doctorado", "dr", "doctor", "ph.d", "doctorante", "doc"],
-        GradoTipo.MAESTRIA.value: ["msc","master", "magíster", "magister", "msc", "maestria", "maestría", "maestro"],
+        GradoTipo.MAESTRIA.value: ["msc", "master", "magíster", "magister", "msc", "maestria", "maestría", "maestro"],
         GradoTipo.LICENCIATURA.value: [
             "lic",
             "licenciado",
@@ -108,7 +109,7 @@ def clean_grado_maximo(grado):
             "universitario",
             "universidad",
         ],
-        GradoTipo.TECHNICIAN.value: ["tech","técnico", "tecnico", "technician"],
+        GradoTipo.TECHNICIAN.value: ["tech", "técnico", "tecnico", "technician"],
     }
 
     for code, tags in GRADO_TAGS.items():
