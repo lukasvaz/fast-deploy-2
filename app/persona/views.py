@@ -387,7 +387,7 @@ def academico_update(request, id_academico):
                         investigador_obj.save()
 
         except IntegrityError:
-            messages.error(request, "Error de intregridad")
+            messages.error(request, "DBLP id ya existe en el sistema.")
             is_valid = False
 
         # orcid
@@ -419,7 +419,7 @@ def academico_update(request, id_academico):
                         investigador_obj.save()
 
         except IntegrityError:
-            messages.error(request, "Error de intregridad")
+            messages.error(request, "ORCID ID ya existe en el sistema.")
             is_valid = False
         # aminer id
         try:
@@ -465,7 +465,7 @@ def academico_update(request, id_academico):
                             KeywordInvestigador.update_investigador_keywords(inv_obj)
 
         except IntegrityError:
-            messages.error(request, "Error de intregridad")
+            messages.error(request, "AMiner ID ya existe en el sistema.")
             is_valid = False
         # OpenAlex
         try:
@@ -511,7 +511,7 @@ def academico_update(request, id_academico):
                         messages.error(request, "Unidad no encontrada.")
                         is_valid = False
         except IntegrityError:
-            messages.error(request, "Error de intregridad")
+            messages.error(request, "Académico ya existe para esta Institución.")
             is_valid = False
 
         if is_valid:
@@ -562,7 +562,7 @@ def academico_update(request, id_academico):
                     academico_ob.save()
 
             except IntegrityError:
-                messages.error(request, "Error de intregridad")
+                messages.error(request, "Académico ya existe para esta Institución.")
 
             except DataError:
                 messages.error(request, "Error en algún campo.")
