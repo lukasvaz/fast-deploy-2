@@ -92,7 +92,7 @@ def grado_new(request):
                     )
                     grado_new_obj.save()
             except IntegrityError:
-                messages.error(request, "Error de integridad")
+                messages.error(request, "El Programa ya existe para esta institución.")
             except DataError:
                 messages.error(request, "Error en algún campo.")
             except Error as error_msg_db:
@@ -119,26 +119,33 @@ def grado_edit(request, id_grado):
         return redirect("front:grado", id_grado=grado_obj.id)
 
     if request.method == "POST":
-        grado_obj.nombre_en = request.POST.get("InputNombre", grado_obj.nombre_en)
-        grado_obj.tipo = request.POST.get("InputTipo", grado_obj.tipo)
-        if request.POST.get("InputWeb") and request.POST.get("InputWeb") != grado_obj.web_site:
-            grado_obj.web_site = request.POST.get("InputWeb")
-            grado_obj.verification_state = ValidationStates.PENDING
-        if not request.POST.get("InputWeb") and request.POST.get("InputWeb") != grado_obj.web_site:
-            grado_obj.web_site = None
-            grado_obj.verification_state = ValidationStates.INVALID_URL
+        try:
+            grado_obj.nombre_en = request.POST.get("InputNombre", grado_obj.nombre_en)
+            grado_obj.tipo = request.POST.get("InputTipo", grado_obj.tipo)
+            if request.POST.get("InputWeb") and request.POST.get("InputWeb") != grado_obj.web_site:
+                grado_obj.web_site = request.POST.get("InputWeb")
+                grado_obj.verification_state = ValidationStates.PENDING
+            if not request.POST.get("InputWeb") and request.POST.get("InputWeb") != grado_obj.web_site:
+                grado_obj.web_site = None
+                grado_obj.verification_state = ValidationStates.INVALID_URL
 
-        grado_obj.fecha_creacion = (
-            request.POST.get("InputFecha", grado_obj.fecha_creacion) if request.POST.get("InputFecha", grado_obj.fecha_creacion) else None
-        )
-        grado_obj.activo = bool(request.POST.get("InputActivo", grado_obj.activo))
-        grado_obj.nombre_es = request.POST.get("InputNombreEs", grado_obj.nombre_es)
-        unidad_id = request.POST.get("InputUnidadId", "")
-        if unidad_id:
-            unidad_obj = Unidad.objects.filter(id=unidad_id).first()
-            grado_obj.unidad = unidad_obj
-        grado_obj.save()
-        return redirect("front:grado", id_grado=grado_obj.id)
+            grado_obj.fecha_creacion = (
+                request.POST.get("InputFecha", grado_obj.fecha_creacion) if request.POST.get("InputFecha", grado_obj.fecha_creacion) else None
+            )
+            grado_obj.activo = bool(request.POST.get("InputActivo", grado_obj.activo))
+            grado_obj.nombre_es = request.POST.get("InputNombreEs", grado_obj.nombre_es)
+            unidad_id = request.POST.get("InputUnidadId", "")
+            if unidad_id:
+                unidad_obj = Unidad.objects.filter(id=unidad_id).first()
+                grado_obj.unidad = unidad_obj
+            grado_obj.save()
+            return redirect("front:grado", id_grado=grado_obj.id)
+        except IntegrityError:
+            messages.error(request, "El Programa ya existe para esta institución.")
+            return redirect("grados:grado_edit", id_grado=grado_obj.id)
+        except Exception as e:
+            messages.error(request, f"Error al guardar el programa: {str(e)}")
+            return redirect("grados:grado_edit", id_grado=grado_obj.id)
     if request.method == "GET":
         unidad = grado_obj.unidad
         universidad = unidad.universidad if unidad else None
