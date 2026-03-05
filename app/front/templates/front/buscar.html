@@ -126,15 +126,9 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-9">
-                  {% if academico_group.1 %}
+                  {% if academico_group.0 %}
                   <div class="mb-1">
                     <strong class="me-1">{{ academico_group.0.get_full_name }}</strong>
-                    {% if academico_group.0.nombre != academico_group.1.nombre %}
-                    ({{academico_group.1.nombre}}){% endif %}
-                  </div>
-                  {% else %}
-                  <div class="mb-1">
-                    <strong class="me-1">{{academico_group.0.get_full_name}}</strong>
                   </div>
                   {% endif %}
                   {% if academico_group.0.grado_maximo %}
