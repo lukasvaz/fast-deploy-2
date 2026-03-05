@@ -59,18 +59,10 @@
             <a class="nav-link text-light fw-medium ms-3 my-1" href="#busqueda-basica-institucion">Búsqueda básica por nombre</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#busqueda-avanzada-institucion">Búsqueda avanzada</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link text-light fw-medium ms-3 my-1" href="#obtencion-id-institucion">Obtención por ID</a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-light fw-medium" href="#areas">Áreas</a>
-        <ul class="nav flex-column nav-underline nav-pills ms-0 sticky-top bg-dark">
-          <li class="nav-item">
-            <a class="nav-link text-light fw-medium ms-3 my-1" href="#areas-todas">Todas las Áreas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light fw-medium ms-3 my-1" href="#subareas-por-area">Subáreas por Área ID</a>
           </li>
         </ul>
       </li>
@@ -91,6 +83,17 @@
           </li>
         </ul>
       </li>
+      <li class="nav-item">
+        <a class="nav-link text-light fw-medium" href="#areas">Áreas</a>
+        <ul class="nav flex-column nav-underline nav-pills ms-0 sticky-top bg-dark">
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#areas-todas">Todas las Áreas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-light fw-medium ms-3 my-1" href="#subareas-por-area">Subáreas por Área ID</a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="col-8 col-md-10" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -85%" data-bs-smooth-scroll="false" tabindex="0">
@@ -104,12 +107,6 @@
           </p>
           <p class="parrafo">
             Tenga en cuenta que, aunque nos esforzamos por mantener actualizada esta documentación, considérela un trabajo en curso y tenga en cuenta que es probable que contenga errores.
-          </p>
-          <p class="d-none d-sm-flex parrafo">
-            Los ejemplos de código en bash se proporcionan en la zona oscura de la derecha.
-          </p>
-          <p class="d-sm-none parrafo">
-            Los ejemplos de código en bash se proporcionan en la zona oscura de abajo.
           </p>
         </div>
       </div>
@@ -275,7 +272,7 @@
         <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-basica">
             <h4>Búsqueda básica por nombre</h4>
-            <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas simples por nombre. Estos pueden tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud.</p>
+            <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas por similitud en el nombre. Esta pensado para búsquedas inexactas basadas en la similitud del nombre por lo que el resultado es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud.</p>
             <h5 class="fw-light">
               Request
             </h5>
@@ -298,17 +295,57 @@
             <!-- Ejemplo (moved dentro de la columna de documentación) -->
             <div class="bg-dark p-2 text-light mt-3">
               <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ignacio%20Cuellar" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ignacio%20Cuellar</a></p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ochoa" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ochoa</a></p>
               <hr class="my-2">
               <p class="mb-1 fw-bold">Ejemplo response (200):</p>
               <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
                 <pre class="m-0">{
-  "academicos": [
-    { "id": 1 /* ... */ }
+  "count": 7,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 117,
+      "nombre": "Sergio Ochoa",
+      "apellido": "",
+      "webpage": "http://users.dcc.uchile.cl/~sochoa/",
+      "grado_maximo": "PHD",
+      "afiliacion": {
+        "unidad": {
+          "nombre": "Departamento de Ciencias de la Computación",
+          "sigla": "dcc",
+          "webpage": "https://www.dcc.uchile.cl/"
+        },
+        "universidad": {
+          "id": 1,
+          "nombre": "Universidad de Chile",
+          "pais": "CL",
+          "acronimos": [
+            "UCH"
+          ],
+          "web_page": "https://www.uchile.cl/"
+        }
+      },
+      "external_ids": {
+        "dblp_id": "58/3679",
+        "aminer_id": "540596ffdabfae92b41e74a4",
+        "openalex_id": "A5076957708",
+        "orcid_id": "0000-0002-0431-8767"
+      },
+      "areas": {
+        "areas": [],
+        "keywords": [
+          { "nombre": "Older Adults", "peso": 24 },
+          { "nombre": "Mobile Computing", "peso": 19 },
+          { "nombre": "Ambient Intelligence", "peso": 16 },
+          { "nombre": "Mobile Collaboration", "peso": 36 },
+          { "nombre": "Collaborative Learning", "peso": 17 }
+        ]
+      }
+    }
   ]
 }</pre>
               </div>
-            </div>
 
           </div>
         </div>
@@ -318,7 +355,7 @@
         <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-avanzada">
             <h4>Búsqueda avanzada</h4>
-            <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas por nombre y filtros. La búsqueda por nombre puede tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud. Los filtros disponibles son por institución, país, áreas y subáreas.</p>
+            <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas por nombre y filtros. Si bien también realiza una búsqueda por similitud, el margen de error aceptado es menor, por lo que se espera que este endpoint sea utilizado para obtener resultados más acotados. Los filtros disponibles son por institución, país, áreas y subáreas.</p>
             <h5 class="fw-light">
               Request
             </h5>
@@ -335,7 +372,7 @@
             <p>String con el nombre a buscar.</p>
             <p class="mb-0"><mark><strong>institucion</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
             <p>String con el nombre de institución a la que pertenece el académico.</p>
-            <p class="mb-0"><mark><strong>pais</strong></mark> <span class="fw-light">ISO 3166-1</span> <span class="fst-italic">opcional</span></p>
+            <p class="mb-0"><mark><strong>pais_code</strong></mark> <span class="fw-light">ISO 3166-1</span> <span class="fst-italic">opcional</span></p>
             <p>Código ISO 3166-1 del país al que pertenece la institución del académico.</p>
             <p class="mb-0"><mark><strong>area</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
             <p>Área en la cual el académico desempeña sus investigaciones.</p>
@@ -349,12 +386,70 @@
             <!-- Ejemplo dentro de la columna de documentación -->
             <div class="bg-dark p-2 text-light mt-3">
               <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Ignacio%20Cuellar&pais=CL" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Ignacio%20Cuellar&pais=CL</a></p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Nelson%20Baloian&pais_code=CL&institucion=Universidad%20de%20Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Nelson%20Baloian&pais_code=CL&institucion=Universidad%20de%20Chile</a></p>
               <hr class="my-2">
               <p class="mb-1 fw-bold">Ejemplo response (200):</p>
               <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
                 <pre class="m-0">{
-  "academicos": [ { "id": 1 /* ... */ } ]
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 105,
+      "nombre": "Nelson Baloian",
+      "apellido": "",
+      "webpage": "http://www.dcc.uchile.cl/~nbaloian/",
+      "grado_maximo": "PHD",
+      "afiliacion": {
+        "unidad": {
+          "nombre": "Departamento de Ciencias de la Computación",
+          "sigla": "dcc",
+          "webpage": "https://www.dcc.uchile.cl/"
+        },
+        "universidad": {
+          "id": 1,
+          "nombre": "Universidad de Chile",
+          "pais": "CL",
+          "acronimos": [
+            "UCH"
+          ],
+          "web_page": "https://www.uchile.cl/"
+        }
+      },
+      "external_ids": {
+        "dblp_id": "b/NelsonBaloian",
+        "aminer_id": "53f4305adabfaec09f139ec4",
+        "openalex_id": "A5036129923",
+        "orcid_id": "0000-0003-1608-6454"
+      },
+      "areas": {
+        "areas": [],
+        "keywords": [
+          {
+            "nombre": "Virtual Museum",
+            "peso": 11
+          },
+          {
+            "nombre": "Mobile Learning",
+            "peso": 14
+          },
+          {
+            "nombre": "Supervised Learning",
+            "peso": 14
+          },
+          {
+            "nombre": "Collaborative Learning",
+            "peso": 30
+          },
+          {
+            "nombre": "Dempster-Shafer Theory",
+            "peso": 30
+          }
+        ]
+      }
+    }
+  ]
 }</pre>
               </div>
             </div>
@@ -394,11 +489,43 @@
             <!-- Ejemplo dentro de la columna de documentación -->
             <div class="bg-dark p-2 text-light mt-3">
               <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=12452" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=12452</a></p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=124" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=124</a></p>
               <hr class="my-2">
               <p class="mb-1 fw-bold">Ejemplo response (200):</p>
               <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
-                <pre class="m-0">{ "id": 1 /* ... */ }</pre>
+                <pre class="m-0">{
+  "id": 124,
+  "nombre": "Matías Toro",
+  "apellido": null,
+  "webpage": "",
+  "grado_maximo": null,
+  "afiliacion": {
+    "unidad": {
+      "nombre": "Departamento de Ciencias de la Computación",
+      "sigla": "dcc",
+      "webpage": "https://www.dcc.uchile.cl/"
+    },
+    "universidad": {
+      "id": 1,
+      "nombre": "Universidad de Chile",
+      "pais": "CL",
+      "acronimos": [
+        "UCH"
+      ],
+      "web_page": "https://www.uchile.cl/"
+    }
+  },
+  "external_ids": {
+    "dblp_id": "169/6836",
+    "aminer_id": null,
+    "openalex_id": "A5073103554",
+    "orcid_id": "0000-0002-5315-0198"
+  },
+  "areas": {
+    "areas": [],
+    "keywords": []
+  }
+}</pre>
               </div>
             </div>
 
@@ -544,17 +671,112 @@
             <!-- Ejemplo dentro de la columna de documentación -->
             <div class="bg-dark p-2 text-light mt-3">
               <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search' %}?query=Universidad%20de%20Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search' %}?query=Universidad%20de%20Chile</a></p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search' %}?query=de%20Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search' %}?query=de%20Chile</a></p>
               <hr class="my-2">
               <p class="mb-1 fw-bold">Ejemplo response (200):</p>
               <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
-                <pre class="m-0">{ "instituciones": [ { "id": 1 /* ... */ } ] }</pre>
+                <pre class="m-0">{
+  "count": 26,
+  "next": "http://localhost:8000/api/v1/buscar/institucion/?page=2&query=Universidad+de+Chile",
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "nombre": "Universidad de Chile",
+      "pais": "CL",
+      "acronimos": [
+        "UCH"
+      ],
+      "web_page": "https://www.uchile.cl/",
+      "external_ids": {
+        "openalex_id": "I69737025",
+        "mag_id": "69737025",
+        "grid_id": "grid.443909.3",
+        "ror_id": "047gc3g35",
+        "wikidata_id": "Q232141",
+        "wikipedia_id": "https://en.wikipedia.org/wiki/University%20of%20Chile"
+      },
+      "geo_data": {
+        "latitude": -33.45694,
+        "longitude": -70.64827,
+        "city": "Santiago",
+        "city_id": "3871336.0"
+      }
+    }
+  ]
+}</pre>
               </div>
             </div>
 
           </div>
         </div>
       </div>
+
+      <!-- Búsqueda avanzada de Institución (added) -->
+      <div class="row">
+        <div class="p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-avanzada-institucion">
+            <h4>Búsqueda avanzada</h4>
+            <p class="parrafo">Este endpoint permite buscar instituciones usando filtros combinables: nombre (búsqueda difusa), código de país (ISO 3166-1) y sigla. Útil para consultas más acotadas cuando se conoce parte de la información.</p>
+            <h5 class="fw-light">Request</h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search_advanced' %}</mark></p>
+            <h5 class="fw-light">Headers</h5>
+            <p><mark><strong>Content-Type</strong>: application/json</mark></p>
+            <p><mark><strong>Accept</strong>: application/json</mark></p>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>nombre</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Nombre o parte del nombre de la institución (búsqueda difusa).</p>
+            <p class="mb-0"><mark><strong>pais</strong></mark> <span class="fw-light">ISO 3166-1</span> <span class="fst-italic">opcional</span></p>
+            <p>Código del país de la institución (ej. CL).</p>
+            <p class="mb-0"><mark><strong>sigla</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Sigla conocida de la institución (ej. UCH).</p>
+            <h5 class="fw-light">Response format</h5>
+            <p>Retorna una lista paginada de objetos Institución (mismo esquema que la búsqueda básica).</p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search_advanced' %}?nombre=Universidad%20de%20Chile&pais=CL&sigla=UCH" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search_advanced' %}?nombre=Universidad%20de%20Chile&pais=CL&sigla=UCH</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "nombre": "Universidad de Chile",
+      "pais": "CL",
+      "acronimos": [
+        "UCH"
+      ],
+      "web_page": "https://www.uchile.cl/",
+      "external_ids": {
+        "openalex_id": "I69737025",
+        "mag_id": "69737025",
+        "grid_id": "grid.443909.3",
+        "ror_id": "047gc3g35",
+        "wikidata_id": "Q232141",
+        "wikipedia_id": "https://en.wikipedia.org/wiki/University%20of%20Chile"
+      },
+      "geo_data": {
+        "latitude": -33.45694,
+        "longitude": -70.64827,
+        "city": "Santiago",
+        "city_id": "3871336.0"
+      }
+    }
+  ]
+}</pre>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- Obtención por ID -->
       <div class="row">
         <div class="p-0" style="min-height:700px ;">
@@ -579,6 +801,263 @@
               Response format
             </h5>
             <p>Retorna un único Objeto Institución.</p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_get_id' %}?id=1" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_get_id' %}?id=1</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{
+  "id": 1,
+  "nombre": "Universidad de Chile",
+  "pais": "CL",
+  "acronimos": [
+    "UCH"
+  ],
+  "web_page": "https://www.uchile.cl/",
+  "external_ids": {
+    "openalex_id": "I69737025",
+    "mag_id": "69737025",
+    "grid_id": "grid.443909.3",
+    "ror_id": "047gc3g35",
+    "wikidata_id": "Q232141",
+    "wikipedia_id": "https://en.wikipedia.org/wiki/University%20of%20Chile"
+  },
+  "geo_data": {
+    "latitude": -33.45694,
+    "longitude": -70.64827,
+    "city": "Santiago",
+    "city_id": "3871336.0"
+  }
+}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Grados section -->
+    <div id="grados">
+      <!-- objeto programa -->
+      <div class="row">
+        <div class="p-0" style="min-height:700px ;">
+          <h2 class="subtitle m-0">Programas</h2>
+          <div class="description" id="objeto-grado">
+            <h4>Objeto Programa</h4>
+            <p class="parrafo">Objeto de respuesta entregada para representar un programa académico. Contiene los siguintes atributos:</p>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Atributo</th>
+                  <th scope="col">Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">id</th>
+                  <td><span class="fst-italic">(int)</span> ID del programa en el sistema.</td>
+                </tr>
+                  <th scope="row">nombre</th>
+                  <td><span class="fst-italic">(string)</span> Nombre del programa registrado.</td>
+                </tr>
+                <!-- tipo (TECH,LIC MSC PHD) -->
+                 <tr>
+                  <th scope="row">tipo</th>
+                  <td><span class="fst-italic">(string)</span> Tipo de programa (TECH, LIC, MSC, PHD).</td>
+                 </tr>
+                <tr>
+                <tr>
+                  <th scope="row">afiliacion</th>
+                  <td><span class="fst-italic">(object)</span> Objeto con la unidad y universidad a la que pertenece el programa.
+                    <table class="table table-bordered mt-2">
+                      <thead>
+                        <tr>
+                          <th scope="col">Atributo</th>
+                          <th scope="col">Descripción</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">unidad</th>
+                          <td><span class="fst-italic">(object)</span> Objeto Unidad (ver sección Unidad para más detalles).</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">universidad</th>
+                          <td><span class="fst-italic">(object)</span> Objeto Universidad (ver sección Institución para más detalles).</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">web_site</th>
+                  <td><span class="fst-italic">(string)</span> Página web del programa.</td>
+                </tr>
+                <tr>
+                  <th scope="row">fecha_creacion</th>
+                  <td><span class="fst-italic">(string)</span> Fecha de creación del programa (YYYY-MM-DD).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div> 
+      <div class="row">
+        <div class="p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-grados-basica">
+            <h4>Búsqueda básica</h4>
+            <p class="parrafo">Búsqueda simple de programas por nombre. Usa búsqueda difusa y devuelve resultados ordenados por similitud.</p>
+            <h5 class="fw-light">Request</h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}</mark></p>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>query</strong></mark> <span class="fw-light">string</span></p>
+            <p>Texto para búsqueda difusa del nombre del grado.</p>
+            <h5 class="fw-light">Response format</h5>
+            <p>Devuelve una lista de Objetos Programa .</p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}?query=master" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}?query=master</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">"next": "http://localhost:8000/api/v1/buscar/programa/?page=2&query=master",
+  "previous": null,
+  "results": [
+    {
+      "id": 817,
+      "nombre": "Master In Databases",
+      "tipo": "MSC",
+      "afiliacion": {
+        "unidad": {
+          "nombre": "Unidad de Computación",
+          "sigla": null,
+          "webpage": null
+        },
+        "universidad": {
+          "id": 5691,
+          "nombre": "Universidad Galileo",
+          "pais": "GT",
+          "acronimos": [],
+          "web_page": "https://www.galileo.edu"
+        }
+      },
+      "web_site": "http://www.galileo.edu/public/PBD/index",
+      "fecha_creacion": null
+    }]</pre>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="p-0" style="min-height:700px ;">
+          <div class="description" id="busqueda-grados-avanzada">
+            <h4>Búsqueda avanzada</h4>
+            <p class="parrafo">Buscar programas por nombre y filtros (universidad, tipo, activo). La búsqueda por nombre es difusa y devuelve una lista ordenada por similitud.</p>
+            <h5 class="fw-light">Request</h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}</mark></p>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>nombre</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p class="mb-0"><mark><strong>universidad</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p class="mb-0"><mark><strong>tipo</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <h5 class="fw-light">Response format</h5>
+            <p>Devuelve una lista de Objetos Programa.</p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{
+  "count": 2,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "id": 1000,
+      "nombre": "Magíster En Informática",
+      "tipo": "MSC",
+      "afiliacion": {
+        "unidad": {
+          "nombre": "Unidad de Computación",
+          "sigla": "",
+          "webpage": ""
+        },
+        "universidad": {
+          "id": 9,
+          "nombre": "Universidad Austral de Chile",
+          "pais": "CL",
+          "acronimos": [
+            "UACH",
+            "UACh"
+          ],
+          "web_page": "https://www.uach.cl/"
+        }
+      },
+      "web_site": "https://www.uach.cl/",
+      "fecha_creacion": null
+    }
+  ]
+}</pre>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Obtención por ID -->
+      <div class="row">
+        <div class="p-0" style="min-height:700px;">
+          <div class="description" id="obtencion-grado-id">
+            <h4>Obtención por ID</h4>
+            <p class="parrafo">Obtiene todos los datos de un grado por su ID interno.</p>
+            <h5 class="fw-light">Request</h5>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}</mark></p>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span></p>
+            <h5 class="fw-light">Response format</h5>
+            <p>Devuelve un único Objeto Programa.</p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=850" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=850</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{
+  "id": 850,
+  "nombre": "Master Of Science With Degree In Electrical Engineering (telecommunications)",
+  "tipo": "MSC",
+  "afiliacion": {
+    "unidad": {
+      "nombre": "Mecatronica y Tecnologias de Informacion",
+      "sigla": null,
+      "webpage": null
+    },
+    "universidad": {
+      "id": 2198,
+      "nombre": "Instituto Tecnológico y de Estudios Superiores de Monterrey",
+      "pais": "MX",
+      "acronimos": [
+        "ITESM"
+      ],
+      "web_page": "https://tec.mx"
+    }
+  },
+  "web_site": "http://www.itesm.edu/wps/portal?WCM_GLOBAL_CONTEXT=/migration/MTY2/Monterrey/Programas+educativos/Maestr_as/Mecatr_nica+y+Tecnolog_as+de+Informaci_n/MSE-T+Maestr_a+en+Ciencias+con+especialidad+en+Ingenier_a+Electr_nica+%28Telecomunicaciones%29",
+  "fecha_creacion": null
+}</pre>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -671,155 +1150,6 @@
               <p class="mb-1 fw-bold">Ejemplo response (200):</p>
               <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
                 <pre class="m-0">{ "subareas": [ { "id": 1, "nombre": "Semantics And Reasoning" }, ... ] }</pre>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Grados section -->
-    <div id="grados">
-      <!-- objeto programa -->
-      <div class="row">
-        <div class="p-0" style="min-height:700px ;">
-          <h2 class="subtitle m-0">Programas</h2>
-          <div class="description" id="objeto-grado">
-            <h4>Objeto Programa</h4>
-            <p class="parrafo">Objeto de respuesta entregada para representar un programa académico. Contiene los siguintes atributos:</p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Atributo</th>
-                  <th scope="col">Descripción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">id</th>
-                  <td><span class="fst-italic">(int)</span> ID del programa en el sistema.</td>
-                </tr>
-                  <th scope="row">nombre</th>
-                  <td><span class="fst-italic">(string)</span> Nombre del programa registrado.</td>
-                </tr>
-                <!-- tipo (TECH,LIC MSC PHD) -->
-                 <tr>
-                  <th scope="row">tipo</th>
-                  <td><span class="fst-italic">(string)</span> Tipo de programa (TECH, LIC, MSC, PHD).</td>
-                 </tr>
-                <tr>
-                <tr>
-                  <th scope="row">afiliacion</th>
-                  <td><span class="fst-italic">(object)</span> Objeto con la unidad y universidad a la que pertenece el programa.
-                    <table class="table table-bordered mt-2">
-                      <thead>
-                        <tr>
-                          <th scope="col">Atributo</th>
-                          <th scope="col">Descripción</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">unidad</th>
-                          <td><span class="fst-italic">(object)</span> Objeto Unidad (ver sección Unidad para más detalles).</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">universidad</th>
-                          <td><span class="fst-italic">(object)</span> Objeto Universidad (ver sección Institución para más detalles).</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">web_site</th>
-                  <td><span class="fst-italic">(string)</span> Página web del programa.</td>
-                </tr>
-                <tr>
-                  <th scope="row">fecha_creacion</th>
-                  <td><span class="fst-italic">(string)</span> Fecha de creación del programa (YYYY-MM-DD).</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div> 
-      <div class="row">
-        <div class="p-0" style="min-height:700px ;">
-          <div class="description" id="busqueda-grados-basica">
-            <h4>Búsqueda básica</h4>
-            <p class="parrafo">Búsqueda simple de programas por nombre. Usa búsqueda difusa y devuelve resultados ordenados por similitud.</p>
-            <h5 class="fw-light">Request</h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}</mark></p>
-            <h5 class="fw-light">Query Parameters</h5>
-            <p class="mb-0"><mark><strong>query</strong></mark> <span class="fw-light">string</span></p>
-            <p>Texto para búsqueda difusa del nombre del grado.</p>
-            <h5 class="fw-light">Response format</h5>
-            <p>Devuelve una lista de Objetos Programa .</p>
-
-            <!-- Ejemplo dentro de la columna de documentación -->
-            <div class="bg-dark p-2 text-light mt-3">
-              <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}?query=master" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}?query=master</a></p>
-              <hr class="my-2">
-              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
-              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
-                <pre class="m-0">{ "results": [ { "id": 10, "nombre": "Master in Computer Science" /* ... */ } ] }</pre>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="p-0" style="min-height:700px ;">
-          <div class="description" id="busqueda-grados-avanzada">
-            <h4>Búsqueda avanzada</h4>
-            <p class="parrafo">Buscar programas por nombre y filtros (universidad, tipo, activo). La búsqueda por nombre es difusa y devuelve una lista ordenada por similitud.</p>
-            <h5 class="fw-light">Request</h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}</mark></p>
-            <h5 class="fw-light">Query Parameters</h5>
-            <p class="mb-0"><mark><strong>nombre</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
-            <p class="mb-0"><mark><strong>universidad</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
-            <p class="mb-0"><mark><strong>tipo</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
-            <h5 class="fw-light">Response format</h5>
-            <p>Devuelve una lista de Objetos Programa.</p>
-
-            <!-- Ejemplo dentro de la columna de documentación -->
-            <div class="bg-dark p-2 text-light mt-3">
-              <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile</a></p>
-              <hr class="my-2">
-              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
-              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
-                <pre class="m-0">{ "results": [ { "id": 10, "nombre": "Master in Computer Science" /* ... */ } ] }</pre>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <!-- Obtención por ID -->
-      <div class="row">
-        <div class="p-0" style="min-height:700px;">
-          <div class="description" id="obtencion-grado-id">
-            <h4>Obtención por ID</h4>
-            <p class="parrafo">Obtiene todos los datos de un grado por su ID interno.</p>
-            <h5 class="fw-light">Request</h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}</mark></p>
-            <h5 class="fw-light">Query Parameters</h5>
-            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span></p>
-            <h5 class="fw-light">Response format</h5>
-            <p>Devuelve un único Objeto Programa.</p>
-
-            <!-- Ejemplo dentro de la columna de documentación -->
-            <div class="bg-dark p-2 text-light mt-3">
-              <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=10" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=10</a></p>
-              <hr class="my-2">
-              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
-              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
-                <pre class="m-0">{ "id": 10, "nombre": "Master in Computer Science" /* ... */ }</pre>
               </div>
             </div>
 

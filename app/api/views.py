@@ -22,6 +22,7 @@ from api.serializers import (
     InstitucionGetIdQuerySerializer,
     InstitucionQuerySerializer,
     SubareasByAreaQuerySerializer,
+    InstitucionAdvancedQuerySerializer,
 )
 from grados.models import GradoInstancia
 from persona.models import (
@@ -129,13 +130,13 @@ class AcademicoSearchAdvancedView(ListAPIView):
                         query_nombre,
                     ),
                 )
-                .filter(similarity__gt=0.15)
+                .filter(similarity__gt=0.5)
                 .order_by("-similarity")
             )
         if query_institucion:
             institucion_query = (
                 Universidad.objects.annotate(similarity=TrigramSimilarity("nombre", params.get("institucion")))
-                .filter(similarity__gt=0.15)
+                .filter(similarity__gt=0.5)
                 .order_by("-similarity")
             )
             qs = qs.filter(unidad__universidad__id__in=[i.id for i in institucion_query])
@@ -254,6 +255,58 @@ class InstitucionSearchView(ListAPIView):
         )
         qs |= qs_by_sigla
 
+        return qs
+
+    def list(self, request, *args, **kwargs):
+        try:
+            return super().list(request, *args, **kwargs)
+        except DRFValidationError as e:
+            return Response({"error": e.detail}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class InstitucionSearchAdvancedView(ListAPIView):
+    """Advanced search for institutions: nombre, pais, sigla."""
+    serializer_class = ApiInstitutionSerializer
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        incoming = set(self.request.query_params.keys())
+        allowed = set(InstitucionAdvancedQuerySerializer().fields.keys())
+        extras = incoming - allowed
+        if extras:
+            raise DRFValidationError(
+                {
+                    "unknown_params": list(sorted(extras)),
+                    "allowed_params": list(sorted(allowed)),
+                }
+            )
+        qser = InstitucionAdvancedQuerySerializer(data=self.request.query_params)
+        qser.is_valid(raise_exception=True)
+        params = qser.validated_data
+
+        nombre = params.get("nombre", "")
+        pais = params.get("pais", "")
+        sigla = params.get("sigla", "")
+
+        qs = Universidad.objects.all()
+        if nombre:
+            qs = (
+                Universidad.objects.annotate(similarity=TrigramSimilarity("nombre", nombre))
+                .filter(similarity__gt=0.15)
+                .order_by("-similarity")
+            )
+        if sigla:
+            qs_by_sigla = (
+                Universidad.objects.annotate(similarity=TrigramSimilarity("sigla", sigla))
+                .filter(similarity__gt=0.15)
+                .exclude(id__in=[u.id for u in qs])
+                .order_by("-similarity")
+            )
+            qs |= qs_by_sigla
+        if pais:
+            qs = qs.filter(pais=pais)
         return qs
 
     def list(self, request, *args, **kwargs):

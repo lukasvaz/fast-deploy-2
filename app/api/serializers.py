@@ -158,6 +158,19 @@ class InstitucionQuerySerializer(serializers.Serializer):
     page = serializers.IntegerField(required=False, min_value=1)
 
 
+class InstitucionAdvancedQuerySerializer(serializers.Serializer):
+    """Advanced query params for institution search."""
+
+    nombre = serializers.CharField(required=False, allow_blank=True, max_length=200)
+    pais = serializers.CharField(required=False, allow_blank=True, max_length=10)
+    sigla = serializers.CharField(required=False, allow_blank=True, max_length=50)
+    page = serializers.IntegerField(required=False, min_value=1)
+
+    def validate(self, data):
+        # allow empty search (all params optional) but keep method to centralize future checks
+        return data
+
+
 class GradoSearchQuerySerializer(serializers.Serializer):
     query = serializers.CharField(required=False, allow_blank=True, max_length=200)
     page = serializers.IntegerField(required=False, min_value=1)

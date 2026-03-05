@@ -7,6 +7,7 @@ urlpatterns = [
     path("buscar/academico/", views.AcademicoSearchBasicView.as_view(), name="academico_search_basic"),
     path("buscar/academico/avanzada/", views.AcademicoSearchAdvancedView.as_view(), name="academico_search_advanced"),
     path("buscar/institucion/", views.InstitucionSearchView.as_view(), name="institucion_search"),
+    path("buscar/institucion/avanzada/", views.InstitucionSearchAdvancedView.as_view(), name="institucion_search_advanced"),
     path("buscar/programa/", views.GradoSearchView.as_view(), name="grado_search"),
     path("buscar/programa/avanzada/", views.GradoSearchAdvancedView.as_view(), name="grado_search_advanced"),
     path("academico/", views.AcademicoGetIdView.as_view(), name="academico_get_id"),
