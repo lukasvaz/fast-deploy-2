@@ -16,6 +16,7 @@
 .parrafo {
   text-align: justify;
   text-justify: inter-word;
+  max-width: 90%;
 }
 </style>
 
@@ -92,10 +93,10 @@
       </li>
     </ul>
   </div>
-  <div class="col-12 col-md-10" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -85%" data-bs-smooth-scroll="false" tabindex="0">
+  <div class="col-8 col-md-10" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -85%" data-bs-smooth-scroll="false" tabindex="0">
     <!-- Introduction -->
     <div class="row" id="introduccion">
-      <div class="col-12 col-sm-6 p-0";>
+      <div class="p-0";>
         <h2 class="subtitle m-0">Introducción</h2>
         <div class="description">
           <p class="parrafo">
@@ -112,11 +113,10 @@
           </p>
         </div>
       </div>
-      <div class="col-0 col-sm-6 bg-secondary"></div>
     </div>
     <!-- Terminos de uso -->
     <div class="row" id="condiciones">
-      <div class="col-12 col-sm-6 p-0">
+      <div class="p-0">
         <h2 class="subtitle m-0">Condiciones de uso</h2>
         <div class="description">
           <p class="parrafo">
@@ -124,26 +124,24 @@
           </p>
         </div>
       </div>
-      <div class="col-0 col-sm-6 bg-secondary"></div>
     </div>
     <!-- Endpoint -->
     <div class="row" id="endpoint">
-      <div class="col-12 col-sm-6 p-0" >
+      <div class="p-0" >
         <h2 class="subtitle m-0">Endpoint</h2>
         <div class="description">
           <h4>URL base</h4>
           <p>
-            La URL base es: <mark>https://{{ request.get_host }}/api/v1/</mark>
+            La URL base es: <mark>{{request.scheme}}://{{ request.get_host }}/api/v1/</mark>
           </p>
         </div>
       </div>
-      <div class="col-0 col-sm-6 bg-secondary"></div>
     </div>
     <!-- ACADEMICOS -->
     <div id="academicos">
       <!-- objeto academico -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
               <h2 class="subtitle m-0">Académicos</h2>
               <div class="description" id="objeto-academico">
                 <h4>Objeto Académico</h4>
@@ -271,18 +269,17 @@
                 </table>
               </div>
             </div>
-            <div class="col-0 col-sm-6 bg-secondary"></div>
           </div>
       <!-- Búsqueda básica por nombre -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-basica">
             <h4>Búsqueda básica por nombre</h4>
             <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas simples por nombre. Estos pueden tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud.</p>
             <h5 class="fw-light">
               Request
             </h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:academico_search_basic' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_basic' %}</mark></p>
             <h5 class="fw-light">
               Headers
             </h5>
@@ -297,44 +294,35 @@
               Response format
             </h5>
             <p>Retorna un listado de objetos académicos.</p>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ignacio%20Cuellar"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo (moved dentro de la columna de documentación) -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ignacio%20Cuellar" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_basic' %}?query=Ignacio%20Cuellar</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{
+  "academicos": [
+    { "id": 1 /* ... */ }
+  ]
+}</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"academicos"</span>: [</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
       <!-- Búsqueda avanzada -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-avanzada">
             <h4>Búsqueda avanzada</h4>
             <p class="parrafo">Este endpoint permite buscar académicos basándose en búsquedas por nombre y filtros. La búsqueda por nombre puede tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud. Los filtros disponibles son por institución, país, áreas y subáreas.</p>
             <h5 class="fw-light">
               Request
             </h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:academico_search_advanced' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}</mark></p>
             <h5 class="fw-light">
               Headers
             </h5>
@@ -357,44 +345,33 @@
               Response format
             </h5>
             <p>Retorna un listado de Objetos Académico</p>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Ignacio%20Cuellar&pais=CL"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Ignacio%20Cuellar&pais=CL" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Ignacio%20Cuellar&pais=CL</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{
+  "academicos": [ { "id": 1 /* ... */ } ]
+}</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"academicos"</span>: [</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
       <!-- Obtención por ID -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <div class="description" id="obtencion-id">
             <h4>Obtención por ID</h4>
             <p class="parrafo">Este endpoint permite extraer toda la información que se tiene sobre un académico en específico. Esta petición es realizada por cualquier ID que este académico posea, ya sea el identificador otorgado por el sistema mismo, el identificador de DBLP o el identificador de ORCID.</p>
             <h5 class="fw-light">
               Request
             </h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:academico_get_id' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_get_id' %}</mark></p>
             <h5 class="fw-light">
               Headers
             </h5>
@@ -413,26 +390,18 @@
               Response format
             </h5>
             <p>Retorna un único Objeto Académico.</p>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=12452"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=12452" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_get_id' %}?id=12452</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{ "id": 1 /* ... */ }</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
@@ -440,7 +409,7 @@
     <!-- Institución -->
     <div id="institucion">
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <h2 class="subtitle m-0">Institución</h2>
           <div class="description" id="objeto-institucion">
             <h4>Objeto Institución</h4>
@@ -546,18 +515,17 @@
           
 
           </div>
-        <div class="col-0 col-sm-6 bg-secondary"></div>
       </div>
       <!-- Búsqueda básica por nombre -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-basica-institucion">
             <h4>Búsqueda básica por nombre</h4>
             <p class="parrafo">Este endpoint permite buscar instituciones basándose en búsquedas simples por nombre. Estos pueden tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud.</p>
             <h5 class="fw-light">
               Request
             </h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:institucion_search' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search' %}</mark></p>
             <h5 class="fw-light">
               Headers
             </h5>
@@ -572,44 +540,31 @@
               Response format
             </h5>
             <p>Retorna un listado de Objetos Instituciones con información básica.</p>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:institucion_search' %}?query=Universidad%de%Chile"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search' %}?query=Universidad%20de%20Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_search' %}?query=Universidad%20de%20Chile</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{ "instituciones": [ { "id": 1 /* ... */ } ] }</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"instituciones"</span>: [</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
       <!-- Obtención por ID -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <div class="description" id="obtencion-id-institucion">
             <h4>Obtención por ID</h4>
             <p class="parrafo">Este endpoint permite extraer toda la información que se tiene sobre una institución en específico. Esta petición es realizada por el id de la institución. En la respuesta incluye un listado de académicos ordenados por sus respectivas unidades.</p>
             <h5 class="fw-light">
               Request
             </h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:institucion_get_id' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_get_id' %}</mark></p>
             <h5 class="fw-light">
               Headers
             </h5>
@@ -626,33 +581,13 @@
             <p>Retorna un único Objeto Institución.</p>
           </div>
         </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:institucion_get_id' %}?id=1"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
-            </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="fw-lighter">// Otros atributos...</span></p>
-              <p class="m-0">}</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <!-- Áreas -->
     <div id="areas">
       <!-- Todas las Áreas -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;" style="background-color: #e9ecef;">
+        <div class="p-0" style="min-height:700px ;" style="background-color: #e9ecef;">
           <h2 class="subtitle m-0">Áreas</h2>
           <div class="description" id="areas-todas">
             <h4>Todas las Áreas</h4>
@@ -660,7 +595,7 @@
             <h5 class="fw-light">
               Request
             </h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:areas_all' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:areas_all' %}</mark></p>
             <h5 class="fw-light">
               Headers
             </h5>
@@ -688,44 +623,31 @@
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 50px;">&zwnj;</h4>
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:areas_all' %}"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:areas_all' %}" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:areas_all' %}</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{ "areas": [ { "id": 1, "nombre": "Theory Of Computation" }, ... ] }</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"areas"</span>: [</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Theory Of Computation",</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
       <!-- Subáreas por Área ID -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;" style="background-color: #e9ecef;">
+        <div class="p-0" style="min-height:700px ;" style="background-color: #e9ecef;">
           <div class="description" id="subareas-por-area">
             <h4>Subáreas por Área ID</h4>
             <p class="parrafo">Este endpoint permite obtener un listado de las subáreas de una área en específico presente en el sistema.</p>
             <h5 class="fw-light">
               Request
             </h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:subareas_by_area' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:subareas_by_area' %}</mark></p>
             <h5 class="fw-light">
               Headers
             </h5>
@@ -740,49 +662,18 @@
               Response format
             </h5>
             <p>Retorna un listado de subáreas. Los siguientes atributos se incluyen cuando procede.</p>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Atributo</th>
-                  <th scope="col">Descripción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">id</th>
-                  <td><span class="fst-italic">(int)</span> ID de subárea en el sistema.</td>
-                </tr>
-                <tr>
-                  <th scope="row">nombre</th>
-                  <td><span class="fst-italic">(string)</span> Nombre subárea.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <h4 class="p-3 d-none d-sm-flex" style="margin-top: 150px;">&zwnj;</h4>
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:subareas_by_area' %}?id=1"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Content-Type: application/json"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:subareas_by_area' %}?id=1" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:subareas_by_area' %}?id=1</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{ "subareas": [ { "id": 1, "nombre": "Semantics And Reasoning" }, ... ] }</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"subareas"</span>: [</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 1,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Semantics And Reasoning",</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
@@ -791,7 +682,7 @@
     <div id="grados">
       <!-- objeto programa -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <h2 class="subtitle m-0">Programas</h2>
           <div class="description" id="objeto-grado">
             <h4>Objeto Programa</h4>
@@ -852,127 +743,94 @@
             </table>
           </div>
         </div>
-        <div class="col-0 col-sm-6 bg-secondary"></div>
       </div> 
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-grados-basica">
             <h4>Búsqueda básica</h4>
             <p class="parrafo">Búsqueda simple de programas por nombre. Usa búsqueda difusa y devuelve resultados ordenados por similitud.</p>
             <h5 class="fw-light">Request</h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:grado_search' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}</mark></p>
             <h5 class="fw-light">Query Parameters</h5>
             <p class="mb-0"><mark><strong>query</strong></mark> <span class="fw-light">string</span></p>
             <p>Texto para búsqueda difusa del nombre del grado.</p>
             <h5 class="fw-light">Response format</h5>
             <p>Devuelve una lista de Objetos Programa .</p>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:grado_search' %}?query=master"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}?query=master" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}?query=master</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{ "results": [ { "id": 10, "nombre": "Master in Computer Science" /* ... */ } ] }</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0'">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"results"</span>: [</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 10,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Master in Computer Science",</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"afiliacion"</span>: {"unidad": {...}, "universidad": {...}}</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px ;">
+        <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-grados-avanzada">
             <h4>Búsqueda avanzada</h4>
             <p class="parrafo">Buscar programas por nombre y filtros (universidad, tipo, activo). La búsqueda por nombre es difusa y devuelve una lista ordenada por similitud.</p>
             <h5 class="fw-light">Request</h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:grado_search_advanced' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}</mark></p>
             <h5 class="fw-light">Query Parameters</h5>
             <p class="mb-0"><mark><strong>nombre</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
             <p class="mb-0"><mark><strong>universidad</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
             <p class="mb-0"><mark><strong>tipo</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
             <h5 class="fw-light">Response format</h5>
             <p>Devuelve una lista de Objetos Programa.</p>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{ "results": [ { "id": 10, "nombre": "Master in Computer Science" /* ... */ } ] }</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"results"</span>: [</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 10,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Master in Computer Science",</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"afiliacion"</span>: {"unidad": {...}, "universidad": {...}}</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;]</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
       <!-- Obtención por ID -->
       <div class="row">
-        <div class="col-12 col-sm-6 p-0" style="min-height:700px;">
+        <div class="p-0" style="min-height:700px;">
           <div class="description" id="obtencion-grado-id">
             <h4>Obtención por ID</h4>
             <p class="parrafo">Obtiene todos los datos de un grado por su ID interno.</p>
             <h5 class="fw-light">Request</h5>
-            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>https://{{ request.get_host }}{% url 'api:grado_get_id' %}</mark></p>
+            <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}</mark></p>
             <h5 class="fw-light">Query Parameters</h5>
             <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span></p>
             <h5 class="fw-light">Response format</h5>
             <p>Devuelve un único Objeto Programa.</p>
-          </div>
-        </div>
-        <div class="col-0 col-sm-6 bg-secondary p-0">
-          <div class="bg-dark p-2 text-light">
-            <p>Ejemplo request:</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">curl --request GET \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--get <span class="text-warning">"https://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=10"</span> \</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;--header <span class="text-warning">"Accept: application/json"</span></p>
+
+            <!-- Ejemplo dentro de la columna de documentación -->
+            <div class="bg-dark p-2 text-light mt-3">
+              <p class="mb-1 fw-bold">URL de ejemplo:</p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=10" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_get_id' %}?id=10</a></p>
+              <hr class="my-2">
+              <p class="mb-1 fw-bold">Ejemplo response (200):</p>
+              <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
+                <pre class="m-0">{ "id": 10, "nombre": "Master in Computer Science" /* ... */ }</pre>
+              </div>
             </div>
-            <hr>
-            <p>Ejemplo response (200):</p>
-            <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: scroll;">
-              <p class="m-0">{</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"id"</span>: 10,</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"nombre"</span>: "Master in Computer Science",</p>
-              <p class="m-0">&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-danger">"afiliacion"</span>: {"unidad": {...}, "universidad": {...}}</p>
-              <p class="m-0">}</p>
-            </div>
+
           </div>
         </div>
       </div>
     </div>
     <!-- FIN -->
     <div class="row" style="height: 200px; background-color: #e9ecef;">
-      <div class="col-12 col-sm-6 p-0";>
+      <div class="p-0";>
       </div>
-      <div class="col-0 col-sm-6 bg-secondary"></div>
     </div>
   </div>
 </div>
