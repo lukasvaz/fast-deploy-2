@@ -1,6 +1,6 @@
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Value
+from django.db.models import Value, Q
 from django.db.models.functions import Coalesce, Concat, Greatest
 from rest_framework import status
 from rest_framework.exceptions import ValidationError as DRFValidationError
@@ -113,7 +113,7 @@ class AcademicoSearchAdvancedView(ListAPIView):
 
         query_nombre = params.get("nombre")
         query_institucion = params.get("institucion", "")
-        query_pais_code = params.get("pais_code", "")
+        query_pais_code = params.get("pais", "")
         query_area = params.get("area", "")
         query_subarea = params.get("subarea", "")
         # query_keyword = params.get("keyword", "")
@@ -148,9 +148,6 @@ class AcademicoSearchAdvancedView(ListAPIView):
         if query_subarea:
             ambitos_query = AmbitoTrabajo.objects.filter(subarea__nombre=query_subarea)
             qs = qs.filter(id__in=[a.academico.id for a in ambitos_query])
-        # if query_keyword:
-        #     keyword_inv_query = KeywordInvestigador.objects.filter(keyword__nombre=query_keyword)
-        #     qs = qs.filter(dblp_id__in=[a.investigador.dblp_id for a in keyword_inv_query])
         return qs
 
     def list(self, request, *args, **kwargs):
@@ -294,17 +291,11 @@ class InstitucionSearchAdvancedView(ListAPIView):
         if nombre:
             qs = (
                 Universidad.objects.annotate(similarity=TrigramSimilarity("nombre", nombre))
-                .filter(similarity__gt=0.15)
+                .filter(similarity__gt=0.3)
                 .order_by("-similarity")
             )
         if sigla:
-            qs_by_sigla = (
-                Universidad.objects.annotate(similarity=TrigramSimilarity("sigla", sigla))
-                .filter(similarity__gt=0.15)
-                .exclude(id__in=[u.id for u in qs])
-                .order_by("-similarity")
-            )
-            qs |= qs_by_sigla
+            qs = qs.filter(Q(sigla__iexact=sigla))
         if pais:
             qs = qs.filter(pais=pais)
         return qs
@@ -475,22 +466,21 @@ class GradoSearchAdvancedView(ListAPIView):
         params = qser.validated_data
 
         nombre = params.get("nombre", "")
-        universidad = params.get("universidad", "")
+        universidad_sigla = params.get("universidad_sigla", "")
+        pais = params.get("pais", "")
         tipo = params.get("tipo", "")
         qs = GradoInstancia.objects.filter(is_deleted=False)
         if nombre:
             qs = qs.annotate(
-                sim_nombre=TrigramSimilarity("nombre", nombre),
+                sim_nombre_en=TrigramSimilarity("nombre_en", nombre),
                 sim_nombre_es=TrigramSimilarity("nombre_es", nombre),
-            ).annotate(similarity=Greatest("sim_nombre", "sim_nombre_es"))
+            ).annotate(similarity=Greatest("sim_nombre_en", "sim_nombre_es"))
             qs = qs.filter(similarity__gt=0.15).order_by("-similarity")
-        if universidad:
-            institucion_query = (
-                Universidad.objects.annotate(similarity=TrigramSimilarity("nombre", universidad))
-                .filter(similarity__gt=0.15)
-                .order_by("-similarity")
-            )
-            qs = qs.filter(unidad__universidad__id__in=[i.id for i in institucion_query])
+        if universidad_sigla:
+            matched_insts = Universidad.objects.filter(Q(sigla__iexact=universidad_sigla))
+            qs = qs.filter(unidad__universidad__id__in=[i.id for i in matched_insts])
+        if pais:
+            qs = qs.filter(unidad__universidad__pais=pais)
         if tipo:
             qs = qs.filter(tipo=tipo)
         return qs

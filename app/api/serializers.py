@@ -146,7 +146,7 @@ class AcademicoQuerySerializer(serializers.Serializer):
 class AcademicoAdvancedQuerySerializer(serializers.Serializer):
     nombre = serializers.CharField(required=False, allow_blank=True, max_length=100)
     institucion = serializers.CharField(required=False, allow_blank=True, max_length=200)
-    pais_code = serializers.CharField(required=False, allow_blank=True, max_length=100)
+    pais = serializers.CharField(required=False, allow_blank=True, max_length=100)
     area = serializers.CharField(required=False, allow_blank=True, max_length=100)
     subarea = serializers.CharField(required=False, allow_blank=True, max_length=100)
     # keyword = serializers.CharField(required=False, allow_blank=True, max_length=100)
@@ -178,7 +178,8 @@ class GradoSearchQuerySerializer(serializers.Serializer):
 
 class GradoAdvancedQuerySerializer(serializers.Serializer):
     nombre = serializers.CharField(required=False, allow_blank=True, max_length=200)
-    universidad = serializers.CharField(required=False, allow_blank=True, max_length=200)
+    universidad_sigla = serializers.CharField(required=False, allow_blank=True, max_length=200)
+    pais = serializers.CharField(required=False, allow_blank=True, max_length=10)
     tipo = serializers.CharField(required=False, allow_blank=True, max_length=50)
     page = serializers.IntegerField(required=False, min_value=1)
 

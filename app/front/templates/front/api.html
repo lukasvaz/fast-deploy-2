@@ -372,7 +372,7 @@
             <p>String con el nombre a buscar.</p>
             <p class="mb-0"><mark><strong>institucion</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
             <p>String con el nombre de institución a la que pertenece el académico.</p>
-            <p class="mb-0"><mark><strong>pais_code</strong></mark> <span class="fw-light">ISO 3166-1</span> <span class="fst-italic">opcional</span></p>
+            <p class="mb-0"><mark><strong>pais</strong></mark> <span class="fw-light">ISO 3166-1</span> <span class="fst-italic">opcional</span></p>
             <p>Código ISO 3166-1 del país al que pertenece la institución del académico.</p>
             <p class="mb-0"><mark><strong>area</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
             <p>Área en la cual el académico desempeña sus investigaciones.</p>
@@ -386,7 +386,7 @@
             <!-- Ejemplo dentro de la columna de documentación -->
             <div class="bg-dark p-2 text-light mt-3">
               <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Nelson%20Baloian&pais_code=CL&institucion=Universidad%20de%20Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Nelson%20Baloian&pais_code=CL&institucion=Universidad%20de%20Chile</a></p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Nelson%20Baloian&pais=CL&institucion=Universidad%20de%20Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:academico_search_advanced' %}?nombre=Nelson%20Baloian&pais=CL&institucion=Universidad%20de%20Chile</a></p>
               <hr class="my-2">
               <p class="mb-1 fw-bold">Ejemplo response (200):</p>
               <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
@@ -782,24 +782,20 @@
         <div class="p-0" style="min-height:700px ;">
           <div class="description" id="obtencion-id-institucion">
             <h4>Obtención por ID</h4>
-            <p class="parrafo">Este endpoint permite extraer toda la información que se tiene sobre una institución en específico. Esta petición es realizada por el id de la institución. En la respuesta incluye un listado de académicos ordenados por sus respectivas unidades.</p>
-            <h5 class="fw-light">
-              Request
-            </h5>
+            <p class="parrafo">Este endpoint permite extraer toda la información que se tiene sobre una institución en específico. Puede consultarse por el identificador interno <code>id</code> o por identificadores externos disponibles como <code>openalex_id</code> o <code>ror_id</code>. La respuesta incluye detalle de la institución y, cuando procede, un listado de académicos ordenados por sus respectivas unidades.</p>
+            <h5 class="fw-light">Request</h5>
             <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:institucion_get_id' %}</mark></p>
-            <h5 class="fw-light">
-              Headers
-            </h5>
+            <h5 class="fw-light">Headers</h5>
             <p><mark><strong>Content-Type</strong>: application/json</mark></p>
             <p><mark><strong>Accept</strong>: application/json</mark></p>
-            <h5 class="fw-light">
-              Query Parameters
-            </h5>
-            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span></p>
-            <p>Identificador otorgado por el sistema.</p>
-            <h5 class="fw-light">
-              Response format
-            </h5>
+            <h5 class="fw-light">Query Parameters</h5>
+            <p class="mb-0"><mark><strong>id</strong></mark> <span class="fw-light">int</span> <span class="fst-italic">opcional</span></p>
+            <p>Identificador interno de la institución en el sistema.</p>
+            <p class="mb-0"><mark><strong>openalex_id</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Identificador de OpenAlex para la institución (ej. I69737025).</p>
+            <p class="mb-0"><mark><strong>ror_id</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Identificador ROR para la institución (ej. 047gc3g35).</p>
+            <h5 class="fw-light">Response format</h5>
             <p>Retorna un único Objeto Institución.</p>
 
             <!-- Ejemplo dentro de la columna de documentación -->
@@ -908,7 +904,7 @@
         <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-grados-basica">
             <h4>Búsqueda básica</h4>
-            <p class="parrafo">Búsqueda simple de programas por nombre. Usa búsqueda difusa y devuelve resultados ordenados por similitud.</p>
+            <p class="parrafo">Búsqueda simple de programas por nombre. Usa búsqueda difusa y devuelve resultados ordenados por similitud. Estos pueden tener un margen de error, por lo que el resultado a entregar es un listado de posibles candidatos ordenados por el nombre que contenga mayor similitud. </p>
             <h5 class="fw-light">Request</h5>
             <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search' %}</mark></p>
             <h5 class="fw-light">Query Parameters</h5>
@@ -958,20 +954,25 @@
         <div class="p-0" style="min-height:700px ;">
           <div class="description" id="busqueda-grados-avanzada">
             <h4>Búsqueda avanzada</h4>
-            <p class="parrafo">Buscar programas por nombre y filtros (universidad, tipo, activo). La búsqueda por nombre es difusa y devuelve una lista ordenada por similitud.</p>
+            <p class="parrafo">Buscar programas por nombre y filtros (universidad_sigla, tipo, pais). Si bien también realiza una búsqueda por similitud, el margen de error aceptado es menor, por lo que se espera que este endpoint sea utilizado para obtener resultados más acotados. Use <code>universidad_sigla</code> cuando conozca la sigla de la institución y <code>pais</code> para acotar por código de país.</p>
             <h5 class="fw-light">Request</h5>
             <p><span class="badge rounded-pill text-bg-success">GET</span> <mark>{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}</mark></p>
             <h5 class="fw-light">Query Parameters</h5>
             <p class="mb-0"><mark><strong>nombre</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
-            <p class="mb-0"><mark><strong>universidad</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Nombre (o parte) del programa para búsqueda difusa.</p>
+            <p class="mb-0"><mark><strong>universidad_sigla</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Sigla de la universidad para filtrar resultados (por ejemplo, UACH, UCH, ITESM). Se intentará coincidencia exacta/contains y se usa trigram como respaldo.</p>
+            <p class="mb-0"><mark><strong>pais</strong></mark> <span class="fw-light">ISO 3166-1</span> <span class="fst-italic">opcional</span></p>
+            <p>Código ISO 3166-1 del país de la universidad (por ejemplo, CL).</p>
             <p class="mb-0"><mark><strong>tipo</strong></mark> <span class="fw-light">string</span> <span class="fst-italic">opcional</span></p>
+            <p>Tipo de programa (TECH, LIC, MSC, PHD).</p>
             <h5 class="fw-light">Response format</h5>
             <p>Devuelve una lista de Objetos Programa.</p>
 
             <!-- Ejemplo dentro de la columna de documentación -->
             <div class="bg-dark p-2 text-light mt-3">
               <p class="mb-1 fw-bold">URL de ejemplo:</p>
-              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad=Chile</a></p>
+              <p class="mb-0 text-truncate"><a href="{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad_sigla=UACH&pais=CL" target="_blank" rel="noopener noreferrer" class="text-warning text-decoration-none">{{request.scheme}}://{{ request.get_host }}{% url 'api:grado_search_advanced' %}?nombre=master&universidad_sigla=UACH&pais=CL</a></p>
               <hr class="my-2">
               <p class="mb-1 fw-bold">Ejemplo response (200):</p>
               <div class="text-nowrap overflow-x-scroll mw-100" style="overflow: auto;">
@@ -995,7 +996,7 @@
           "nombre": "Universidad Austral de Chile",
           "pais": "CL",
           "acronimos": [
-            "UACH",
+            "UACh",
             "UACh"
           ],
           "web_page": "https://www.uach.cl/"
