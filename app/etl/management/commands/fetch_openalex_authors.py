@@ -9,7 +9,15 @@ from persona.services.openalex_author_client import fetch_investigador_openalex_
 
 
 class Command(BaseCommand):
-    help = "Fetch OpenAlex data for all Academicos without investigador or without openalex_id"
+    help = "Fetch OpenAlex data for all Academicos without investigador or without openalex_id. By default fetches new academicos and retries failed ones. Use --new-only to fetch only new academicos."
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--new-only",
+            action="store_true",
+            dest="new_only",
+            help="Fetch only new academicos (skip retry of failed). By default fetches new academicos and retries failed ones.",
+        )
 
     def handle(self, *args, **options):
         start_time = time.time()
@@ -40,15 +48,20 @@ class Command(BaseCommand):
             .order_by("id")
             .distinct()[:50]
         )
-        academicos_qs = list(academicos_qs) + list(academicos_update_qs)
+        # choose mode: by default fetch both new and retry sets; when --new-only is provided fetch only new academicos
+        new_only = options.get("new_only", False)
+        if new_only:
+            academicos_list = list(academicos_qs)
+        else:
+            academicos_list = list(academicos_qs) + list(academicos_update_qs)
         total = 0
         failed = 0
 
-        for i, a in enumerate(reversed(academicos_qs)):
+        for i, a in enumerate(reversed(academicos_list)):
             try:
                 # Fetch OpenAlex data (sync function)
                 print(
-                    f"Fetching OpenAlex data for Academico {i} {len(academicos_qs)}: {a.get_full_name()} {a.unidad.universidad} {a.unidad.universidad.openalex_id}"
+                    f"Fetching OpenAlex data for Academico {i} {len(academicos_list)}: {a.get_full_name()} {a.unidad.universidad} {getattr(a.unidad.universidad, 'openalex_id', None)}"
                 )
                 with transaction.atomic():
                     inv, err = fetch_investigador_openalex_data(a)

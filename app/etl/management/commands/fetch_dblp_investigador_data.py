@@ -9,7 +9,15 @@ from persona.services.dblp_client import DblpTimeOutError, fetch_investigador_db
 
 
 class Command(BaseCommand):
-    help = "Fetch and update missing DBLP IDs for Academico entries."
+    help = "Fetch and update missing DBLP IDs for Academico entries. By default fetches new academicos and retries failed ones. Use --new-only to fetch only new academicos."
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--new-only",
+            action="store_true",
+            dest="new_only",
+            help="Fetch only new academicos (skip retry of failed). By default fetches new academicos and retries failed ones.",
+        )
 
     def handle(self, *args, **options):
         start_time = time.time()
@@ -39,9 +47,14 @@ class Command(BaseCommand):
             )
             .order_by("id")[:50]
         )
-        academicos_qs = list(academicos_qs) + list(academicos_retry_qs)
-        for i, a in enumerate(academicos_qs):
-            print(f"Fetching DBLP for Academico {i}/{len(academicos_qs)}: {a.get_full_name()} (ID: {a.id})")
+        # choose mode: by default fetch both new and retry sets; when --new-only is provided fetch only new academicos
+        new_only = options.get("new_only", False)
+        if new_only:
+            academicos_list = list(academicos_qs)
+        else:
+            academicos_list = list(academicos_qs) + list(academicos_retry_qs)
+        for i, a in enumerate(academicos_list):
+            print(f"Fetching DBLP for Academico {i}/{len(academicos_list)}: {a.get_full_name()} (ID: {a.id})")
             try:
                 with transaction.atomic():
                     ob, error = fetch_investigador_dblp_data(academico=a)

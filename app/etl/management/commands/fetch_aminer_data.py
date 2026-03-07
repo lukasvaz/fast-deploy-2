@@ -9,7 +9,15 @@ from persona.services.aminer_client import fetch_investigador_aminer_data
 
 
 class Command(BaseCommand):
-    help = "Fetch data from Aminer for all academicos."
+    help = "Fetch data from Aminer for all academicos. By default fetches new academicos and retries failed ones. Use --new-only to fetch only new academicos."
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            "--new-only",
+            action="store_true",
+            dest="new_only",
+            help="Fetch only new academicos (skip retry of failed). By default fetches new academicos and retries failed ones.",
+        )
 
     def handle(self, *args, **options):
         start_time = time.time()
@@ -40,7 +48,14 @@ class Command(BaseCommand):
                 )
                 .order_by("id")[:50]
             )
-            academicos_qs = list(new_academicos_qs) + list(retry_academicos_qs)
+
+            # choose mode: by default fetch both new and retry sets; when --new-only is provided fetch only new academicos
+            new_only = options.get("new_only", False)
+            if new_only:
+                academicos_qs = list(new_academicos_qs)
+            else:
+                academicos_qs = list(new_academicos_qs) + list(retry_academicos_qs)
+
             for i, academico in enumerate(academicos_qs):
                 print(
                     f"Fetching Aminer for Academico {i}/{len(academicos_qs)}: {academico.get_full_name()} -{academico.unidad.universidad} (ID: {academico.id})"
